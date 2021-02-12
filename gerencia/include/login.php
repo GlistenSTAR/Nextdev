@@ -5,7 +5,7 @@ if(isset($_POST['acessa'])){
 $Usuario = trim(strtoupper($_POST['login']));
 $Senha   = trim(strtoupper($_POST['senha']));
 
-$SQL = pg_query($Nextweb, "SELECT nivel, codigo_empresa, usuario FROM admin WHERE ativo = '1' AND usuario='$Usuario' AND senha='$Senha'");
+$SQL = pg_query($Nextweb, "SELECT nivel, codigo_empresa, usuario FROM admin WHERE ativo = '1' AND usuario='".$Usuario."' AND senha='".$Senha."'");
 $Res = pg_num_rows($SQL);
 $Result = pg_fetch_array($SQL);
 

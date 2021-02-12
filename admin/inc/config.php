@@ -3,7 +3,6 @@ $id_vendedor = $_SESSION['id_vendedor'];
 
 $server   = $_SERVER['SERVER_NAME']; 
 $endereco = $_SERVER ['REQUEST_URI'];
-error_reporting(0);
 ##############################################################
 ##
 ##                     PERFIL
@@ -32,7 +31,7 @@ if (($_SESSION['base_selecionada_id']) AND ($_SESSION['base_selecionada_servidor
   $Tabela = "clientes";
   $Campo = "habilitado_site";
   $Tipo = "integer default 0";
-  $Sql = pg_query($db2,"SELECT column_name FROM information_schema.columns WHERE table_name ='$Tabela' and column_name='$Campo'");
+  $Sql = pg_query($db2,"SELECT column_name FROM information_schema.columns WHERE table_name ='".$Tabela."' and column_name='".$Campo."'");
   $ccc = pg_num_rows($Sql);
   if (!$ccc){
     $Sql = "alter table $Tabela add column $Campo $Tipo;";

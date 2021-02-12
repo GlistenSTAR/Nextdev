@@ -169,7 +169,7 @@ if ($i['caixa_aberta']=="1"){ //Solicitação da Marcia na visita do Celso em 17/0
   if ($FabricantePerplugInd[1]<>""){
     $CaixaFechada = 2;
   }
-  //echo "$FabricantePerplugCom[1] - $FabricantePerplugInd[1]";
+  //echo $FabricantePerplugCom[1] - $FabricantePerplugInd[1];
   if (!$_SESSION['venda_casada']){ $_SESSION['venda_casada'] = $_REQUEST['ven_cas'];}
   if ($_SESSION['venda_casada']=="true"){
     $CaixaFechada = 0;
@@ -197,9 +197,9 @@ if($CodigoEmpresa == "49"){$CaixaFechada = 0;} //H8
     <input type="hidden" name="especial"                id="especial" value="<?php echo ($i2['especial']>0)? $i2['especial']: $i['especial'];;?>">
     <input type="hidden" name="peso_bruto"              id="peso_bruto" value="<?php echo $i['peso_bruto'];?>">
     <input type="hidden" name="peso_liquido"            id="peso_liquido" value="<?php echo $i['peso_liquido'];?>">
-    <input type="hidden" name="caixafechada"            id="caixafechada" value="<?php echo "$CaixaFechada";?>">
-    <input type="hidden" name="codigo_empresa"          id="codigo_empresa" value="<?php echo "$CodigoEmpresa";?>">
-    <input type="hidden" name="confereminimo"           id="confereminimo" value="<?php echo "$ConfereMinimo";?>">
+    <input type="hidden" name="caixafechada"            id="caixafechada" value="<?php echo $CaixaFechada;?>">
+    <input type="hidden" name="codigo_empresa"          id="codigo_empresa" value="<?php echo $CodigoEmpresa;?>">
+    <input type="hidden" name="confereminimo"           id="confereminimo" value="<?php echo $ConfereMinimo;?>">
     <input type="hidden" name="display_especial"        id="display_especial" value="<?php echo $DisplayLinhaEspecial?>">
     <input name="numero_pedido"                         id="numero_pedido"  type="hidden" size="20" maxlength="10" value="<?php echo $Numero;?>">
     <input type="hidden" name="descontocores"           id="descontocores">
@@ -301,7 +301,7 @@ if($CodigoEmpresa == "49"){$CaixaFechada = 0;} //H8
             <?php
             if ($_SESSION['config']['vendas']['UltimosItensPedido']){
               ?>
-              <a href="#" onclick="javascript: ExibeItens('UltimosItens');Acha1('vendas/ultimos_itens_pedido.php','IdCliente='+document.getElementById('cliente_id').value+'<?php echo "$ListaNumero";?>&CodProd='+document.getElementById('codigo_cc').value+'','UltimosItens');"><input type="button" name="ult_itens" id="ult_itens" value="Ult. Ítens"></a>
+              <a href="#" onclick="javascript: ExibeItens('UltimosItens');Acha1('vendas/ultimos_itens_pedido.php','IdCliente='+document.getElementById('cliente_id').value+'<?php echo $ListaNumero;?>&CodProd='+document.getElementById('codigo_cc').value+'','UltimosItens');"><input type="button" name="ult_itens" id="ult_itens" value="Ult. Ítens"></a>
               <?php
             }
             ?>        

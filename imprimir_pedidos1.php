@@ -134,7 +134,7 @@ margin: 1;}
           }
           ?>
           <tr>
-            <td class="<?php echo $Cor;?>"><?php echo "$r[numero]";?></td>
+            <td class="<?php echo $Cor;?>"><?php echo $r['numero'];?></td>
             <td class="<?php echo $Cor;?>">
               <?php
               $da = $r['data'];
@@ -151,7 +151,7 @@ margin: 1;}
               echo $Nome;
               ?>
             </td>
-            <td class="<?php echo $Cor;?>"><?php echo "$r[cgc]";?></td>
+            <td class="<?php echo $Cor;?>"><?php echo $r['cgc'];?></td>
             <td class="<?php echo $Cor;?>" align="right"><?php echo number_format($r['total_sem_desconto'], 2, ",", ".");?></td>
           </tr>
           <?php
@@ -210,7 +210,7 @@ margin: 1;}
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";

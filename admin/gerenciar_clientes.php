@@ -3,7 +3,7 @@ include ("inc/verifica.php");
 include_once("inc/config.php");
 if ($_REQUEST['cliente_id']){
 
-  $SqlID = pg_query($db,"SELECT id FROM usuarios where cgc='$_REQUEST[cgc_cc]'");
+  $SqlID = pg_query($db,"SELECT id FROM usuarios where cgc='".$_REQUEST['cgc_cc']."'");
   $ccc = pg_num_rows($SqlID);
   if ($ccc>0){
     echo "<blockquote><HR><BR><BR><font color='#FF0000'>Usuário já habilitado para acesso online.</font></blockquote>";
@@ -59,7 +59,7 @@ if ($_REQUEST['cliente_id']){
                       <td colspan="3">
                         <input type="hidden" name="cliente_id" id="cliente_id">
                         <input type="hidden" name="cgc_cc" id="cgc_cc">
-                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<?php echo "$_REQUEST[cliente_cc]";?>" onfocus="this.select()" onkeyup="Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');">
+                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<?php echo $_REQUEST['cliente_cc'];?>" onfocus="this.select()" onkeyup="Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');">
                         <input type="button" name="Enviar" value="Habilitar" onclick="if(document.getElementById('cliente_id').value){acerta_campos('listar','msg_cliente','gerenciar_clientes.php',false);}else{alert('Selecione um cliente para ativar o acesso online')}">
                         <BR>
                         <div id="listar_cliente" style="position:absolute;"></div>

@@ -6,7 +6,7 @@ $Modulo_link = "imagens";
 $_SESSION['pagina'] = "listar_imagens.php";
 if (is_numeric($_REQUEST['localizar_numero'])){
   include_once("inc/config.php");
-  $SqlCarregaImagem = pg_query("Select * from imagens where id='$_REQUEST[localizar_numero]'");
+  $SqlCarregaImagem = pg_query("Select * from imagens where id='".$_REQUEST['localizar_numero']."'");
   $ccc = pg_num_rows($SqlCarregaImagem);
   if ($ccc<>""){
     $f = pg_fetch_array($SqlCarregaImagem);
@@ -15,7 +15,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
 ?>
 <html>
 <head>
-<title><?php echo "$Titulo_Admin ";?></title>
+<title><?php echo $Titulo_Admin;?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <link href="fonte.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" type="text/JavaScript">
@@ -49,7 +49,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                 <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/imagens.gif" border="0" align="left"><center><h3><?php echo "$Modulo_titulo";?></h3></center><hr></hr></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/imagens.gif" border="0" align="left"><center><h3><?php echo $Modulo_titulo;?></h3></center><hr></hr></td>
               </tr>
               <tr>
                 <td valign="top" align="center" width="100%">

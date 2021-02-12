@@ -7,7 +7,7 @@ $Modulo_link = "categorias";
 $_SESSION['pagina'] = "listar_categorias.php";
 if (is_numeric($_REQUEST['localizar_numero'])){
   include_once("inc/config.php");
-  $SqlCarregaCat = pg_query("Select * from categorias where id='$_REQUEST[localizar_numero]'");
+  $SqlCarregaCat = pg_query("Select * from categorias where id='".$_REQUEST['localizar_numero']."'");
   $ccc = pg_num_rows($SqlCarregaCat);
   if ($ccc<>""){
     $n = pg_fetch_array($SqlCarregaCat);
@@ -16,7 +16,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
 ?>
 <html>
 <head>
-<title><?php echo "$Titulo_Admin ";?></title>
+<title><?php echo $Titulo_Admin;?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <link href="fonte.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" type="text/JavaScript">
@@ -97,7 +97,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                 <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/categorias.gif" border="0" align="left"><center><h3><?php echo "$Modulo_titulo";?></h3></center><hr></hr></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/categorias.gif" border="0" align="left"><center><h3><?php echo $Modulo_titulo;?></h3></center><hr></hr></td>
               </tr>
               <tr>
                 <td valign="top" align="center" width="100%">
@@ -107,16 +107,16 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                     ?>
                     <form method="POST" name="cad" enctype="multipart/form-data">
                       <div id="divAbaMeio">
-                      <input type="hidden" name="id_categoria" id="id_categoria" value="<?php echo "$n[id]";?>">
+                      <input type="hidden" name="id_categoria" id="id_categoria" value="<?php echo $n['id'];?>">
                       <input type="hidden" name="acao" id="acao" value="cadastrar">
                       <table align="center" width="95%" border="0" class="arial11" cellspacing="4" cellspading="4">
                         <tr>
                           <td>Nome<BR>
-                          <input type="text" name="nome" id="nome" size="40" value="<?php echo "$n[nome]";?>"></td>
+                          <input type="text" name="nome" id="nome" size="40" value="<?php echo $n['nome'];?>"></td>
                         </tr>
                         <tr>
                           <td>Descrição<BR>
-                          <textarea rows="4" cols="65" name="descricao" id="descricao" maxlength="120"><?php echo "$n[descricao]";?></textarea></td>
+                          <textarea rows="4" cols="65" name="descricao" id="descricao" maxlength="120"><?php echo $n['descricao'];?></textarea></td>
                         </tr>
                         <tr>
                           <td>Ativo<BR>
@@ -154,10 +154,10 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                     
                     if ($_REQUEST['id_categoria']){ //se tiver Id somente atualizo
                       $Grava = "Update $Modulo_link set
-                                  nome='$Nome',
-                                  descricao='$Descricao',
-                                  ativo='$_REQUEST[ativo]'
-                                Where id='$_REQUEST[id_categoria]'
+                                  nome='".$Nome."',
+                                  descricao='".$Descricao."',
+                                  ativo='".$_REQUEST['ativo']."'
+                                Where id='".$_REQUEST['id_categoria']."'
                                  ";
                       //echo $Grava;
                       $as = "Edição efetuada por $_SESSION[usuario] - $Modulo_titulo";

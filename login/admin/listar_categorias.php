@@ -53,12 +53,12 @@ if ($_REQUEST['acao']=="Excluir"){
       $Cor = "red \" title='Categoria Inativa'\"";
     }
     ?>
-    <tr bgcolor="<?php echo "$Cor";?>">
+    <tr bgcolor="<?php echo $Cor;?>">
       <td valign="top">
-        <a href="#" onclick="Acha('cadastrar_categorias.php','localizar_numero=<?php echo $r['id'];?>','Conteudo');"><?php echo "$r[nome]";?></a>
+        <a href="#" onclick="Acha('cadastrar_categorias.php','localizar_numero=<?php echo $r['id'];?>','Conteudo');"><?php echo $r['nome'];?></a>
       </td>
       <td valign="top">
-        <?php echo "$r[descricao]";?>
+        <?php echo $r['descricao'];?>
       </td>
     </tr>
     <?php
@@ -101,7 +101,7 @@ if ($_REQUEST['acao']=="Excluir"){
                   echo "<strong>";
                 }
                 if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                  echo "$p&nbsp;";
+                  echo $p."&nbsp;";
                 }else{
                   if (!$ret){
                     echo "...";

@@ -4,11 +4,11 @@ session_start();
 if($_SESSION['LogaUser']){
 
 			//insiro dados na tabela tabela usuarios
-			$BuscoUser  = pg_query($conexao2, "SELECT id, nome, cgc FROM clientes WHERE id='$id'");
+			$BuscoUser  = pg_query($conexao2, "SELECT id, nome, cgc FROM clientes WHERE id='".$id."'");
 			$ResultUser = pg_fetch_array($BuscoUser); 
 
 
-			$ChecoCadastro = pg_query($conexao,"SELECT nome FROM usuarios WHERE nome='$ResultUser[cgc]'");
+			$ChecoCadastro = pg_query($conexao,"SELECT nome FROM usuarios WHERE nome='".$ResultUser['cgc']."'");
 			$Linhas = pg_num_rows($ChecoCadastro);
 
 			if($Linhas =="0"){

@@ -18,7 +18,7 @@ if ($_REQUEST['acao']=="enviar"){
     $corpo = "$msg<BR><hr>";
     if ($_REQUEST['anexo']){
       $numero = $_REQUEST['anexo'];
-      $consulta = pg_query("select * from pedidos where numero = '$numero'");
+      $consulta = pg_query("select * from pedidos where numero = '".$numero."'");
       //echo $consulta;
       $row = pg_fetch_object($consulta, 0);
       $id_vendedor = $row->codigo_vendedor;

@@ -9,7 +9,7 @@ if ($_REQUEST['numero']){
 }
 echo "";
 if ($_REQUEST['acao']=="excluir"){
-  $Excluir = pg_query("delete from itens_do_pedido_internet where codigo='$_REQUEST[codigo]' and numero_pedido='$numero'") or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
+  $Excluir = pg_query("delete from itens_do_pedido_internet where codigo='".$_REQUEST['codigo']."' and numero_pedido='".$numero."'") or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
 }
 if ($numero){
     $consulta = "select * from itens_do_pedido_internet where numero_pedido = '".$numero."' AND codigo = '".$_REQUEST['codigo_cc']."' order by codigo ASC" ;
@@ -67,18 +67,18 @@ if ($numero){
     if (($Opcao=="Editar") and ($erro!=2)){
       $consulta = $consulta."";
       $consulta = "Update itens_do_pedido_internet set
-                     qtd='$_REQUEST[qtd_cc]',
-                     valor_unitario='$_REQUEST[valor_unitario_cc]',
-                     valor_total='$_REQUEST[valor_total_cc]',
-                     valor_ipi='$ValorIpi',
-                     ipi='$Ipi',
-                     nome_do_produto='$_REQUEST[descricao_cc]',
-                     preco_alterado='$_REQUEST[alterado1_cc]',
-                     preco_venda='$_REQUEST[preco_venda_cc]',
-                     peso_bruto='$PesoBruto1',
-                     peso_liquido='$PesoLiquido1',
-                     qtd_caixa='$_REQUEST[qtd_caixa_cc]' ";
-      $consulta = $consulta." where codigo='$_REQUEST[codigo_cc]' and numero_pedido='$numero'";
+                     qtd='".$_REQUEST['qtd_cc']."',
+                     valor_unitario='".$_REQUEST['valor_unitario_cc']."',
+                     valor_total='".$_REQUEST['valor_total_cc']."',
+                     valor_ipi='".$ValorIpi."',
+                     ipi='".$Ipi."',
+                     nome_do_produto='".$_REQUEST['descricao_cc']."',
+                     preco_alterado='".$_REQUEST['alterado1_cc']."',
+                     preco_venda='".$_REQUEST['preco_venda_cc']."',
+                     peso_bruto='".$PesoBruto1."',
+                     peso_liquido='".$PesoLiquido1."',
+                     qtd_caixa='".$_REQUEST['qtd_caixa_cc']."' ";
+      $consulta = $consulta." where codigo='".$_REQUEST['codigo_cc']."' and numero_pedido='".$numero."'";
       @pg_query ($db,$consulta);
       //echo $consulta;
      $qtd =$_REQUEST["qtd_cc"];
@@ -113,11 +113,11 @@ if ($numero){
   }
 //  echo "<BR>OPT CORES: $_REQUEST[optcores]<BR>";
 //  echo "<BR>ULTIMO: $_SESSION[UltimoTemCores]<BR>";
-  $SqlCarregaItens = pg_query("Select codigo, nome_do_produto, qtd, valor_unitario, valor_total, ipi from itens_do_pedido_internet where numero_pedido = '$numero' order by id, especial ASC") or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
+  $SqlCarregaItens = pg_query("Select codigo, nome_do_produto, qtd, valor_unitario, valor_total, ipi from itens_do_pedido_internet where numero_pedido = '".$numero."' order by id, especial ASC") or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
   $cci = pg_num_rows($SqlCarregaItens);
 //  echo $cci;
   if ($cci==0){
-    $Sql = "Select codigo, nome_do_produto, qtd, valor_unitario, valor_total, ipi from itens_do_pedido_vendas where numero_pedido = '$numero' order by id ASC";
+    $Sql = "Select codigo, nome_do_produto, qtd, valor_unitario, valor_total, ipi from itens_do_pedido_vendas where numero_pedido = '".$numero."' order by id ASC";
     $SqlCarregaItens = pg_query($Sql) or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
     $cci = pg_num_rows($SqlCarregaItens);
     $_SESSION['enviado']=1;
@@ -147,7 +147,7 @@ if ($numero){
         if ($cci==1){ //Não é especial e tem uma linha só.
           $LiberaDesconto = "document.getElementById('boxdesconto').innerHTML='';document.ped.desconto.style.display='block';";
         }elseif ($cci==2){
-          $SqlConfereEspecial = pg_query("Select codigo from itens_do_pedido_internet where numero_pedido = '$numero' and codigo='$r[codigo]' and especial='1'") or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
+          $SqlConfereEspecial = pg_query("Select codigo from itens_do_pedido_internet where numero_pedido = '".$numero."' and codigo='".$r['codigo']."' and especial='1'") or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
           $cce = pg_num_rows($SqlCarregaItens);
           if ($cce>0){
             $LiberaDesconto = "document.getElementById('boxdesconto').innerHTML='';document.ped.desconto.style.display='block';";
@@ -165,9 +165,9 @@ if ($numero){
         }
         ?>
         <tr bgcolor="<?php echo $Cor;?>">
-          <td width="70" class="item">&nbsp;<b><?php echo "$r[codigo]";?></b></td>
-          <td width="350" class="item">&nbsp;<?php echo "$Nome";?></td>
-          <td width="60" class="item" align="right"><b><?php echo "$r[qtd]";?></b>&nbsp;</td>
+          <td width="70" class="item">&nbsp;<b><?php echo $r['codigo'];?></b></td>
+          <td width="350" class="item">&nbsp;<?php echo $Nome;?></td>
+          <td width="60" class="item" align="right"><b><?php echo $r['qtd'];?></b>&nbsp;</td>
           <td width="60" class="item" align="right"><?php echo FormataCasas($r['valor_unitario'],2,false);?>&nbsp;</td>
           <td width="60" class="item" align="right"><?php echo FormataCasas($ValorIpi,2,false);?>&nbsp;</td>
           <td width="60" class="item" align="right"><b><?php echo FormataCasas($TotalMaisIpi,2,false);?></b>&nbsp;</td>
@@ -194,7 +194,7 @@ if ($numero){
         $i++;
       }
       if (($TotalPedido) and ($TotalPedidoGeral)){
-        $SqlAtualizaTotalPedido = pg_query("Update pedidos_internet_novo set total_com_desconto='$TotalPedido', total_sem_desconto='$TotalPedidoGeral' where numero = '$numero'");
+        $SqlAtualizaTotalPedido = pg_query("Update pedidos_internet_novo set total_com_desconto='".$TotalPedido."', total_sem_desconto='".$TotalPedidoGeral."' where numero = '".$numero."'");
       }
       ?>
       <tr>

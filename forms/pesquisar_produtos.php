@@ -30,7 +30,7 @@ if (!$_REQUEST['descricao_pesquisa_id']){
                         <tr>
                           <td width="20%">Código:</td>
                           <td width="80%">
-                            <input type="text" size="20" name="codigo_pesquisa_cc" maxlength="18" id="codigo_pesquisa_cc" value="<?php echo "$_REQUEST[codigo_pesquisa]";?>" onfocus="this.select()" onkeyup="if (this.value.length>2){Acha1('listar.php','tipo=descricao_pesquisa&valor='+this.value+'&pesquisa=codigo','listar_codigo_pesquisa');}">
+                            <input type="text" size="20" name="codigo_pesquisa_cc" maxlength="18" id="codigo_pesquisa_cc" value="<?php echo $_REQUEST['codigo_pesquisa'];?>" onfocus="this.select()" onkeyup="if (this.value.length>2){Acha1('listar.php','tipo=descricao_pesquisa&valor='+this.value+'&pesquisa=codigo','listar_codigo_pesquisa');}">
                             <BR>
                             <div id="listar_codigo_pesquisa" style="position:absolute; z-index: 7000;"></div>
                           </td>
@@ -69,7 +69,7 @@ if (!$_REQUEST['descricao_pesquisa_id']){
   </div>
   <?php
 }else{
-  $AchaProduto = pg_query("SELECT p.codigo, p.nome, p.preco_venda, p.ipi, p.classificacao_fiscal, p.peso_liquido, p.ncm ,e.estocada, e.reservado FROM produtos AS p INNER JOIN estoques AS e ON e.codigo = p.codigo WHERE p.codigo='$_REQUEST[descricao_pesquisa_id]'");
+  $AchaProduto = pg_query("SELECT p.codigo, p.nome, p.preco_venda, p.ipi, p.classificacao_fiscal, p.peso_liquido, p.ncm ,e.estocada, e.reservado FROM produtos AS p INNER JOIN estoques AS e ON e.codigo = p.codigo WHERE p.codigo='".$_REQUEST['descricao_pesquisa_id']."'");
 		$p = pg_fetch_array($AchaProduto);
   ?>
   <table width="580" height="300" border="0" cellspacing="0" cellpadding="0" class="texto1">

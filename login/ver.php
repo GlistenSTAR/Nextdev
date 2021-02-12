@@ -24,7 +24,7 @@
                       <td colspan="3"><img src="images/spacer.gif" width="1" height="5"></td>
                     </tr>
                     <?php
-                    $SqlListaNoticia = pg_query("Select * from noticias where id='$_REQUEST[id]'");
+                    $SqlListaNoticia = pg_query("Select * from noticias where id='".$_REQUEST['id']."'");
                     $r = pg_fetch_array($SqlListaNoticia);
                     ?>
                     <tr>

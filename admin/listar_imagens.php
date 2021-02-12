@@ -7,7 +7,7 @@ $_SESSION['pagina'] = "listar_imagens.php";
 <link href="inc/css.css" rel="stylesheet" type="text/css" media="screen">
 <?php
 if ($_REQUEST['acao']=="excluir"){
-  $SqlExcluir = pg_query("Update imagens set ativo=0 where id='$_REQUEST[id]'");
+  $SqlExcluir = pg_query("Update imagens set ativo=0 where id='".$_REQUEST['id']."'");
 }
 ?>
 <table border="0" cellspacing="1" cellpadding="1" class="adminform texto1"  width="100%" height="350">
@@ -64,15 +64,15 @@ if ($_REQUEST['acao']=="excluir"){
       $Cor = "red \" title='Categoria Inativa'\"";
     }
     ?>
-    <tr bgcolor="<?php echo "$Cor";?>">
+    <tr bgcolor="<?php echo $Cor;?>">
       <td align="center">
         <span onmouseover="ddrivetip('<img src=../imagens/<?php echo $r['imagem'];?> width=150 height=150>','#cccccc','150')" onmouseout="hideddrivetip()"><img src="icones/imagens.gif" border="0" width="15" height="15"></span>
       </td>
       <td valign="top">
-        <?php echo "$r['imagem']";?>
+        <?php echo $r['imagem'];?>
       </td>
       <td valign="top">
-        <a href="#" onclick="Acha('editar_imagens.php','localizar_numero=<?php echo $r['id'];?>','Conteudo');"><?php echo "$r[legenda]";?>
+        <a href="#" onclick="Acha('editar_imagens.php','localizar_numero=<?php echo $r['id'];?>','Conteudo');"><?php echo $r['legenda'];?>
         </a>
       </td>
       <td>
@@ -119,7 +119,7 @@ if ($_REQUEST['acao']=="excluir"){
                   echo "<strong>";
                 }
                 if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                  echo "$p&nbsp;";
+                  echo $p."&nbsp;";
                 }else{
                   if (!$ret){
                     echo "...";

@@ -80,7 +80,7 @@ margin: 1;}
         </tr>
         <?php
         $pagina = $_REQUEST['pagina'];
-        $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '$_SESSION[id_vendedor]' order by nome ASC";
+        $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '".$_SESSION['id_vendedor']."' order by nome ASC";
         $lista1 = pg_query("Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '".$_SESSION['id_vendedor']."' order by nome ASC");
         $ccc = pg_num_rows($lista1);
         $offset = $_REQUEST['offset'];
@@ -127,7 +127,7 @@ margin: 1;}
           }
           ?>
           <tr>
-            <td class="<?php echo $Cor;?>"><?php echo "$r[cgc]";?></td>
+            <td class="<?php echo $Cor;?>"><?php echo $r['cgc'];?></td>
             <td class="<?php echo $Cor;?>">
               <?php
               $Nome = $r['nome'];
@@ -137,10 +137,10 @@ margin: 1;}
               echo $Nome;
               ?>
             </td>
-            <td class="<?php echo $Cor;?>"><?php echo "$r[endereco]";?></td>
-            <td class="<?php echo $Cor;?>"><?php echo "$r[cidade]";?></td>
-            <td class="<?php echo $Cor;?>"><?php echo "$r[estado]";?></td>
-            <td class="<?php echo $Cor;?>"><?php echo "$r[telefone]";?></td>
+            <td class="<?php echo $Cor;?>"><?php echo $r['endereco'];?></td>
+            <td class="<?php echo $Cor;?>"><?php echo $r['cidade'];?></td>
+            <td class="<?php echo $Cor;?>"><?php echo $r['estado'];?></td>
+            <td class="<?php echo $Cor;?>"><?php echo $r['telefone'];?></td>
           </tr>
           <?php
           if ($pagina){
@@ -190,7 +190,7 @@ margin: 1;}
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";

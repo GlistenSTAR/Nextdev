@@ -61,8 +61,8 @@ if ($_REQUEST['ordem']){
                               <tr>
                                 <td>Cliente:</td>
                                 <td>
-                                  <input type="hidden" name="pedidos_clientes_id" id="pedidos_clientes_id" value="<?php echo "$_REQUEST[pedidos_clientes_id]";?>">
-                                  <input type="text" title="Digite o nome do cliente que deseja procurar." size="40" name="pedidos_clientes_cc" id="pedidos_clientes_cc" value="<?php echo "$_REQUEST[pedidos_clientes_cc]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;} if(tecla==13){Acha1('previsao_pedido.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (tecla == '38'){ getPrevNode('1');}else if (tecla == '40'){ getProxNode('1');}else { if (this.value.length>3){Acha1('listar.php','tipo=pedidos_clientes&valor='+this.value+'','listar_pedidos_clientes');}}}">
+                                  <input type="hidden" name="pedidos_clientes_id" id="pedidos_clientes_id" value="<?php echo $_REQUEST['pedidos_clientes_id'];?>">
+                                  <input type="text" title="Digite o nome do cliente que deseja procurar." size="40" name="pedidos_clientes_cc" id="pedidos_clientes_cc" value="<?php echo $_REQUEST['pedidos_clientes_cc'];?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;} if(tecla==13){Acha1('previsao_pedido.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (tecla == '38'){ getPrevNode('1');}else if (tecla == '40'){ getProxNode('1');}else { if (this.value.length>3){Acha1('listar.php','tipo=pedidos_clientes&valor='+this.value+'','listar_pedidos_clientes');}}}">
                                   <BR>
                                   <div id="listar_pedidos_clientes" style="position:absolute; z-index: 7000;"></div>
                                 </td>
@@ -97,10 +97,10 @@ if ($_REQUEST['ordem']){
                           $Filtro = " and data>='".$di[2]."-".$di[1]."-".$di[0]."' and data<='".$df[2]."-".$df[1]."-".$df[0]."'";
                         }
                         if ($_REQUEST['numero_pedido']){
-                          $NumeroPedido = " and numero='$_REQUEST[numero_pedido]' ";
+                          $NumeroPedido = " and numero='".$_REQUEST['numero_pedido']."' ";
                         }
                         if ($_REQUEST['pedidos_clientes_id']){
-                          $Filtro .= " and id_cliente='$_REQUEST[pedidos_clientes_id]'";
+                          $Filtro .= " and id_cliente='".$_REQUEST['pedidos_clientes_id']."'";
                         }
                         if ($Filtro){
                           if ($_SESSION['nivel']=="2"){
@@ -176,12 +176,12 @@ if ($_REQUEST['ordem']){
                                $Status = "Cancelado";
                             }
                             ?>
-                            <tr bgcolor="<?php echo "$Cor";?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<?php echo "$Cor";?>'">
+                            <tr bgcolor="<?php echo $Cor;?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<?php echo $Cor;?>'">
                               <td valign="top">
                                 <?php if ($_REQUEST['tipo']=="rascunhos"){?>
-                                <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<?php echo $r['numero'];?>','Conteudo'); <?php echo $Desativa;?>" title="Clique para alterar o rascunho"><?php echo "$r[numero]";?></a>
+                                <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<?php echo $r['numero'];?>','Conteudo'); <?php echo $Desativa;?>" title="Clique para alterar o rascunho"><?php echo $r['numero'];?></a>
                                 <?php }else{
-                                     echo "$r[numero]";
+                                     echo $r['numero'];
                                    }?>
                               </td>
                               <td valign="top">
@@ -196,11 +196,11 @@ if ($_REQUEST['ordem']){
                               </td>
                               </td>
                               <td valign="top" align="center" width="13">
-                                <img src="icones/pesquisar.gif" border="0" title="Impressão 1" onclick="window.open('impressao.php?numero=<?php echo "$r[numero]";?>&t=1','_blank')" style="border: 0pt none ; cursor: pointer;">
+                                <img src="icones/pesquisar.gif" border="0" title="Impressão 1" onclick="window.open('impressao.php?numero=<?php echo $r['numero'];?>&t=1','_blank')" style="border: 0pt none ; cursor: pointer;">
                                 <?php
                                 if ($r['desconto_cliente']>0){
                                   ?>
-                                  <img src="icones/pesquisar.gif" border="0" title="Impressão 2" onclick="window.open('impressao.php?numero=<?php echo "$r[numero]";?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">
+                                  <img src="icones/pesquisar.gif" border="0" title="Impressão 2" onclick="window.open('impressao.php?numero=<?php echo $r['numero'];?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">
                                   <?php
                                 }else{
                                   ?>
@@ -256,7 +256,7 @@ if ($_REQUEST['ordem']){
                                       echo "<strong>";
                                     }
                                     if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                                      echo "$p&nbsp;";
+                                      echo $p."&nbsp;";
                                     }else{
                                       if (!$ret){
                                         echo "...";

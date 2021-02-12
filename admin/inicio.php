@@ -88,8 +88,8 @@ if ($_SESSION['base_selecionada_servidor']){
                     <tr>
                       <td>Cliente:</td>
                       <td colspan="3">
-                        <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo "$_REQUEST[cliente_id]";?>">
-                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<?php echo "$_REQUEST[cliente_cc]";?>" onfocus="this.select()" onkeyup="Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');">
+                        <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo $_REQUEST['cliente_id'];?>">
+                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<?php echo $_REQUEST['cliente_cc'];?>" onfocus="this.select()" onkeyup="Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');">
                         <BR>
                         <div id="listar_cliente" style="position:absolute;"></div>
                       </td>
@@ -112,7 +112,7 @@ if ($_SESSION['base_selecionada_servidor']){
                   $Filtro = $Filtro." and enviado=1";
                 }
                 if (($_REQUEST['cliente_id']) and ($_REQUEST['cliente_cc'])){
-                  $Filtro = $Filtro." and id_cliente='$_REQUEST[cliente_id]'";
+                  $Filtro = $Filtro." and id_cliente='".$_REQUEST['cliente_id']."'";
                 }
                 $lista = "Select numero, cgc, cliente, data, enviado from pedidos_internet_novo where $FiltroData $Filtro $Ordem";
                 $lista1 = @pg_query($db2,"Select numero, cgc, cliente, data, enviado from pedidos_internet_novo where $FiltroData $Filtro $Ordem");
@@ -158,23 +158,23 @@ if ($_SESSION['base_selecionada_servidor']){
                   if ($r[enviado]=="1"){
                     $Status = "<img src='../icones/enviado.png' width='13' height='13' align='center' title='Pedido já enviado, não é possível editar'>";
                   }else{
-                    //$Status = "<input type='checkbox' name='enviar_pedidos[]' id='enviar_pedidos[]' value='$r[numero]'>";
+                    //$Status = "<input type='checkbox' name='enviar_pedidos[]' id='enviar_pedidos[]' value='".$r['numero']."'>";
                     $Status = "<img src='../icones/duvida.png' width='13' height='13' align='center' title='Pedido somente gravado (Rascunho do vendedor)'>";
                   }
                   ?>
-                  <tr bgcolor="<?php echo "$Cor";?>">
+                  <tr bgcolor="<?php echo $Cor;?>">
                     <td valign="top">
-                      <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<?php echo $r['numero'];?>','Conteudo'); <?php echo $Desativa;?>"><?php echo "$r[numero]";?></a>
+                      <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<?php echo $r['numero'];?>','Conteudo'); <?php echo $Desativa;?>"><?php echo $r['numero'];?></a>
                     </td>
                     <td valign="top">
-                      <?php echo "$r[cgc]";?>
+                      <?php echo $r['cgc'];?>
                     </td>
                     <td valign="top">
-                      <?php echo "$r[cliente]";?>
+                      <?php echo $r['cliente'];?>
                     </td>
                     <td valign="top">
                       <?php
-                      $da = $r[data];
+                      $da = $r['data'];
                       $d = explode("-", $da);
                       echo "".$d[2]."/".$d[1]."/".$d[0]."";
                       ?>
@@ -228,7 +228,7 @@ if ($_SESSION['base_selecionada_servidor']){
                             echo "<strong>";
                           }
                           if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                            echo "$p&nbsp;";
+                            echo $p."&nbsp;";
                           }else{
                             if (!$ret){
                               echo "...";

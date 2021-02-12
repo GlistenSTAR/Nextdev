@@ -38,7 +38,7 @@ include "include/config.php";
 </script>
 
 <?php
-   $SQLVendedor = pg_query($conecta, "SELECT nome FROM vendedores WHERE id='$_REQUEST[vendedores]'");
+   $SQLVendedor = pg_query($conecta, "SELECT nome FROM vendedores WHERE id='".$_REQUEST['vendedores']."'");
    $ResVend = pg_fetch_array($SQLVendedor); 
    echo str_repeat("<br>", 3); 
    

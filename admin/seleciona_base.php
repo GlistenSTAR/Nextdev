@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once("inc/config.php");
-$SqlSelecionaBase = pg_query($db,"SELECT * FROM dados WHERE id='$_REQUEST[id_base]'");
+$SqlSelecionaBase = pg_query($db,"SELECT * FROM dados WHERE id='".$_REQUEST['id_base']."'");
 $SqlSelecionaBase = pg_fetch_array($SqlSelecionaBase);
 
 $_SESSION['base_selecionada_id']         = $SqlSelecionaBase['id'];

@@ -6,7 +6,7 @@ if ($_SESSION['bloqueio_pedido']=="itens"){
   $_SESSION['bloqueio_pedido'] = "";
 }
 if ((!$_REQUEST['EnterCodigo']) and ($_REQUEST['codigo'])){
-  $SqlCarregaItens = pg_query("Select * from itens_do_pedido_internet where numero_pedido = '$_REQUEST[numero]' and codigo='".strtoupper($_REQUEST['codigo'])."' order by codigo");
+  $SqlCarregaItens = pg_query("Select * from itens_do_pedido_internet where numero_pedido = '".$_REQUEST['numero']."' and codigo='".strtoupper($_REQUEST['codigo'])."' order by codigo");
   $i = pg_fetch_array($SqlCarregaItens);
   $ValorUnitario1 = $i['valor_unitario'];
   $Qtd1 = $i['qtd'];
@@ -26,7 +26,7 @@ if ((!$_REQUEST['EnterCodigo']) and ($_REQUEST['codigo'])){
     $ArrayValor = pg_fetch_array($SqlEncontraValorUnitatio);
     $ValorUnitario1 = $ArrayValor['valor_unitario'];
   }
-  $SqlCarregaItem = pg_query("Select * from itens_do_pedido_internet where numero_pedido = '$_REQUEST[numero]' and codigo='".strtoupper($_REQUEST['codigo'])."' order by codigo");
+  $SqlCarregaItem = pg_query("Select * from itens_do_pedido_internet where numero_pedido = '".$_REQUEST['numero']."' and codigo='".strtoupper($_REQUEST['codigo'])."' order by codigo");
   $cci = pg_num_rows($SqlCarregaItem);
   if ($cci>0){
     $ProdutoInexistente = "<span class=erro id=produtoinexistente>Atenção! esse ítem já existe no pedido se prosseguir os dados serão atualizados</span>";
@@ -89,7 +89,7 @@ if ($_REQUEST['desconto_pedido']>0){ //Calcula Desconto
             <?php
             if ($_SESSION['config']['vendas']['UltimosItensPedido']){
               ?>
-              <a href="#" OnClick="document.getElementById('UltimosItens').style.display='block';Acha1('vendas/ultimos_itens_pedido.php','IdCliente='+document.getElementById('cliente_id').value+'<?php echo "$ListaNumero";?>&CodProd='+document.getElementById('codigo_cc').value+'','UltimosItens');"><input type="button" name="ult_itens" id="ult_itens" value="Ult. Ítens"></a>
+              <a href="#" OnClick="document.getElementById('UltimosItens').style.display='block';Acha1('vendas/ultimos_itens_pedido.php','IdCliente='+document.getElementById('cliente_id').value+'<?php echo $ListaNumero;?>&CodProd='+document.getElementById('codigo_cc').value+'','UltimosItens');"><input type="button" name="ult_itens" id="ult_itens" value="Ult. Ítens"></a>
               <?php
             }
             ?>
@@ -110,7 +110,7 @@ if ($_REQUEST['desconto_pedido']>0){ //Calcula Desconto
         if ($ProdutoInexistente){
           ?>
           <tr>
-            <td colspan="10"><?php echo "$ProdutoInexistente";?></td>
+            <td colspan="10"><?php echo $ProdutoInexistente;?></td>
           </tr>
           <?php
         }

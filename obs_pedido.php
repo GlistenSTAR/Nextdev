@@ -3,13 +3,13 @@ include ("inc/common.php");
 include "inc/config.php";
 
 if($_REQUEST['edita']=="1"){
-  if(pg_query("UPDATE observacao_do_pedido SET observacao = '$_REQUEST[texto]' WHERE numero_pedido='$_REQUEST[numero]'")){
+  if(pg_query("UPDATE observacao_do_pedido SET observacao = '".$_REQUEST['texto']."' WHERE numero_pedido='".$_REQUEST['numero']."'")){
     echo "<div style='margin-top:12.5em; margin-left:15px; position:absolute; color:green;'><b>Gravado com sucesso</b></div>";
   }
 }
 
 //Busco obs existente
-$SQlObs = pg_query("SELECT * FROM observacao_do_pedido WHERE numero_pedido='$_REQUEST[numero]'");
+$SQlObs = pg_query("SELECT * FROM observacao_do_pedido WHERE numero_pedido='".$_REQUEST['numero']."'");
 $ObsPed = pg_fetch_array($SQlObs);
 ?>
 

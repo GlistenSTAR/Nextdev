@@ -10,17 +10,17 @@ $_REQUEST['localizar_numero'] = str_replace($Tirar, "", $_REQUEST['localizar_num
 $_REQUEST['CgcCliente'] = str_replace($Tirar, "", $_REQUEST['CgcCliente']);
 if (is_numeric($_REQUEST['localizar_numero'])){
   include_once("inc/config.php");
-  $Sql = "Select * from pedidos_internet_novo where numero='$_REQUEST[localizar_numero]'";
+  $Sql = "Select * from pedidos_internet_novo where numero='".$_REQUEST['localizar_numero']."'";
 //  echo $Sql;
   $SqlCarregaPedido = pg_query($Sql);
   $ccc = pg_num_rows($SqlCarregaPedido);
   if ($ccc<>""){
     $p = pg_fetch_array($SqlCarregaPedido);
-    $SqlObservacao = pg_query("Select observacao from observacao_do_pedido where numero_pedido='$_REQUEST[localizar_numero]'");
+    $SqlObservacao = pg_query("Select observacao from observacao_do_pedido where numero_pedido='".$_REQUEST['localizar_numero']."'");
     $o = pg_fetch_array($SqlObservacao);
     $PedidoLiberado = true;
     //Carrega dados do cliente
-    $sql = "Select id, cgc, apelido, contato, codigo, nome, inscricao, codigo_vendedor, endereco, cidade, bairro, estado, cep, telefone, codigo_transportadora, observacao, codigo_pagto, bloqueio_cliente from clientes where cgc='$p[cgc]'";
+    $sql = "Select id, cgc, apelido, contato, codigo, nome, inscricao, codigo_vendedor, endereco, cidade, bairro, estado, cep, telefone, codigo_transportadora, observacao, codigo_pagto, bloqueio_cliente from clientes where cgc='".$p['cgc']."'";
 //    echo $sql;
     $SqlProcuracliente = pg_query($sql);
     $ccc = pg_num_rows($SqlProcuracliente);
@@ -29,15 +29,15 @@ if (is_numeric($_REQUEST['localizar_numero'])){
       $PedidoLiberado = true;
     }
   }else{
-    $SqlCarregaPedido = pg_query("Select * from pedidos where numero='$_REQUEST[localizar_numero]'");
+    $SqlCarregaPedido = pg_query("Select * from pedidos where numero='".$_REQUEST['localizar_numero']."'");
     $ccc = pg_num_rows($SqlCarregaPedido);
     if ($ccc<>""){
       $p = pg_fetch_array($SqlCarregaPedido);
-      $SqlObservacao = pg_query("Select observacao from observacao_do_pedido where numero_pedido='$_REQUEST[localizar_numero]'");
+      $SqlObservacao = pg_query("Select observacao from observacao_do_pedido where numero_pedido='".$_REQUEST['localizar_numero']."'");
       $o = pg_fetch_array($SqlObservacao);
       $PedidoLiberado = true;
       //Carrega dados do cliente
-      $sql = "Select id, cgc, apelido, contato, codigo, nome, inscricao, codigo_vendedor, endereco, cidade, bairro, estado, cep, telefone, codigo_transportadora, observacao, codigo_pagto, bloqueio_cliente from clientes where cgc='$p[cgc]' and bloqueio_cliente='0'";
+      $sql = "Select id, cgc, apelido, contato, codigo, nome, inscricao, codigo_vendedor, endereco, cidade, bairro, estado, cep, telefone, codigo_transportadora, observacao, codigo_pagto, bloqueio_cliente from clientes where cgc='".$p['cgc']."' and bloqueio_cliente='0'";
       $SqlProcuracliente = pg_query($sql);
       $ccc = pg_num_rows($SqlProcuracliente);
       if ($ccc<>""){
@@ -55,7 +55,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
         //$SalvarRascunho = "document.getElementById('salvo').innerHTML = 'Rascunho salvo automaticamente dia <b>'+detbut();+'</b>!!'; acerta_campos('pedido','GrdProdutos','incluir_itens.php',false);";
       }
     }else{
-      $SqlConfereEfetivacao = pg_query("Select venda_efetivada from pedidos where numero_internet='$_REQUEST[localizar_numero]'");
+      $SqlConfereEfetivacao = pg_query("Select venda_efetivada from pedidos where numero_internet='".$_REQUEST['localizar_numero']."'");
       $ConferePedidoEfetivado = pg_fetch_array($SqlConfereEfetivacao);
       //echo "<BR><BR><BR><BR><BR><BR><BR><BR><BR>venda efetiv. $ConferePedidoEfetivado[venda_efetivada]<BR><BR><BR><BR><BR><BR><BR><BR><BR>";
       if ($ConferePedidoEfetivado['venda_efetivada']){
@@ -73,7 +73,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
   }
 }elseif ($_REQUEST['CgcCliente']){
   include_once("inc/config.php");
-  $sql = "Select id, cgc, apelido,obs_cobranca_pedido, mostrar_observacao,obs_dupl, contato, codigo, nome, inscricao, codigo_vendedor, endereco, cidade, bairro, estado, cep, telefone, codigo_transportadora, observacao, codigo_pagto, bloqueio_cliente from clientes where cgc='$_REQUEST[CgcCliente]'";
+  $sql = "Select id, cgc, apelido,obs_cobranca_pedido, mostrar_observacao,obs_dupl, contato, codigo, nome, inscricao, codigo_vendedor, endereco, cidade, bairro, estado, cep, telefone, codigo_transportadora, observacao, codigo_pagto, bloqueio_cliente from clientes where cgc='".$_REQUEST['CgcCliente']."'";
   //echo $sql;
   $SqlProcuracliente = pg_query($sql);
   $ccc = pg_num_rows($SqlProcuracliente);
@@ -135,17 +135,17 @@ if ($PedidoLiberado){
     $p['codigo_pagamento'] = $c['codigo_pagto'];
   }
   if (!$p['transportadora']){
-    $SqlTransp = pg_query("Select nome from transportadoras where id='$c[codigo_transportadora]'");
+    $SqlTransp = pg_query("Select nome from transportadoras where id='".$c['codigo_transportadora']."'");
     $trans = pg_fetch_array($SqlTransp);
     $p['transportadora'] = $trans['nome'];
   }
   $Icones = "<img src='icones/gravado.png' title='CPF / CNPJ Válido'>";
   if ($p['codigo_pagamento']){
-    $SqlCondicao = pg_query("Select codigo, descricao from condicao_pagamento where codigo='$p[codigo_pagamento]'");
+    $SqlCondicao = pg_query("Select codigo, descricao from condicao_pagamento where codigo='".$p['codigo_pagamento']."'");
     $c1 = pg_fetch_array($SqlCondicao);
   }
   if ($p[transportadora]){
-    $SqlTransportadora = pg_query("Select id, nome from transportadoras where nome='$p[transportadora]'");
+    $SqlTransportadora = pg_query("Select id, nome from transportadoras where nome='".$p['transportadora']."'");
     $t = pg_fetch_array($SqlTransportadora);
   }
   if (!$Ativa){
@@ -168,7 +168,7 @@ if (!$_REQUEST['acao']){
         </td>
         <td valign="top">
           <BR>
-          <input type="text" name="valor" value="<?php echo "$_REQUEST[localizar_numero]";?>" id="valor" size="15" onkeyup="if (!e) var e = window.event;if(e){tecla = event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha('cadastrar_pedidos.php','localizar_numero='+document.getElementById('valor').value+'','Conteudo');}">
+          <input type="text" name="valor" value="<?php echo $_REQUEST['localizar_numero'];?>" id="valor" size="15" onkeyup="if (!e) var e = window.event;if(e){tecla = event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha('cadastrar_pedidos.php','localizar_numero='+document.getElementById('valor').value+'','Conteudo');}">
           <BR>
         </td>
       </tr>
@@ -260,7 +260,7 @@ if (!$_REQUEST['acao']){
                                   <tr>
                                     <td width="20%">CNPJ/CPF:</td>
                                     <td width="80%">
-                                      <input type="text" size="20" name="clientecnpj_cc" maxlength="18" id="clientecnpj_cc" value="<?php echo "$p[cgc]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+this.value+'<?php echo "$ListaNumero";?>','Conteudo');}">
+                                      <input type="text" size="20" name="clientecnpj_cc" maxlength="18" id="clientecnpj_cc" value="<?php echo $p['cgc'];?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+this.value+'<?php echo $ListaNumero;?>','Conteudo');}">
                                       <?php echo $Icones;?>
                                       <BR>
                                       <div id="listar_clientecnpj" style="position:absolute; z-index: 7000;"></div>
@@ -272,8 +272,8 @@ if (!$_REQUEST['acao']){
                                     <tr>
                                       <td width="20%">Cliente:</td>
                                       <td width="80%">
-                                        <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo "$p[id_cliente]";?>">
-                                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<?php echo "$p[cliente]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (this.value.length>3){Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');}}">
+                                        <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo $p['id_cliente'];?>">
+                                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<?php echo $p['cliente'];?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (this.value.length>3){Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');}}">
                                         <BR>
                                         <div id="listar_cliente" style="position:absolute; z-index: 7000;"></div>
                                       </td>
@@ -284,58 +284,58 @@ if (!$_REQUEST['acao']){
                                   <tr>
                                     <td width="20%">Cliente:</td>
                                     <td width="80%">
-                                      <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo "$p[id_cliente]";?>">
-                                      <input type="hidden" name="cliente_cc" id="cliente_cc" value="<?php echo "$p[cliente]";?>">
-                                      <b><?php echo "$p[cliente]";?></b>
+                                      <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo $p['id_cliente'];?>">
+                                      <input type="hidden" name="cliente_cc" id="cliente_cc" value="<?php echo $p['cliente'];?>">
+                                      <b><?php echo $p['cliente'];?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Endereço:</td>
                                     <td>
-                                      <b> <?php echo "$c[endereco]";?></b>
+                                      <b> <?php echo $c['endereco'];?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Cidade:</td>
                                     <td>
-                                      <b> <?php echo "$c[cidade]";?></b>
+                                      <b> <?php echo $c['cidade'];?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Bairro:</td>
                                     <td>
-                                      <b> <?php echo "$c[bairro]";?></b>
+                                      <b> <?php echo $c['bairro'];?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Estado:</td>
                                     <td>
-                                      <b> <?php echo "$c[estado]";?></b>
+                                      <b> <?php echo $c['estado'];?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>CEP:</td>
                                     <td>
-                                      <b> <?php echo "$c[cep]";?></b>
+                                      <b> <?php echo $c['cep'];?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Telefone:</td>
                                     <td>
-                                      <b> <?php echo "$c[telefone]";?></b>
+                                      <b> <?php echo $c['telefone'];?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Insc. Est.:</td>
                                     <td>
-                                      <b> <?php echo "$c[inscricao]";?></b>
+                                      <b> <?php echo $c['inscricao'];?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Contato:</td>
                                     <td>
-                                      <input name="contato_cc" id="contato_cc" value="<?php echo "$p[contato]";?>" type="text" size="20" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.trans_cc.focus();}">
-                                      <!--<b><?php echo "$p[contato]";?></b>-->
+                                      <input name="contato_cc" id="contato_cc" value="<?php echo $p['contato'];?>" type="text" size="20" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.trans_cc.focus();}">
+                                      <!--<b><?php echo $p['contato'];?></b>-->
                                     </td>
                                   </tr>
                                   <tr>
@@ -344,8 +344,8 @@ if (!$_REQUEST['acao']){
                                   <tr>
                                     <td>Transportadora:</td>
                                     <td>
-                                      <input type="hidden" name="trans_id" id="trans_id" value="<?php echo "$c[codigo_transportadora]";?>">
-                                      <input type="text" size="35" name="trans_cc" id="trans_cc" value="<?php echo "$p[transportadora]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.data_entrega.focus();}else{Acha1('listar.php','tipo=trans&valor='+this.value+'','listar_trans');}">
+                                      <input type="hidden" name="trans_id" id="trans_id" value="<?php echo $c['codigo_transportadora'];?>">
+                                      <input type="text" size="35" name="trans_cc" id="trans_cc" value="<?php echo $p['transportadora'];?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.data_entrega.focus();}else{Acha1('listar.php','tipo=trans&valor='+this.value+'','listar_trans');}">
                                       &nbsp;&nbsp;
                                       <input type="radio" name="frete" id="frete" value="FOB" <?php if (($p['cif']==0) and ($_REQUEST['localizar_numero'])){ echo "Checked";}?>>FOB
                                       <input type="radio" name="frete" id="frete" value="CIF" <?php if (($p['cif']==1) or (!$_REQUEST['localizar_numero'])){ echo "Checked";}?>>CIF&nbsp;&nbsp;&nbsp;
@@ -393,18 +393,18 @@ if (!$_REQUEST['acao']){
                                   <tr>
                                     <td>Numero:</td>
                                     <td>
-                                      <input name="numero" id="numero"  type="hidden" size="20" maxlength="20" value="<?php echo "$Numero";?>" onclick="setTimeout('document.ped.numero.disabled=true',10);">
-                                      <b><?php echo "$Numero";?></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      <input name="numero" id="numero"  type="hidden" size="20" maxlength="20" value="<?php echo $Numero;?>" onclick="setTimeout('document.ped.numero.disabled=true',10);">
+                                      <b><?php echo $Numero;?></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       <span onmouseover="ddrivetip('<strong><u>Número do Pedido</u></strong><BR><BR>O número é composto sequencialmente por <i>CodigoVendedor + Dia + Mes + Ano + Hora + Minuto + Segundo</i>, <BR>ex: 85+11+01+08+15+30+21')" onmouseout="hideddrivetip()" class="dwnx"><img src="icones/duvida.png" border="0" width="15" height="15"></span>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Num. Cliente:</td>
-                                    <td><input name="numero_cliente" id="numero_cliente" value="<?php echo "$p[numero_cliente]";?>" type="text" size="20" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.desconto.focus();}"></td>
+                                    <td><input name="numero_cliente" id="numero_cliente" value="<?php echo $p['numero_cliente'];?>" type="text" size="20" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.desconto.focus();}"></td>
                                   </tr>
                                   <tr>
                                     <td>Desconto:</td>
-                                    <td><b><div id="boxdesconto"></div></b><input name="desconto" id="desconto" value="<?php echo "$p[desconto]";?>"  type="text" size="8" maxlength="3" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if (this.value>100){ alert('O desconto deve ser menor que 100'); this.value='0';}else{document.ped.condpag1_id.focus();}}"></td>
+                                    <td><b><div id="boxdesconto"></div></b><input name="desconto" id="desconto" value="<?php echo $p['desconto'];?>"  type="text" size="8" maxlength="3" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if (this.value>100){ alert('O desconto deve ser menor que 100'); this.value='0';}else{document.ped.condpag1_id.focus();}}"></td>
                                   </tr>
                                   <tr>
                                     <td width="20%">Cond. Pagam.:</td>
@@ -412,16 +412,16 @@ if (!$_REQUEST['acao']){
                                       <select name="condpag1_id" size="1" id="condpag1_id" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){trocarAba('pedidos-',2,3); <?php echo $SalvarRascunho;?> document.ped.codigo_cc.focus();}">
                                         <?php
                                         if ($c1['codigo']){
-                                          echo "<option value='$c1[codigo]'>$c1[descricao]</option>";
+                                          echo "<option value='".$c1['codigo']."'>".$c1['descricao']."</option>";
                                           echo "<option></option>";
-                                          $RetiraCP = " and codigo<>'$c1[codigo]' ";
+                                          $RetiraCP = " and codigo<>'".$c1['codigo']."' ";
                                         }else{
                                           echo "<option></option>";
                                         }
                                         include_once("inc/config.php");
                                         $SqlCarregaCondpag = pg_query("SELECT codigo, descricao FROM condicao_pagamento where codigo > 1 $RetiraCP order by descricao ASC");
                                         while ($cp = pg_fetch_array($SqlCarregaCondpag)){
-                                          echo "<option value='$cp[codigo]'>$cp[descricao]</option>";
+                                          echo "<option value='".$cp['codigo']."'>".$cp['descricao']."</option>";
                                         }
                                         ?>
                                       </select>
@@ -438,22 +438,22 @@ if (!$_REQUEST['acao']){
                                           <?php
                                           include_once("inc/config.php");
                                           if ($p['codigo_vendedor']){
-                                            echo "<option value='$p[codigo_vendedor]'>$p[vendedor]</option>";
+                                            echo "<option value='".$p['codigo_vendedor']."'>".$p['vendedor']."</option>";
                                             echo "<option></option>";
-                                            $RetiraVendedor = " and codigo<>'$p[codigo_vendedor]' ";
+                                            $RetiraVendedor = " and codigo<>'".$p['codigo_vendedor']."' ";
                                           }elseif ($c['codigo_vendedor']){
-                                            $SqlCarregaVend = pg_query("SELECT codigo, nome FROM vendedores where codigo='$c[codigo_vendedor]'");
+                                            $SqlCarregaVend = pg_query("SELECT codigo, nome FROM vendedores where codigo='".$c['codigo_vendedor']."'");
                                             $cv = pg_fetch_array($SqlCarregaVend);
-                                            echo "<option value='$c[codigo_vendedor]'>$cv[nome]</option>";
+                                            echo "<option value='".$c['codigo_vendedor']."'>".$cv['nome']."</option>";
                                             echo "<option></option>";
-                                            $RetiraVendedor = " and codigo<>'$c[codigo_vendedor]' ";
+                                            $RetiraVendedor = " and codigo<>'".$c['codigo_vendedor']."' ";
                                           }else{
-                                            echo "<option value='$_SESSION[id_vendedor]'>$_SESSION[usuario]</option>";
-                                            $RetiraVendedor = " and codigo<>'$_SESSION[id_vendedor]' ";
+                                            echo "<option value='".$_SESSION['id_vendedor']."'>".$_SESSION['usuario']."</option>";
+                                            $RetiraVendedor = " and codigo<>'".$_SESSION['id_vendedor']."' ";
                                           }
                                           $SqlCarregaCondpag = pg_query("SELECT codigo, nome FROM vendedores where nome<>'SUPORTE' $RetiraVendedor order by nome ASC");
                                           while ($cp = pg_fetch_array($SqlCarregaCondpag)){
-                                            echo "<option value='$cp[codigo]'>$cp[nome]</option>";
+                                            echo "<option value='".$cp['codigo']."'>".$cp['nome']."</option>";
                                           }
                                           ?>
                                         </select>
@@ -511,7 +511,7 @@ if (!$_REQUEST['acao']){
                                  <table width="100%" border="0" cellspacing="2" cellpadding="2" class="texto1" align="center">
                                    <tr>
                                      <td valign="top">Observação:</td>
-                                     <td><textarea name="observacao" id="observacao"  maxlength="250" type="text" rows="5" cols="70"><?php echo "$o[observacao]";?></textarea></td>
+                                     <td><textarea name="observacao" id="observacao"  maxlength="250" type="text" rows="5" cols="70"><?php echo $o['observacao'];?></textarea></td>
                                    </tr>
                                  </table>
                                  <?php
@@ -686,7 +686,7 @@ if (!$_REQUEST['acao']){
       ######################################################
       # Confere se já existe o pedido, ai só edita
       ######################################################
-      $SqlConferePedido = pg_query("Select numero from pedidos_internet_novo where numero = '$_REQUEST[numero]'") or die ($MensagemDbError.$SqlConferePedido.pg_query ($db, "rollback"));
+      $SqlConferePedido = pg_query("Select numero from pedidos_internet_novo where numero = '".$_REQUEST['numero']."'") or die ($MensagemDbError.$SqlConferePedido.pg_query ($db, "rollback"));
       $ConferePedido = pg_num_rows($SqlConferePedido);
       if ($ConferePedido<>"") { //Verifica se é para editar ou adicionar.
         // seta os atributos restantes do objeto
@@ -705,14 +705,14 @@ if (!$_REQUEST['acao']){
       #########################################################################################
       #  Testa o início da divisão de pedidos
       #########################################################################################
-        $SqlContaItens = pg_query("Select count(codigo) as quantos from itens_do_pedido_internet where numero_pedido='$_REQUEST[numero]'");
+        $SqlContaItens = pg_query("Select count(codigo) as quantos from itens_do_pedido_internet where numero_pedido='".$_REQUEST['numero']."'");
         $ItensPedido = pg_fetch_array($SqlContaItens);
-        $NumeroItensPedido = $ItensPedido[quantos];
+        $NumeroItensPedido = $ItensPedido['quantos'];
         ####### PEGA O NUMERO MAXIMO DE ITENS E O FATURAMENTO MINIMO
         $SqlReferencias = pg_query("Select numero_maximo_itens, fatmin from referencias") or die ("Erro 1");
         $ArrayReferencias = pg_fetch_array($SqlReferencias);
-        $NumeroMaximoItens = $ArrayReferencias[numero_maximo_itens];
-        $FatMin = $ArrayReferencias[fat_min];
+        $NumeroMaximoItens = $ArrayReferencias['numero_maximo_itens'];
+        $FatMin = $ArrayReferencias['fat_min'];
         if ($NumeroItensPedido>$NumeroMaximoItens){
           echo "Dividindo Pedidos<BR><BR>";
           $numero = $_REQUEST['numero'];
@@ -724,7 +724,7 @@ if (!$_REQUEST['acao']){
           ####
           //echo "Itens $NumeroItensPedido - Maximo: $NumeroMaximoItens - Quantos pedidos preciso: $QtdPedidosParaGerar<BR><BR><hr><BR><BR>";
           $Numeros = array();
-          $SqlItensTemp = pg_query("Select codigo from itens_do_pedido_internet where numero_pedido='$numero' order by valor_total") or die("A operação não foi realizada, copie esse texto e envie para suporte@tninfo.com.br, volte ao início e tente novamente : <BR>".$ultimopedido.pg_query ($db, "rollback"));
+          $SqlItensTemp = pg_query("Select codigo from itens_do_pedido_internet where numero_pedido='".$numero."' order by valor_total") or die("A operação não foi realizada, copie esse texto e envie para suporte@tninfo.com.br, volte ao início e tente novamente : <BR>".$ultimopedido.pg_query ($db, "rollback"));
           $CodigoProduto  = array();
           while($ArrayItemTemp = pg_fetch_array($SqlItensTemp)){
             foreach ($ArrayItemTemp as $Chave => $Produto) {
@@ -734,28 +734,28 @@ if (!$_REQUEST['acao']){
             }
           }
           for ($i=1; $i<=$QtdPedidosParaGerar;$i++){
-            $SqlPedidoTemp = pg_query("insert into pedidos_internet_novo select * from pedidos_internet_novo where numero = '$numero'") or die("A operação não foi realizada, copie esse texto e envie para suporte@tninfo.com.br, volte ao início e tente novamente : <BR>".$SqlPedidoTemp.pg_query ($db, "rollback"));
-            $Sql = "update pedidos_internet_novo set numero = '$numero$i'
-                      where numero = '$numero'
-                      and (Select max(oid) as max_oid from pedidos_internet_novo where numero = '$numero') > oid
+            $SqlPedidoTemp = pg_query("insert into pedidos_internet_novo select * from pedidos_internet_novo where numero = '".$numero."'") or die("A operação não foi realizada, copie esse texto e envie para suporte@tninfo.com.br, volte ao início e tente novamente : <BR>".$SqlPedidoTemp.pg_query ($db, "rollback"));
+            $Sql = "update pedidos_internet_novo set numero = '".$numero.$i."'
+                      where numero = '".$numero."'
+                      and (Select max(oid) as max_oid from pedidos_internet_novo where numero = '".$numero."') > oid
                    ";
             $SqlUpdateTemp = pg_query($Sql) or die("A operação não foi realizada, copie esse texto e envie para suporte@tninfo.com.br, volte ao início e tente novamente : <BR>".$SqlPedidoTemp.pg_query ($db, "rollback"));
-            $Numeros[] = "$numero$i";
+            $Numeros[] = $numero.$i;
               for ($j=$i-1;$j<=$NumeroItensPedido;$j+=$QtdPedidosParaGerar){
 
                 foreach ($CodigoProduto as $Chave => $Produto) {
                   if ($Chave==$j){
                     //echo "Chave: $Chave; Produto: $Produto<br />\n";
-                    $Sql1 = "Produto: $Produto - update itens_pedidos_internet_novo set numero = '$numero$i' where numero='$numero' and codigo='$Produto'";
-                    $Sql1 = "update itens_do_pedido_internet set numero_pedido = '$numero$i' where numero_pedido='$numero' and codigo='$Produto'";
-                    //echo "$Sql1<BR>";
+                    $Sql1 = "Produto: $Produto - update itens_pedidos_internet_novo set numero = '".$numero.$i."' where numero='".$numero."' and codigo='".$Produto."'";
+                    $Sql1 = "update itens_do_pedido_internet set numero_pedido = '".$numero.$i."' where numero_pedido='".$numero."' and codigo='".$Produto."'";
+                    //echo $Sql1."<BR>";
                     $SqlUpdateTemp = pg_query($Sql1) or die("A operação não foi realizada, copie esse texto e envie para suporte@tninfo.com.br, volte ao início e tente novamente : <BR>".$SqlPedidoTemp.pg_query ($db, "rollback"));
                   }
                 }
 
               }
           }
-          //////////////////////////////////////////////////////////////////$SqlRemoveTemp1 = pg_query("Delete from pedidos_internet_novo where numero='$numero'");
+          //////////////////////////////////////////////////////////////////$SqlRemoveTemp1 = pg_query("Delete from pedidos_internet_novo where numero='".$numero."'");
           //Atualizo totais dos pedidos divididos.
           foreach ($Numeros as $Chave => $Pedido) {
             //echo "<BR><BR>Chave: $Chave; Pedido: $Pedido<br />\n";
@@ -777,7 +777,7 @@ if (!$_REQUEST['acao']){
               }
               pg_query($db,"UPDATE pedidos_internet_novo SET total_produtos =".$total_pedido.",total_ipi = ".$TotalIPI.",tem_especial = ".$tem_especial."  WHERE numero = '".$numero."'") ;
             }
-            $SqlValidaItensPedido = pg_query("Select numero_pedido from itens_do_pedido_internet where numero_pedido='$numero'");
+            $SqlValidaItensPedido = pg_query("Select numero_pedido from itens_do_pedido_internet where numero_pedido='".$numero."'");
             $cci = pg_num_rows($SqlValidaItensPedido);
             if ($cci>0){
               ###########################################################################################
@@ -798,7 +798,7 @@ if (!$_REQUEST['acao']){
         }else{
           ### Fim Divisão
           if ($_REQUEST['enviar_pedido']){
-            $SqlValidaItensPedido = pg_query("Select numero_pedido from itens_do_pedido_internet where numero_pedido='$_REQUEST[numero]'");
+            $SqlValidaItensPedido = pg_query("Select numero_pedido from itens_do_pedido_internet where numero_pedido='".$_REQUEST['numero']."'");
             $cci = pg_num_rows($SqlValidaItensPedido);
             if ($cci>0){
               ###########################################################################################

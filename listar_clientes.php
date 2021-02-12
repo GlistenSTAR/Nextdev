@@ -219,7 +219,7 @@ include ("inc/common.php");
              echo "<strong>";
            }
            if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-             echo "$p&nbsp;";
+             echo $p."&nbsp;";
            }else{
              if (!$ret){
                echo "...";

@@ -147,7 +147,7 @@
         </table>
         <?php
 //      }else{
-//        echo "$_SESSION[erro]";
+//        echo $_SESSION['erro'];
 //        $_SESSION[erro] = "";
 //        //session_destroy();
 //      }

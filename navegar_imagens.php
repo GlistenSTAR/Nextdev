@@ -8,14 +8,14 @@ $_SESSION['pagina'] = "listar_imagens.php";
 <link href="inc/css.css" rel="stylesheet" type="text/css" media="screen">
 <?php
 if ($_REQUEST['acao']=="excluir"){
-  $SqlExcluir = pg_query("Update imagens set ativo=0 where id='$_REQUEST[id]'");
+  $SqlExcluir = pg_query("Update imagens set ativo=0 where id='".$_REQUEST['id']."'");
 }
 if ($_REQUEST['localizar']=="sub"){
-  $SqlCarregaCat = pg_query("Select * from categorias_sub where id_categoria='$_REQUEST[id_categoria]' order by nome");
+  $SqlCarregaCat = pg_query("Select * from categorias_sub where id_categoria='".$_REQUEST['id_categoria']."' order by nome");
   while ($c = pg_fetch_array($SqlCarregaCat)){
     ?>
       <span id="categoriasub" style="cursor: pointer;" onclick="Acha('navegar_imagens.php','localizar=subsub&id_categoria=<?php echo $_REQUEST['id_categoria'];?>&id_categoria_sub=<?php echo $c['id'];?>','categoria_sub_sub<?php echo $_REQUEST['id_categoria'];?>');">
-          [+] <?php echo "$c[nome]";?>
+          [+] <?php echo $c['nome'];?>
       </span>
     <?php
   }
@@ -27,7 +27,7 @@ if ($_REQUEST['id_categoria']){
     <tr>
       <?php
       $qtd = 5;
-      $Sql = pg_query("Select * from imagens where id_categoria='$_REQUEST[id_categoria]' and ativo<>'0' order by id");
+      $Sql = pg_query("Select * from imagens where id_categoria='".$_REQUEST['id_categoria']."' and ativo<>'0' order by id");
       while ($i = pg_fetch_array($Sql)){
         ?>
         <td>
@@ -56,11 +56,11 @@ if ($_REQUEST['localizar']=="subsub"){
       <select name='id_categoria_sub_sub' id='id_categoria_sub_sub'>
         <option value='todos'>TODOS</option>
           <?php
-          $Sql = "Select * from categorias_sub_sub where id_categoria_sub='$_REQUEST[id_categoria_sub]' order by nome";
+          $Sql = "Select * from categorias_sub_sub where id_categoria_sub='".$_REQUEST['id_categoria_sub']."' order by nome";
           //echo $Sql;
           $SqlCarregaCat = pg_query($Sql);
           while ($c = pg_fetch_array($SqlCarregaCat)){
-            echo "<option value='$c[id]'>$c[nome]</option>";
+            echo "<option value='".$c['id']."'>".$c['nome']."</option>";
           }
           ?>
       </select>
@@ -98,7 +98,7 @@ if (!$_REQUEST['localizar']){
                   <tr>
                     <td valign="top" id="categoria">
                       <span style="cursor: pointer;" onclick="Acha('navegar_imagens.php','localizar=sub&id_categoria=<?php echo $c['id'];?>','categoria_sub<?php echo $c['id'];?>');Acha('navegar_imagens.php','localizar=sub&id_categoria=<?php echo $c['id'];?>','imagens');">
-                        [+] - <?php echo "$c[nome]";?>
+                        [+] - <?php echo $c['nome'];?>
                       </span>
                       <BR>
                       <span id="categoria_sub<?php echo $c['id'];?>"></span>

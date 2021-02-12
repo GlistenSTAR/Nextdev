@@ -187,7 +187,7 @@ if (($numero == "") or ($_REQUEST['t']>1) or ($_REQUEST['t']<0)){
                     </tr>
                     <tr>
                       <td class="titulo">Cidade / UF : </td>
-                      <td><?php echo "$Cliente_Cidade / $Cliente_Estado"; ?></td>
+                      <td><?php echo $Cliente_Cidade / $Cliente_Estado; ?></td>
                       <td class="titulo">Telefone :</td>
                       <td><?php echo $Cliente_Telefone; ?></td>
                     </tr>
@@ -218,7 +218,7 @@ if (($numero == "") or ($_REQUEST['t']>1) or ($_REQUEST['t']<0)){
                         //echo $SqlAchaVendedor;
                         $ArrayVendedor = @pg_query($db, $SqlAchaVendedor);
                         $v = @pg_fetch_array($ArrayVendedor);
-                        echo "$v[nome]";
+                        echo $v['nome'];
                         ?>
                       </td>
                       <td class="titulo">Status :</td>
@@ -397,8 +397,8 @@ if (($numero == "") or ($_REQUEST['t']>1) or ($_REQUEST['t']<0)){
             <?php
             if (($row->desconto_cliente>0) and ($_REQUEST['t']>0)){
               ?>
-              <input type="button" value="Impress�o 2" name="imprimir2" id="imprimir2"  onclick="window.open('impressao.php?numero=<?php echo "$row->numero";?>&t=0','_blank')" STYLE="font-size: 10pt; color:#ffffff ; background:#182463; border-width: 2; border-color: #ffffff">
-              <!--<img src="icones/pesquisar.png" border="0" title="Impress�o 2" onclick="window.open('impressao.php?numero=<?php echo "$r[numero]";?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">-->
+              <input type="button" value="Impress�o 2" name="imprimir2" id="imprimir2"  onclick="window.open('impressao.php?numero=<?php echo $row->numero;?>&t=0','_blank')" STYLE="font-size: 10pt; color:#ffffff ; background:#182463; border-width: 2; border-color: #ffffff">
+              <!--<img src="icones/pesquisar.png" border="0" title="Impress�o 2" onclick="window.open('impressao.php?numero=<?php echo $r['numero'];?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">-->
               <?php
             }else{
               ?>

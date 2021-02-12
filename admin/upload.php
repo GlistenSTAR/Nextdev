@@ -34,7 +34,7 @@
                                          '1'
                                        )";
         pg_query($Grava);
-        echo "<td width='$Width%'>
+        echo "<td width='".$Width."%'>
                 <fieldset>
                   <legend>Foto $i: </legend>
                   <table border=0 align=center cellpadding=2 cellspacing=2 class=texto1>

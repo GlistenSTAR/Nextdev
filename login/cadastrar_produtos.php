@@ -8,7 +8,7 @@ $Tirar = array(".","-","/",","," ");
 $_REQUEST['localizar_numero'] = str_replace($Tirar, "", $_REQUEST['localizar_numero']);
 if (is_numeric($_REQUEST[localizar_numero])){
   include_once("inc/config.php");
-  $SqlCarregaPedido = pg_query("Select * from produtos where codigo='$_REQUEST['localizar_numero']'");
+  $SqlCarregaPedido = pg_query("Select * from produtos where codigo='".$_REQUEST['localizar_numero']."'");
   $pcc = pg_num_rows($SqlCarregaPedido);
   if ($pcc<>""){
     $p = pg_fetch_array($SqlCarregaPedido);
@@ -69,28 +69,28 @@ if (!$_REQUEST['acao']){
                               <table width="100%" border="0" cellspacing="2" cellpadding="2" class="texto1" align="center">
                                 <tr>
                                   <td width="100">Código</td>
-                                  <td><?php echo "$pgc";?></td>
+                                  <td><?php echo $pgc;?></td>
                                 </tr>
                                 <div id="disable" style="position: absolute; background: none; <?php echo $Ativa;?> width: 590; z-index: 7000; color: red; font-weight: bold;" align="center">&nbsp;<div align="right">Esse cliente pertence a outro vendedor</div></div>
                                 <tr>
                                   <td width="100">Descrição:</td>
-                                  <td><?php echo "$p[nome]";?></td>
+                                  <td><?php echo $p['nome'];?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Unidade:</td>
-                                  <td><?php echo "$p[unidade]";?></td>
+                                  <td><?php echo $p['unidade'];?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Peso Bruto:</td>
-                                  <td><?php echo "$p[peso_bruto]";?></td>
+                                  <td><?php echo $p['peso_bruto'];?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Peso Liquido:</td>
-                                  <td><?php echo "$p[peso_liquido]";?></td>
+                                  <td><?php echo $p['peso_liquido'];?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">IPI:</td>
-                                  <td><?php echo "$p[ipi]";?></td>
+                                  <td><?php echo $p['ipi'];?></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2"><hr></hr></td>
@@ -123,15 +123,15 @@ if (!$_REQUEST['acao']){
                                 </td>
                                 <tr>
                                   <td width="100">Marca:</td>
-                                  <td><?php echo "$p[marca]";?></td>
+                                  <td><?php echo $p['marca'];?></td>
                                 </tr>
                                  <tr>
                                   <td width="100">Modelo:</td>
-                                  <td><?php echo "$p[modelo]";?></td>
+                                  <td><?php echo $p['modelo'];?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Descrição Tecnica:</td>
-                                  <td><?php echo "$p[descricao_tecnica]";?></td>
+                                  <td><?php echo $p['descricao_tecnica'];?></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2"><hr></hr></td>

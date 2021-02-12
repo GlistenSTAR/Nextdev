@@ -38,7 +38,7 @@ include ("inc/common.php");
                       <?php
                       if ($r['foto']){
                         ?>
-                        <img src="imagens/<?php echo "$r[foto]";?>" border="0" align="left">
+                        <img src="imagens/<?php echo $r['foto'];?>" border="0" align="left">
                         <?php
                       }
                       ?>
@@ -236,7 +236,7 @@ include ("inc/common.php");
       </table>
       <?php
       }else{
-        echo "$_SESSION[erro]";
+        echo $_SESSION['erro'];
         session_destroy();
       }
       ?>

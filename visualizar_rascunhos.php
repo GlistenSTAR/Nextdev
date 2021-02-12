@@ -166,7 +166,7 @@ margin: 1;}
           }
           ?>
           <tr>
-            <td class="<?php echo $Cor;?>"><?php echo "$r[numero]";?></td>
+            <td class="<?php echo $Cor;?>"><?php echo $r['numero'];?></td>
             <td class="<?php echo $Cor;?>">
               <?php
               $da = $r['data'];
@@ -174,7 +174,7 @@ margin: 1;}
               echo "".$d[2]."/".$d[1]."/".$d[0]."";
               ?>
             </td>
-            <td class="<?php echo $Cor;?>"><?php echo "$r[cgc]";?></td>
+            <td class="<?php echo $Cor;?>"><?php echo $r['cgc'];?></td>
             <td class="<?php echo $Cor;?>">
               <?php
               $Nome = $r['cliente'];
@@ -242,7 +242,7 @@ margin: 1;}
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";

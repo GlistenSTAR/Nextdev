@@ -102,7 +102,7 @@
 $str_conexao= "host=tnteste.c1etmptv6ioq.sa-east-1.rds.amazonaws.com dbname=$Db port=$Porta user=$User password=$Password";
 $SiteUrl = "http://$IpServer/";
 ###############################################################
-
+//echo $str_conexao;die;
 if(!($db=pg_connect($str_conexao))) {
 	//echo $str_conexao;
   echo "N�o foi poss�vel estabelecer uma conex�o com o banco de dados";

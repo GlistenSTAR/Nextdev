@@ -20,7 +20,7 @@ $_SESSION['pagina'] = "listar_clientes.php";
     <td>
       <?php
       if ($_REQUEST['acao']=="Excluir"){
-        $SqlDeletaNoticia = pg_query($db2,"Delete from clientes where id='$_REQUEST[id]'");
+        $SqlDeletaNoticia = pg_query($db2,"Delete from clientes where id='".$_REQUEST['id']."'");
       }
       if ($_REQUEST['data_inicial']){
         $DataInicial = $_REQUEST['data_inicial'];
@@ -90,9 +90,9 @@ $_SESSION['pagina'] = "listar_clientes.php";
                   $Cor="#EEEEEE";
                 }
                 ?>
-                <tr bgcolor="<?php echo "$Cor";?>">
+                <tr bgcolor="<?php echo $Cor;?>">
                   <td valign="top">
-                    <a href="#" onclick="Acha('cadastrar_vendedor.php','localizar_numero=<?php echo $r['codigo'];?>','Conteudo');"><?php echo "$r[nome]";?></a>
+                    <a href="#" onclick="Acha('cadastrar_vendedor.php','localizar_numero=<?php echo $r['codigo'];?>','Conteudo');"><?php echo $r['nome'];?></a>
                   </td>
                   <td valign="top">
                     <?php
@@ -148,7 +148,7 @@ $_SESSION['pagina'] = "listar_clientes.php";
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";

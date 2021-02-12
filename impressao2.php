@@ -455,7 +455,7 @@ if (($numero == "") or ($_REQUEST['t']>1) or ($_REQUEST['t']<0)){
             <?php
             if (($row->desconto_cliente) and ($_REQUEST['t']>0)){
               ?>
-              <input type="button" value="Impressão 2" name="imprimir2" id="imprimir2"  onclick="window.open('impressao2.php?numero=<?php echo "$row->numero";?>&t=0','_blank')" STYLE="font-size: 10pt; color:#ffffff ; background:#182463; border-width: 2; border-color: #ffffff">
+              <input type="button" value="Impressão 2" name="imprimir2" id="imprimir2"  onclick="window.open('impressao2.php?numero=<?php echo $row->numero;?>&t=0','_blank')" STYLE="font-size: 10pt; color:#ffffff ; background:#182463; border-width: 2; border-color: #ffffff">
               <?php
             }else{
               ?>

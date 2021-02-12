@@ -27,7 +27,7 @@ if ($_REQUEST['acao']=="Excluir"){
     <td>
       <?php
       if ($_REQUEST['acao']=="Excluir"){
-        $SqlDeletaNoticia = pg_query("Delete from noticias where id='$_REQUEST[id]'");
+        $SqlDeletaNoticia = pg_query("Delete from noticias where id='".$_REQUEST['id']."'");
       }
       if ($_REQUEST['data_inicia'l]){
         $DataInicial = $_REQUEST['data_inicial'];
@@ -122,9 +122,9 @@ if ($_REQUEST['acao']=="Excluir"){
                   $Cor="#EEEEEE";
                 }
                 ?>
-                <tr bgcolor="<?php echo "$Cor";?>">
+                <tr bgcolor="<?php echo $Cor;?>">
                   <td valign="top">
-                    <a href="#" onclick="Acha('cadastrar_noticias.php','localizar_numero=<?php echo $r['id'];?>','Conteudo');"><?php echo "$r[titulo]";?></a>
+                    <a href="#" onclick="Acha('cadastrar_noticias.php','localizar_numero=<?php echo $r['id'];?>','Conteudo');"><?php echo $r['titulo'];?></a>
                   </td>
                   <td valign="top">
                     <?php
@@ -191,7 +191,7 @@ if ($_REQUEST['acao']=="Excluir"){
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";

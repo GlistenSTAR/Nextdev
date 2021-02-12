@@ -20,7 +20,7 @@
                 $Lista = pg_query($Nextweb, "Select id, nome from $tb_categorias order by nome");
                 while ($cat = pg_fetch_array($Lista)){
                   ?>
-                  <option value="<?php echo $cat['id'];?>"><?php echo "$cat[nome]";?></option>
+                  <option value="<?php echo $cat['id'];?>"><?php echo $cat['nome'];?></option>
                   <?php
                 }
                 ?>

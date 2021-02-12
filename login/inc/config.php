@@ -1,6 +1,5 @@
 <?php
   $id_vendedor = isset($_SESSION['id_vendedor'])?$_SESSION['id_vendedor']:'';
-  error_reporting(0);
   ##############################################################################
   ##
   ## Dados para contagem de tempo de login, toda vez que executar algo grava log

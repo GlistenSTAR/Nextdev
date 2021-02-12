@@ -37,7 +37,7 @@ include ("inc/common.php");
     if($_SERVER['SERVER_NAME']=="192.168.10.20"){
       $SqlBase = "select * from dados where id='100'"; 
     } else {
-      $SqlBase = "select * from dados where id='$_REQUEST[id_base]'";  
+      $SqlBase = "select * from dados where id='".$_REQUEST['id_base']."'";  
   }
 
   $ArrayBase = pg_query($SqlBase);
@@ -82,7 +82,7 @@ include ("inc/common.php");
       $_REQUEST['pg']="menu";
 //      echo $_SESSION[id_vendedor];
 //      exit;
-      $sql = "Update vendedores set ultimo_login='".date("m/d/Y H:i:s")."', qtd_entrada_site='$_SESSION[qtd_entrada_site]' where codigo='$row[codigo]'";
+      $sql = "Update vendedores set ultimo_login='".date("m/d/Y H:i:s")."', qtd_entrada_site='".$_SESSION['qtd_entrada_site']."' where codigo='".$row['codigo']."'";
       
 //      echo $sql;
 //      exit;
@@ -98,7 +98,7 @@ include ("inc/common.php");
   }
 //  $helper=&$_SESSION;
 //  foreach ($helper as $key => $value){
-//    echo "$value: $helper[$key]<BR>";
+//    echo $value: $helper[$key]."<BR>";
 //  }
 //  exit;
 //echo "hahaha";
@@ -135,7 +135,7 @@ include ("inc/common.php");
               <?php
               while ($u = pg_fetch_array($ArrayLogin)){
                 ?>
-                <option value="<?php echo $u['id'];?>"><?php echo "$u[descricao]";?></option>
+                <option value="<?php echo $u['id'];?>"><?php echo $u['descricao'];?></option>
                 <?php
               }
               ?>

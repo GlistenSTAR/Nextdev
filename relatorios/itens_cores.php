@@ -65,8 +65,8 @@ if ($_REQUEST['ordem']){
                               <tr>
                                 <td>Cliente:</td>
                                 <td>
-                                  <input type="hidden" name="pedidos_clientes_id" id="pedidos_clientes_id" value="<?php echo "$_REQUEST[pedidos_clientes_id]";?>">
-                                  <input type="text" title="Digite o nome do cliente que deseja procurar." size="40" name="pedidos_clientes_cc" id="pedidos_clientes_cc" value="<?php echo "$_REQUEST[pedidos_clientes_cc]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;} if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (tecla == '38'){ getPrevNode('1');}else if (tecla == '40'){ getProxNode('1');}else { if (this.value.length>3){Acha1('listar.php','tipo=pedidos_clientes&valor='+this.value+'','listar_pedidos_clientes');}}}">
+                                  <input type="hidden" name="pedidos_clientes_id" id="pedidos_clientes_id" value="<?php echo $_REQUEST['pedidos_clientes_id'];?>">
+                                  <input type="text" title="Digite o nome do cliente que deseja procurar." size="40" name="pedidos_clientes_cc" id="pedidos_clientes_cc" value="<?php echo $_REQUEST['pedidos_clientes_cc'];?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;} if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (tecla == '38'){ getPrevNode('1');}else if (tecla == '40'){ getProxNode('1');}else { if (this.value.length>3){Acha1('listar.php','tipo=pedidos_clientes&valor='+this.value+'','listar_pedidos_clientes');}}}">
                                   <BR>
                                   <div id="listar_pedidos_clientes" style="position:absolute; z-index: 7000;"></div>
                                 </td>
@@ -102,11 +102,11 @@ if ($_REQUEST['ordem']){
                           $Filtro = " data>='".$di[2]."-".$di[1]."-".$di[0]."' and data<='".$df[2]."-".$df[1]."-".$df[0]."'";
                         }
                         if ($_REQUEST['pedidos_clientes_id']){
-                          $Filtro .= " and id_cliente='$_REQUEST[pedidos_clientes_id]'";
+                          $Filtro .= " and id_cliente='".$_REQUEST['pedidos_clientes_id']."'";
                         }
                         if ($Filtro){
                           if ($_REQUEST['numero_pedido']){
-                            $Filtro = " numero='$_REQUEST[numero_pedido]' ";
+                            $Filtro = " numero='".$_REQUEST['numero_pedido']."' ";
                           }
                           $lista = "Select codigo, numero_pedido, sum(qtd) as qtd, sum(preto) as preto, sum(branco) as branco, sum(azul) as azul, sum(verde) as verde, sum(vermelho) as vermelho, sum(amarelo) as amarelo, sum(marrom) as marrom, sum(outra) as outra, sum(rosa) as rosa, sum(violeta) as violeta, sum(laranja) as laranha, sum(cinza) as cinza  from itens_do_pedido_vendas where numero_pedido in (Select numero from pedidos where codigo_vendedor = '".$_SESSION['id_vendedor']."' and $Filtro $NumeroPedido) group by numero_pedido, codigo $Ordem";
                           $lista1 = pg_query($lista);
@@ -188,7 +188,7 @@ if ($_REQUEST['ordem']){
                               <?php
                             }
                             ?>
-                            <tr bgcolor="<?php echo "$Cor";?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<?php echo $Cor?>'">
+                            <tr bgcolor="<?php echo $Cor;?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<?php echo $Cor?>'">
                               <td width="60" valign="top"><?php echo $r['codigo']?></td>
                               <td width="30" valign="top"><?php echo $r['qtd']?></td>
                               <td width="30" valign="top"><?php echo $r['preto']?></td>
@@ -253,7 +253,7 @@ if ($_REQUEST['ordem']){
                                       echo "<strong>";
                                     }
                                     if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                                      echo "$p&nbsp;";
+                                      echo $p."&nbsp;";
                                     }else{
                                       if (!$ret){
                                         echo "...";

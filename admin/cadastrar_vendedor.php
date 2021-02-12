@@ -3,7 +3,7 @@ include ("inc/verifica.php");
 $_SESSION['pagina'] = "cadastrar_vendedor.php";
 if (is_numeric($_REQUEST['localizar_numero'])){
   include_once("inc/config.php");
-  $SqlCarregaNoticia = pg_query("Select * from vendedores where codigo='$_REQUEST[localizar_numero]'");
+  $SqlCarregaNoticia = pg_query("Select * from vendedores where codigo='".$_REQUEST['localizar_numero']."'");
   $ccc = pg_num_rows($SqlCarregaNoticia);
   if ($ccc<>""){
     $v = pg_fetch_array($SqlCarregaNoticia);
@@ -45,7 +45,7 @@ if (!$_REQUEST['acao']){
                            if ($Editar){
                              ?>
                              <input type="hidden" name="acao" value="Editar" id="acao">
-                             <input type="hidden" name="codigo" value="<?php echo "$v[codigo]";?>" id="codigo">
+                             <input type="hidden" name="codigo" value="<?php echo $v['codigo'];?>" id="codigo">
                              <?php
                            }else{
                              ?>
@@ -58,37 +58,37 @@ if (!$_REQUEST['acao']){
                               <table width="580" border="0" cellspacing="2" cellpadding="2" class="texto1" align="center">
                                 <tr>
                                   <td>CNPJ/CPF:</td>
-                                  <td><input name="cnpj" value="<?php echo "$v[cgc]";?>" id="cnpj" type="text" size="20" maxlength="18" onblur="checa(this.value,'document.cad.cnpj')">
+                                  <td><input name="cnpj" value="<?php echo $v['cgc'];?>" id="cnpj" type="text" size="20" maxlength="18" onblur="checa(this.value,'document.cad.cnpj')">
                                 </tr>
                                 <tr>
                                   <td>Insc. Est.:</td>
-                                  <td><input name="inscricao" value="<?php echo "$v[inscricao]";?>" id="inscricao"  type="text" size="20" maxlength="20"></td>
+                                  <td><input name="inscricao" value="<?php echo $v['inscricao'];?>" id="inscricao"  type="text" size="20" maxlength="20"></td>
                                 </tr>
                                 <tr>
                                   <td>Apelido:</td>
-                                  <td><input name="apelido" id="apelido" value="<?php echo "$v[apelido]";?>" type="text" size="60" maxlength="60"></td>
+                                  <td><input name="apelido" id="apelido" value="<?php echo $v['apelido'];?>" type="text" size="60" maxlength="60"></td>
                                 </tr>
                                 <tr>
                                   <td>Nome:</td>
-                                  <td><input name="nome" id="nome" type="text" value="<?php echo "$v[nome]";?>" size="60" maxlength="50"></td>
+                                  <td><input name="nome" id="nome" type="text" value="<?php echo $v['nome'];?>" size="60" maxlength="50"></td>
                                 </tr>
                                 <tr>
                                   <td>Endereço:</td>
-                                  <td><input name="endereco" id="endereco" value="<?php echo "$v[endereco]";?>" type="text" size="60" maxlength="50"></td>
+                                  <td><input name="endereco" id="endereco" value="<?php echo $v['endereco'];?>" type="text" size="60" maxlength="50"></td>
                                 </tr>
                                 <tr>
                                   <td>Cidade:</td>
-                                  <td><input name="cidade" id="cidade" value="<?php echo "$v[cidade]";?>" type="text" size="60" maxlength="30"></td>
+                                  <td><input name="cidade" id="cidade" value="<?php echo $v['cidade'];?>" type="text" size="60" maxlength="30"></td>
                                 </tr>
                                 <tr>
                                   <td>Bairro:</td>
-                                  <td><input name="bairro" id="bairro" value="<?php echo "$v[bairro]";?>" type="text" size="60" maxlength="30"></td>
+                                  <td><input name="bairro" id="bairro" value="<?php echo $v['bairro'];?>" type="text" size="60" maxlength="30"></td>
                                 </tr>
                                 <tr>
                                   <td>Estado:</td>
                                   <td>
                                     <select name="estado" size="1" id="estado">
-                                      <option value="<?php echo "$v[estado]";?>"><?php echo "$v[estado]";?></option>
+                                      <option value="<?php echo $v['estado'];?>"><?php echo $v['estado'];?></option>
                                     		<option value="AC">Acre </option>
                                     		<option value="AL">Alagoas</option>
                                     		<option value="AM">Amazonas</option>
@@ -122,42 +122,42 @@ if (!$_REQUEST['acao']){
                                 </tr>
                                 <tr>
                                   <td>CEP:</td>
-                                  <td><input name="cep" id="cep" value="<?php echo "$v[cep]";?>" type="text" size="20" maxlength="10"></td>
+                                  <td><input name="cep" id="cep" value="<?php echo $v['cep'];?>" type="text" size="20" maxlength="10"></td>
                                 </tr>
                                 <tr>
                                   <td>Fone:</td>
-                                  <td><input name="telefone" id="telefone" value="<?php echo "$v[telefone]";?>" type="text" size="20" maxlength="10"></td>
+                                  <td><input name="telefone" id="telefone" value="<?php echo $v['telefone'];?>" type="text" size="20" maxlength="10"></td>
                                 </tr>
                                 <tr>
                                   <td>Fax:</td>
-                                  <td><input name="fax" id="fax" value="<?php echo "$v[fax]";?>" type="text" size="20" maxlength="10"></td>
+                                  <td><input name="fax" id="fax" value="<?php echo $v['fax'];?>" type="text" size="20" maxlength="10"></td>
                                 </tr>
                                 <tr>
                                   <td>Comissão:</td>
-                                  <td><input name="comissao" id="comissao" value="<?php echo "$v[comissao]";?>" dir="rtl" type="text" size="20" maxlength="10"></td>
+                                  <td><input name="comissao" id="comissao" value="<?php echo $v['comissao'];?>" dir="rtl" type="text" size="20" maxlength="10"></td>
                                 </tr>
                                 <tr>
                                   <td>Meta R$:</td>
-                                  <td><input name="meta_rs" id="meta_rs" value="<?php echo "$v[meta_rs]";?>" dir="rtl" type="text" size="20" maxlength="10"></td>
+                                  <td><input name="meta_rs" id="meta_rs" value="<?php echo $v['meta_rs'];?>" dir="rtl" type="text" size="20" maxlength="10"></td>
                                 </tr>
                                 <tr>
                                   <td>Meta Qtd:</td>
-                                  <td><input name="meta_qtd" id="meta_qtd" value="<?php echo "$v[meta_qtd]";?>" dir="rtl" type="text" size="20" maxlength="10"></td>
+                                  <td><input name="meta_qtd" id="meta_qtd" value="<?php echo $v['meta_qtd'];?>" dir="rtl" type="text" size="20" maxlength="10"></td>
                                 </tr>
                                 <tr>
                                   <td>Observação:</td>
-                                  <td><input name="obs" id="obs" value="<?php echo "$v[obs]";?>" type="text" size="55" maxlength="255"></td>
+                                  <td><input name="obs" id="obs" value="<?php echo $v['obs'];?>" type="text" size="55" maxlength="255"></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2"><hr></hr></td>
                                 </tr>
                                 <tr>
                                   <td>Login:</td>
-                                  <td><input name="login" id="login" value="<?php echo "$v[login]";?>" type="text" size="20" maxlength="10"></td>
+                                  <td><input name="login" id="login" value="<?php echo $v['login'];?>" type="text" size="20" maxlength="10"></td>
                                 </tr>
                                 <tr>
                                   <td>Senha:</td>
-                                  <td><input name="senha" id="senha" value="<?php echo "$v[senha]";?>" type="text" size="20" maxlength="10"></td>
+                                  <td><input name="senha" id="senha" value="<?php echo $v['senha'];?>" type="text" size="20" maxlength="10"></td>
                                 </tr>
                               </table>
                            </span>
@@ -230,26 +230,26 @@ if (!$_REQUEST['acao']){
           ##########################################
           $Sql = "Update vendedores set
                     apelido=upper('".str_replace("'","´",$_REQUEST["apelido"])."'),
-                    cgc='$_REQUEST[cnpj]',
+                    cgc='".$_REQUEST['cnpj']."',
                     bairro=upper('".str_replace("'","´",$_REQUEST["bairro"])."'),
                     nome=upper('".str_replace("'","´",$_REQUEST["nome"])."'),
                     endereco=upper('".str_replace("'","´",$_REQUEST["endereco"])."'),
                     cidade=upper('".str_replace("'","´",$_REQUEST["cidade"])."'),
-                    estado='$_REQUEST[estado]',
-                    cep='$_REQUEST[cep]',
-                    telefone='$_REQUEST[telefone]',
-                    fax='$_REQUEST[fax]',
-                    inscricao='$_REQUEST[inscricao]',
+                    estado='".$_REQUEST['estado']."',
+                    cep='".$_REQUEST['cep']."',
+                    telefone='".$_REQUEST['telefone']."',
+                    fax='".$_REQUEST['fax']."',
+                    inscricao='".$_REQUEST['inscricao']."',
                     contato=upper('".str_replace("'","´",$_REQUEST["contato"])."'),
                     email=upper('".str_replace("'","´",$_REQUEST["email"])."'),
                     obs=upper('".str_replace("'","´",$_REQUEST["obs"])."'),
-                    e_cgc='$e_cgc',
+                    e_cgc='".$e_cgc."',
                     meta_valor='".str_replace(",",".",$MetaRs)."',
                     meta_qtd='".str_replace(",",".",$MetaQtd)."',
                     login=upper('".str_replace("'","´",$_REQUEST["login"])."'),
                     senha=upper('".str_replace("'","´",$_REQUEST["senha"])."'),
-                    comissao='$Comissao'
-                  Where codigo='$_REQUEST[codigo]'
+                    comissao='".$Comissao."'
+                  Where codigo='".$_REQUEST['codigo']."'
                  ";
           //echo $Sql;
             ?>

@@ -14,7 +14,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
   }else{
     $Icones = "<img src='icones/cancela.png' title='CPF / CNPJ Inválido'><span class=erro>CPF / CNPJ Inválido</span>";
   }
-  $SqlCarregaPedido = pg_query("Select * from clientes where cgc='$_REQUEST[localizar_numero]'");
+  $SqlCarregaPedido = pg_query("Select * from clientes where cgc='".$_REQUEST['localizar_numero']."'");
   $ccc = pg_num_rows($SqlCarregaPedido);
   if ($ccc<>""){
     $c = pg_fetch_array($SqlCarregaPedido);
@@ -34,11 +34,11 @@ if (is_numeric($_REQUEST['localizar_numero'])){
       $Cgc = $c['cgc'];
     }
     if ($c['codigo_pagto']){
-      $SqlCondicao = pg_query("Select codigo, descricao from condicao_pagamento where codigo='$c[codigo_pagto]'");
+      $SqlCondicao = pg_query("Select codigo, descricao from condicao_pagamento where codigo='".$c['codigo_pagto']."'");
       $c1 = pg_fetch_array($SqlCondicao);
     }
     if ($c['codigo_transportadora']){
-      $SqlTrans = pg_query("Select nome from transportadoras where id='$c[codigo_transportadora]'");
+      $SqlTrans = pg_query("Select nome from transportadoras where id='".$c['codigo_transportadora']."'");
       $Trans = pg_fetch_array($SqlTrans);
       $p['transportadora'] = $Trans['nome'];
     }
@@ -97,22 +97,22 @@ if (!$_REQUEST['acao']){
                                 <tr>
                                   <td width="100">CNPJ/CPF:</td>
                                   <td>
-                                    <input name="cnpj" id="cnpj" value="<?php echo "$Cgc";?>" type="text" size="20" maxlength="18" onblur="checa(this.value,'document.cad.cnpj')"  onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){checa(this.value,'document.cad.cnpj');document.cad.inscricao.focus();}">
+                                    <input name="cnpj" id="cnpj" value="<?php echo $Cgc;?>" type="text" size="20" maxlength="18" onblur="checa(this.value,'document.cad.cnpj')"  onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){checa(this.value,'document.cad.cnpj');document.cad.inscricao.focus();}">
                                     <?php echo $Icones;?>
                                   </td>
                                 </tr>
                                 <div id="disable" style="position: absolute; background: none; <?php echo $Ativa;?> width: 590; z-index: 7000; color: red; font-weight: bold;" align="center">&nbsp;<div align="right">Esse cliente pertence a outro vendedor</div></div>
                                 <tr>
                                   <td width="100">Insc. Est.:</td>
-                                  <td><input name="inscricao" id="inscricao" value="<?php echo "$c[inscricao]";?>" type="text" size="20" maxlength="20" onkeyup="if (!document.cad.cnpj.value){document.cad.cnpj.focus();}if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.nome.focus();}"></td>
+                                  <td><input name="inscricao" id="inscricao" value="<?php echo $c['inscricao'];?>" type="text" size="20" maxlength="20" onkeyup="if (!document.cad.cnpj.value){document.cad.cnpj.focus();}if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.nome.focus();}"></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Nome:</td>
-                                  <td><input name="nome" id="nome" type="text" value="<?php echo "$c[nome]";?>" size="60" maxlength="50" onkeyup="if (!document.cad.cnpj.value){document.cad.cnpj.focus();}if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.apelido.focus();}"></td>
+                                  <td><input name="nome" id="nome" type="text" value="<?php echo $c['nome'];?>" size="60" maxlength="50" onkeyup="if (!document.cad.cnpj.value){document.cad.cnpj.focus();}if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.apelido.focus();}"></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Apelido:</td>
-                                  <td><input name="apelido" id="apelido" value="<?php echo "$c[apelido]";?>" type="text" size="60" maxlength="60" onkeyup="if (!document.cad.cnpj.value){document.cad.cnpj.focus();}if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cep.focus();}"></td>
+                                  <td><input name="apelido" id="apelido" value="<?php echo $c['apelido'];?>" type="text" size="60" maxlength="60" onkeyup="if (!document.cad.cnpj.value){document.cad.cnpj.focus();}if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cep.focus();}"></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2">
@@ -123,7 +123,7 @@ if (!$_REQUEST['acao']){
                                           <table border="0" cellspacing="2" cellpadding="2" class="texto1">
                                             <tr>
                                               <td>
-                                                <input name="cep" id="cep" value="<?php echo "$c[cep]";?>" type="text" size="20" maxlength="10" onkeyup="if (!document.cad.cnpj.value){document.cad.cnpj.focus();}if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if(document.cad.cep_oculto.value==document.cad.cep.value){document.cad.endereco.focus();}else{acerta_campos('corpo1','boxendereco','cep.php',true);}}">
+                                                <input name="cep" id="cep" value="<?php echo $c['cep'];?>" type="text" size="20" maxlength="10" onkeyup="if (!document.cad.cnpj.value){document.cad.cnpj.focus();}if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if(document.cad.cep_oculto.value==document.cad.cep.value){document.cad.endereco.focus();}else{acerta_campos('corpo1','boxendereco','cep.php',true);}}">
                                               </td>
                                               <td>
                                                 <div id="cpanel">
@@ -156,11 +156,11 @@ if (!$_REQUEST['acao']){
                                           </tr>
                                           <tr>
                                             <td width="100">Cidade:</td>
-                                            <td><input name="cidade" id="cidade" value="<?php echo "$c[cidade]";?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.bairro.focus();}"></td>
+                                            <td><input name="cidade" id="cidade" value="<?php echo $c['cidade'];?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.bairro.focus();}"></td>
                                           </tr>
                                           <tr>
                                             <td width="100">Bairro:</td>
-                                            <td><input name="bairro" id="bairro" value="<?php echo "$c[bairro]";?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.estado.focus();}"></td>
+                                            <td><input name="bairro" id="bairro" value="<?php echo $c['bairro'];?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.estado.focus();}"></td>
                                           </tr>
                                           <tr>
                                             <td width="100">Estado:</td>
@@ -206,15 +206,15 @@ if (!$_REQUEST['acao']){
                                 <tr>
                                   <td width="100">DDD:</td>
                                   <td>
-                                    <input name="ddd" id="ddd" value="<?php echo "$c[ddd]";?>" type="text" size="2" maxlength="2" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.telefone.focus();}">
+                                    <input name="ddd" id="ddd" value="<?php echo $c['ddd'];?>" type="text" size="2" maxlength="2" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.telefone.focus();}">
                                     &nbsp;&nbsp;&nbsp;Fone:&nbsp;&nbsp;&nbsp;
-                                    <input name="telefone" id="telefone" value="<?php echo "$c[telefone]";?>" type="text" size="20" maxlength="14" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.fax.focus();}">
+                                    <input name="telefone" id="telefone" value="<?php echo $c['telefone'];?>" type="text" size="20" maxlength="14" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.fax.focus();}">
                                 </tr>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td width="100">Fax:</td>
-                                  <td><input name="fax" id="fax" value="<?php echo "$c[fax]";?>" type="text" size="20" maxlength="14" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){trocarAba('clientes-',2,4);setTimeout('document.cad.cep_cobranca.focus()',500);}"></td>
+                                  <td><input name="fax" id="fax" value="<?php echo $c['fax'];?>" type="text" size="20" maxlength="14" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){trocarAba('clientes-',2,4);setTimeout('document.cad.cep_cobranca.focus()',500);}"></td>
                                 </tr>
                               </table>
                            </span>
@@ -230,7 +230,7 @@ if (!$_REQUEST['acao']){
                                       $EndPrincipalCob = "unchecked";
                                     }
                                     ?>
-                                    <input type="checkbox" name="MesmoCobranca" id="MesmoCobranca" onclick="mesmocobranca();" <?php echo "$EndPrincipalCob";?>>O mesmo que o principal
+                                    <input type="checkbox" name="MesmoCobranca" id="MesmoCobranca" onclick="mesmocobranca();" <?php echo $EndPrincipalCob;?>>O mesmo que o principal
                                   </td>
                                 </tr>
                                 <tr>
@@ -245,7 +245,7 @@ if (!$_REQUEST['acao']){
                                           <table border="0" cellspacing="2" cellpadding="2" class="texto1">
                                             <tr>
                                               <td>
-                                                <input name="cep_cobranca" id="cep_cobranca" value="<?php echo "$c[cep_cobranca]";?>" type="text" size="20" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if(document.cad.cep_oculto_cobranca.value==document.cad.cep_cobranca.value){document.cad.endereco_cobranca.focus();}else{acerta_campos('corpo2','boxendereco_cobranca','cep_cobranca.php',true);}}">
+                                                <input name="cep_cobranca" id="cep_cobranca" value="<?php echo $c['cep_cobranca'];?>" type="text" size="20" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if(document.cad.cep_oculto_cobranca.value==document.cad.cep_cobranca.value){document.cad.endereco_cobranca.focus();}else{acerta_campos('corpo2','boxendereco_cobranca','cep_cobranca.php',true);}}">
                                               </td>
                                               <td>
                                                 <div id="cpanel">
@@ -274,15 +274,15 @@ if (!$_REQUEST['acao']){
                                           <input type="hidden" name="cep_oculto_cobranca" id="cep_oculto_cobranca">
                                           <tr>
                                             <td>Endereço:</td>
-                                            <td><input name="endereco_cobranca" id="endereco_cobranca" value="<?php echo "$c[local_cobranca]";?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cidade_cobranca.focus();}"></td>
+                                            <td><input name="endereco_cobranca" id="endereco_cobranca" value="<?php echo $c['local_cobranca'];?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cidade_cobranca.focus();}"></td>
                                           </tr>
                                           <tr>
                                             <td>Cidade:</td>
-                                            <td><input name="cidade_cobranca" id="cidade_cobranca" value="<?php echo "$c[cidade_cobranca]";?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.bairro_cobranca.focus();}"></td>
+                                            <td><input name="cidade_cobranca" id="cidade_cobranca" value="<?php echo $c['cidade_cobranca'];?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.bairro_cobranca.focus();}"></td>
                                           </tr>
                                           <tr>
                                             <td>Bairro:</td>
-                                            <td><input name="bairro_cobranca" id="bairro_cobranca" value="<?php echo "$c[bairro_cobranca]";?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.estado_cobranca.focus();}"></td>
+                                            <td><input name="bairro_cobranca" id="bairro_cobranca" value="<?php echo $c['bairro_cobranca'];?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.estado_cobranca.focus();}"></td>
                                           </tr>
                                           <tr>
                                             <td width="100">Estado:</td>
@@ -327,7 +327,7 @@ if (!$_REQUEST['acao']){
                                 </tr>
                                 <tr>
                                   <td>Fone:</td>
-                                  <td><input name="telefone_cobranca" id="telefone_cobranca" value="<?php echo "$c[tel_cobranca]";?>" type="text" size="60" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){trocarAba('clientes-',3,4);setTimeout('document.cad.cep_entrega.focus()',500);}"></td>
+                                  <td><input name="telefone_cobranca" id="telefone_cobranca" value="<?php echo $c['tel_cobranca'];?>" type="text" size="60" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){trocarAba('clientes-',3,4);setTimeout('document.cad.cep_entrega.focus()',500);}"></td>
                                 </tr>
                                 </tr>
                                 <tr>
@@ -347,7 +347,7 @@ if (!$_REQUEST['acao']){
                                       $EndPrincipalEnt = "";
                                     }
                                     ?>
-                                    <input type="checkbox" name="MesmoEntrega" id="MesmoEntrega" onclick="mesmoentrega();" value="" <?php echo "$EndPrincipalEnt";?>>O mesmo que o principal
+                                    <input type="checkbox" name="MesmoEntrega" id="MesmoEntrega" onclick="mesmoentrega();" value="" <?php echo $EndPrincipalEnt;?>>O mesmo que o principal
                                   </td>
                                 </tr>
                                 <tr>
@@ -362,7 +362,7 @@ if (!$_REQUEST['acao']){
                                           <table border="0" cellspacing="2" cellpadding="2" class="texto1">
                                             <tr>
                                               <td>
-                                                <input name="cep_entrega" id="cep_entrega" value="<?php echo "$c[cep_entrega]";?>" type="text" size="20" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if(document.cad.cep_oculto_entrega.value==document.cad.cep_entrega.value){document.cad.endereco_entrega.focus();}else{acerta_campos('corpo3','boxendereco_entrega','cep_entrega.php',true);}}">
+                                                <input name="cep_entrega" id="cep_entrega" value="<?php echo $c['cep_entrega'];?>" type="text" size="20" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if(document.cad.cep_oculto_entrega.value==document.cad.cep_entrega.value){document.cad.endereco_entrega.focus();}else{acerta_campos('corpo3','boxendereco_entrega','cep_entrega.php',true);}}">
                                               </td>
                                               <td>
                                                 <div id="cpanel">
@@ -391,15 +391,15 @@ if (!$_REQUEST['acao']){
                                           <input type="hidden" name="cep_oculto_entrega" id="cep_oculto_entrega">
                                           <tr>
                                             <td>Endereço:</td>
-                                            <td><input name="endereco_entrega" id="endereco_entrega" value="<?php echo "$c[local_entrega]";?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cidade_entrega.focus();}"></td>
+                                            <td><input name="endereco_entrega" id="endereco_entrega" value="<?php echo $c['local_entrega'];?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cidade_entrega.focus();}"></td>
                                           </tr>
                                           <tr>
                                             <td>Cidade:</td>
-                                            <td><input name="cidade_entrega" id="cidade_entrega" value="<?php echo "$c[cidade_entrega]";?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.bairro_entrega.focus();}"></td>
+                                            <td><input name="cidade_entrega" id="cidade_entrega" value="<?php echo $c['cidade_entrega'];?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.bairro_entrega.focus();}"></td>
                                           </tr>
                                           <tr>
                                             <td>Bairro:</td>
-                                            <td><input name="bairro_entrega" id="bairro_entrega" value="<?php echo "$c[bairro_entrega]";?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.estado_entrega.focus();}"></td>
+                                            <td><input name="bairro_entrega" id="bairro_entrega" value="<?php echo $c['bairro_entrega'];?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.estado_entrega.focus();}"></td>
                                           </tr>
                                           <tr>
                                             <td width="100">Estado:</td>
@@ -444,15 +444,15 @@ if (!$_REQUEST['acao']){
                                 </tr>
                                 <tr>
                                   <td>Fone:</td>
-                                  <td><input name="telefone_entrega" id="telefone_entrega" value="<?php echo "$c[tel_entrega]";?>" type="text" size="60" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cnpj_entrega.focus();}"></td>
+                                  <td><input name="telefone_entrega" id="telefone_entrega" value="<?php echo $c['tel_entrega'];?>" type="text" size="60" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cnpj_entrega.focus();}"></td>
                                 </tr>
                                 <tr>
                                   <td>CNPJ/CPF:</td>
-                                  <td><input name="cnpj_entrega" id="cnpj_entrega" value="<?php echo "$c[cgc_entrega]";?>" type="number" size="20" maxlength="18" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.inscricao_entrega.focus();}"></td>
+                                  <td><input name="cnpj_entrega" id="cnpj_entrega" value="<?php echo $c['cgc_entrega'];?>" type="number" size="20" maxlength="18" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.inscricao_entrega.focus();}"></td>
                                 </tr>
                                 <tr>
                                   <td>Insc. Est.:</td>
-                                  <td><input name="inscricao_entrega" id="inscricao_entrega" value="<?php echo "$c[inscricao_entrega]";?>" type="text" size="60" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){trocarAba('clientes-',4,4);setTimeout('document.cad.contato.focus()',500);}"></td>
+                                  <td><input name="inscricao_entrega" id="inscricao_entrega" value="<?php echo $c['inscricao_entrega'];?>" type="text" size="60" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){trocarAba('clientes-',4,4);setTimeout('document.cad.contato.focus()',500);}"></td>
                                 </tr>
                               </table>
                            </span>
@@ -460,32 +460,32 @@ if (!$_REQUEST['acao']){
                               <table width="100%" border="0" cellspacing="2" cellpadding="2" class="texto1">
                                 <tr>
                                   <td>Contato:</td>
-                                  <td><input name="contato" id="contato" value="<?php echo "$c[contato]";?>" type="text" size="20" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.email.focus();}"></td>
+                                  <td><input name="contato" id="contato" value="<?php echo $c['contato'];?>" type="text" size="20" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.email.focus();}"></td>
                                 </tr>
                                 <tr>
                                   <td>E-mail:</td>
-                                  <td><input name="email" id="email" value="<?php echo "$c[email]";?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.homepage.focus();}"></td>
+                                  <td><input name="email" id="email" value="<?php echo $c['email'];?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.homepage.focus();}"></td>
                                 </tr>
                                 <tr>
                                   <td>Home Page:</td>
-                                  <td><input name="homepage" id="homepage" value="<?php echo "$c[homepage]";?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.observacao.focus();}"></td>
+                                  <td><input name="homepage" id="homepage" value="<?php echo $c['homepage'];?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.observacao.focus();}"></td>
                                 </tr>
                                 <tr>
                                   <td valign="top">Observação:</td>
-                                  <td><textarea name="observacao" id="observacao" rows="4" cols="57" onKeyDown="if(this.value.length >= 250){this.value = this.value.substring(0, 250)}" onKeyUp="if(this.value.length >= 50){this.value = this.value.substring(0, 250)}"><?php echo "$c[observacao]";?></textarea></td>
+                                  <td><textarea name="observacao" id="observacao" rows="4" cols="57" onKeyDown="if(this.value.length >= 250){this.value = this.value.substring(0, 250)}" onKeyUp="if(this.value.length >= 50){this.value = this.value.substring(0, 250)}"><?php echo $c['observacao'];?></textarea></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2"><hr></hr></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Cod. Suframa:</td>
-                                  <td><input name="codigosuframa" id="codigosuframa" value="<?php echo "$c[numero_suframa]";?>" type="text" size="20" maxlength="40" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.trans_cc.focus();}"></td>
+                                  <td><input name="codigosuframa" id="codigosuframa" value="<?php echo $c['numero_suframa'];?>" type="text" size="20" maxlength="40" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.trans_cc.focus();}"></td>
                                 </tr>
                                 <tr>
                                   <td>Transportadora:</td>
                                   <td>
                                     <input type="hidden" name="trans_id" id="trans_id" value="<?php echo $c['codigo_transportadora'];?>">
-                                    <input type="text" size="50" name="trans_cc" id="trans_cc" value="<?php echo "$p[transportadora]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.condpag1_id.focus();}else{Acha1('listar.php','tipo=trans&valor='+this.value+'','listar_trans');}"><BR>
+                                    <input type="text" size="50" name="trans_cc" id="trans_cc" value="<?php echo $p['transportadora'];?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.condpag1_id.focus();}else{Acha1('listar.php','tipo=trans&valor='+this.value+'','listar_trans');}"><BR>
                                     <div id="listar_trans" style="position:absolute;"></div>
                                   </td>
                                 </tr>
@@ -495,16 +495,16 @@ if (!$_REQUEST['acao']){
                                     <select name="condpag1_id" size="1" id="condpag1_id">
                                       <?php
                                       if ($c1['codigo']){
-                                        echo "<option value='$c1[codigo]'>$c1[descricao]</option>";
+                                        echo "<option value='".$c1['codigo']."'>".$c1['descricao']."</option>";
                                         echo "<option></option>";
-                                        $RetiraCP = " and codigo<>'$c1[codigo]' ";
+                                        $RetiraCP = " and codigo<>'".$c1['codigo']."' ";
                                       }else{
                                         echo "<option></option>";
                                       }
                                       include_once("inc/config.php");
                                       $SqlCarregaCondpag = pg_query("SELECT codigo, descricao FROM condicao_pagamento where codigo > 1 $RetiraCP order by descricao ASC");
                                       while ($cp = pg_fetch_array($SqlCarregaCondpag)){
-                                        echo "<option value='$cp[codigo]'>$cp[descricao]</option>";
+                                        echo "<option value='".$cp['codigo']."'>".$cp['descricao']."</option>";
                                       }
                                       ?>
                                     </select>
@@ -653,7 +653,7 @@ if (!$_REQUEST['acao']){
       ##########################################
       # Confere se o cliente já está cadastrado
       ##########################################
-      $achacgc = "SELECT id FROM clientes where cgc='$_REQUEST[cnpj]'";
+      $achacgc = "SELECT id FROM clientes where cgc='".$_REQUEST['cnpj']."'";
       $resultado1 = pg_query($db, $achacgc) or die("Erro na consulta : ".$achacgc);
       $ccc = pg_num_rows($resultado1);
       if (($_REQUEST['acao']=="Editar") or ($ccc>0)){
@@ -661,25 +661,25 @@ if (!$_REQUEST['acao']){
         #   Editar o cliente
         ##########################################
         if ($_REQUEST['trans_id']){
-          $Transportadora = "codigo_transportadora='$_REQUEST[trans_id]', ";
+          $Transportadora = "codigo_transportadora='".$_REQUEST['trans_id']."'', ";
         }else{
           $Transportadora = " ";
         }
         if ($_REQUEST['condpag1_id']){
-          $CodigoPagamento = "codigo_pagto='$_REQUEST[condpag1_id]',  ";
+          $CodigoPagamento = "codigo_pagto='".$_REQUEST['condpag1_id']."',  ";
         }else{
           $CodigoPagamento = " ";
         }
         $Sql = "Update clientes set
-                  cgc='$_REQUEST[cnpj]', apelido=upper('".str_replace("'","´",$_REQUEST["apelido"])."'),
+                  cgc='".$_REQUEST['cnpj']."', apelido=upper('".str_replace("'","´",$_REQUEST["apelido"])."'),
                   nome=upper('".str_replace("'","´",$_REQUEST["nome"])."'), endereco=upper('".str_replace("'","´",left($_REQUEST["endereco"],50))."'),
                   cidade=upper('".str_replace("'","´",left($_REQUEST["cidade"],25))."'), bairro=upper('".str_replace("'","´",left($_REQUEST["bairro"],20))."'),
-                  estado='$_REQUEST[estado]', $Transportadora $CodigoPagamento
-                  cep='$_REQUEST[cep]', ddd='$_REQUEST[ddd]', telefone='$_REQUEST[telefone]', fax='$_REQUEST[fax]',
-                  inscricao='$_REQUEST[inscricao]', contato=upper('".str_replace("'","´",$_REQUEST["contato"])."'),
+                  estado='".$_REQUEST['estado']."', '".$Transportadora.$CodigoPagamento."
+                  cep='".$_REQUEST['cep']."', ddd='".$_REQUEST['ddd']."', telefone='".$_REQUEST['telefone']."', fax='".$_REQUEST['fax']."',
+                  inscricao='".$_REQUEST['inscricao']."', contato=upper('".str_replace("'","´",$_REQUEST["contato"])."'),
                   email=upper('".str_replace("'","´",$_REQUEST["email"])."'), homepage=upper('".str_replace("'","´",$_REQUEST["homepage"])."'),
                   observacao=upper('".str_replace("'","´", $_REQUEST["observacao"])."'),
-                  e_cgc='$e_cgc', numero_suframa='$CodigoSuframa',
+                  e_cgc='".$e_cgc."', numero_suframa='".$CodigoSuframa."',
                   ";
                   if (!$_REQUEST["MesmoCobranca"]){
                     $Sql = $Sql."
@@ -688,7 +688,7 @@ if (!$_REQUEST['acao']){
                                  bairro_cobranca=upper('".str_replace("'","´",left($_REQUEST["bairro"],20))."'),
                                  estado_cobranca=upper('".str_replace("'","´",$_REQUEST["estado"])."'),
                                  cep_cobranca=upper('".str_replace("'","´",$_REQUEST["cep"])."'),
-                                 tel_cobranca='$_REQUEST[ddd] $_REQUEST[telefone]',
+                                 tel_cobranca='".$_REQUEST['ddd'].$_REQUEST['telefone']."',
                                 ";
                   }else{
                     $Sql = $Sql."
@@ -697,7 +697,7 @@ if (!$_REQUEST['acao']){
                                  bairro_cobranca=upper('".str_replace("'","´",left($_REQUEST["bairro_cobranca"],20))."'),
                                  estado_cobranca=upper('".str_replace("'","´",$_REQUEST["estado_cobranca"])."'),
                                  cep_cobranca=upper('".str_replace("'","´",$_REQUEST["cep_cobranca"])."'),
-                                 tel_cobranca='$_REQUEST[telefone_cobranca]',
+                                 tel_cobranca='".$_REQUEST['telefone_cobranca']."',
                                 ";
                   }
 
@@ -710,7 +710,7 @@ if (!$_REQUEST['acao']){
                                  estado_entrega=upper('".str_replace("'","´",$_REQUEST["estado"])."'),
                                  cep_entrega=upper('".str_replace("'","´",$_REQUEST["cep"])."'),
                                  inscricao_entrega=upper('".str_replace("'","´",$_REQUEST["inscricao"])."'),
-                                 tel_entrega='$_REQUEST[telefone]'
+                                 tel_entrega='".$_REQUEST[telefone]."'
                                 ";
                   }else{
                     $Sql = $Sql."
@@ -721,11 +721,11 @@ if (!$_REQUEST['acao']){
                                  estado_entrega=upper('".str_replace("'","´",$_REQUEST["estado_entrega"])."'),
                                  cep_entrega=upper('".str_replace("'","´",$_REQUEST["cep_entrega"])."'),
                                  inscricao_entrega=upper('".str_replace("'","´",$_REQUEST["inscricao_entrega"])."'),
-                                 tel_entrega='$_REQUEST[telefone_entrega]'
+                                 tel_entrega='".$_REQUEST['telefone_entrega']."'
                                 ";
                   }
                   $Sql = $Sql."
-                              where cgc='$_REQUEST[cnpj]'
+                              where cgc='".$_REQUEST['cnpj']."'
                ";
         $Msg = "<span class=titulo1><center>Cliente editado com sucesso</center></span>";
       }else{

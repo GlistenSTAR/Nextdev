@@ -98,13 +98,13 @@ $_SESSION['pagina'] = "listar_produtos.php";
             </td>
             <td class="<?php echo $Cor;?>" width="280">
               <a href="#" onclick="Acha('cadastrar_produtos.php','localizar_numero=<?php echo $r['codigo'];?>','Conteudo');">
-                &nbsp;<?php echo "$r[nome]";?>
+                &nbsp;<?php echo $r['nome'];?>
               </a>
             </td>
-            <td class="<?php echo $Cor;?>" width="200">&nbsp;<?php echo "$r[marca]";?></td>
-            <td class="<?php echo $Cor;?>" width="20">&nbsp;<?php echo "$r[modelo]";?></td>
-            <td class="<?php echo $Cor;?>" width="100">&nbsp;<?php echo "$r[unidade]";?></td>
-            <td class="<?php echo $Cor;?>" width="60" align="right">&nbsp;<?php echo "$r[preco_venda]";?></td>
+            <td class="<?php echo $Cor;?>" width="200">&nbsp;<?php echo $r['marca'];?></td>
+            <td class="<?php echo $Cor;?>" width="20">&nbsp;<?php echo $r['modelo'];?></td>
+            <td class="<?php echo $Cor;?>" width="100">&nbsp;<?php echo $r['unidade'];?></td>
+            <td class="<?php echo $Cor;?>" width="60" align="right">&nbsp;<?php echo $r['preco_venda'];?></td>
           </tr>
           <?php
           if ($pagina){
@@ -149,7 +149,7 @@ $_SESSION['pagina'] = "listar_produtos.php";
                 echo "<strong>";
               }
               if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                echo "$p&nbsp;";
+                echo $p."&nbsp;";
               }else{
                 if (!$ret){
                   echo "...";

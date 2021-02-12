@@ -96,13 +96,13 @@ include "inc/config.php";
               echo $Nome;
               ?>
             </td>
-            <td class="<?php echo $Cor;?>" colspan="2"><b>CNPJ: </b> <?php echo "$r[cgc]";?></td>
+            <td class="<?php echo $Cor;?>" colspan="2"><b>CNPJ: </b> <?php echo $r['cgc'];?></td>
           </tr>
           <tr>
-            <td class="<?php echo $Cor;?>" width="200"><b>Endereço: </b><?php echo "$r[endereco]";?></td>
-            <td class="<?php echo $Cor;?>" width="30"><b>Estado: </b><?php echo "$r[estado]";?></td>
-            <td class="<?php echo $Cor;?>" width="100"><b>Cidade: </b><?php echo "$r[cidade]";?></td>
-            <td class="<?php echo $Cor;?>" width="70"><b>Telefone: </b><?php echo "$r[telefone]";?></td>
+            <td class="<?php echo $Cor;?>" width="200"><b>Endereço: </b><?php echo $r['endereco'];?></td>
+            <td class="<?php echo $Cor;?>" width="30"><b>Estado: </b><?php echo $r['estado'];?></td>
+            <td class="<?php echo $Cor;?>" width="100"><b>Cidade: </b><?php echo $r['cidade'];?></td>
+            <td class="<?php echo $Cor;?>" width="70"><b>Telefone: </b><?php echo $r['telefone'];?></td>
           </tr>
           <?php
           if ($pagina){
@@ -153,7 +153,7 @@ include "inc/config.php";
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";

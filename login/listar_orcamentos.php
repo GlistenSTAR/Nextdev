@@ -101,7 +101,7 @@ if ($_REQUEST['ordem']){
                           $FiltroData = " and data>='".$di[2]."-".$di[1]."-".$di[0]."' and data<='".$df[2]."-".$df[1]."-".$df[0]."'";
                         }
                         if ($_REQUEST['numero_pedido']){
-                          $NumeroPedido = " and numero='$_REQUEST[numero_pedido]' ";
+                          $NumeroPedido = " and numero='".$_REQUEST['numero_pedido']."' ";
                         }
                         if ($FiltroData){
                           if ($_REQUEST['enviados']){
@@ -189,16 +189,16 @@ if ($_REQUEST['ordem']){
                               $LinkPedido =  " $Desativa\"";
                             }
                             ?>
-                            <tr bgcolor="<?php echo "$Cor";?>" onMouseover="this.style.backgroundColor='lightblue';"  onMouseout="this.style.backgroundColor='<?php echo "$Cor";?>';" style="border: 0pt none ; cursor: pointer;">
+                            <tr bgcolor="<?php echo $Cor;?>" onMouseover="this.style.backgroundColor='lightblue';"  onMouseout="this.style.backgroundColor='<?php echo $Cor;?>';" style="border: 0pt none ; cursor: pointer;">
                               <td valign="top" <?php echo $LinkPedido;?>>
                                 <?php
                                 if ($r['enviado']=="1"){
                                   $Status = "<img src='icones/enviado.png' width='13' height='13' align='center' title='Pedido já enviado, não é possível editar'>";
                                   ?>
-                                  <a title='Pedido já enviado, não é possível editar'><?php echo "$r[numero]";?></a>
+                                  <a title='Pedido já enviado, não é possível editar'><?php echo $r['numero'];?></a>
                                   <?php
                                 }else{
-                                  echo "$r[numero]";
+                                  echo $r['numero'];
                                 }
                                 ?>
                               </td>
@@ -210,7 +210,7 @@ if ($_REQUEST['ordem']){
                                 ?>
                               </td>
                               <td valign="top" <?php echo $LinkPedido;?>>
-                                <?php echo "$r[cliente]";?>
+                                <?php echo $r['cliente'];?>
                               </td>
                               <td valign="top" align="right" <?php echo $LinkPedido;?>>
                                 <?php echo number_format($r['valor_total'], 2, ",", ".");?>
@@ -221,13 +221,13 @@ if ($_REQUEST['ordem']){
                                 echo $Status;
                                 if ($Status=="Cancelado"){
                                   ?>
-                                  </td><tr><td colspan=5>Motivo Cancelamento: <font color=red><?php echo "$r[motivo_cancelamento]";?></font>
+                                  </td><tr><td colspan=5>Motivo Cancelamento: <font color=red><?php echo $r['motivo_cancelamento'];?></font>
                                   <?php
                                 }
                                 ?>
                               </td>
                               -->
-                              <td valign="top" align="center" width="13" onclick="window.open('impressao_orcamento.php?numero=<?php echo "$r[numero]";?>&t=1','_blank'); " style="border: 0pt none ; cursor: pointer;">
+                              <td valign="top" align="center" width="13" onclick="window.open('impressao_orcamento.php?numero=<?php echo $r['numero'];?>&t=1','_blank'); " style="border: 0pt none ; cursor: pointer;">
                                 <img src="icones/pesquisar.gif" border="0" title="Consulta / Impressão" align="center">
                               </td>
                             </tr>
@@ -283,7 +283,7 @@ if ($_REQUEST['ordem']){
                                       echo "<strong>";
                                     }
                                     if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                                      echo "$p&nbsp;";
+                                      echo $p."&nbsp;";
                                     }else{
                                       if (!$ret){
                                         echo "...";

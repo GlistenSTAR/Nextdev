@@ -56,7 +56,8 @@ $conta_cedente_dv = formata_numero($dadosboleto["conta_cedente_dv"],1,0);
 //$ag_contacedente = $agencia . $conta_cedente;
 
 // 43 numeros para o calculo do digito verificador do codigo de barras
-$dv = digitoVerificador_barra("$codigobanco$nummoeda$fator_vencimento$valor$agencia$nnum$conta_cedente".'0', 9, 0);
+$allparam = $codigobanco.$nummoeda.$fator_vencimento.$valor.$agencia.$nnum.$conta_cedente;
+$dv = digitoVerificador_barra("$allparam".'0', 9, 0);
 // Numero para o codigo de barras com 44 digitos
 $linha = "$codigobanco$nummoeda$dv$fator_vencimento$valor$agencia$nnum$conta_cedente"."0";
 

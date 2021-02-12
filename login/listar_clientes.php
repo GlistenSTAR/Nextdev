@@ -59,8 +59,8 @@ $_SESSION['pagina'] = "listar_clientes.php";
           $_SESSION['id_vendedor'] = 1;
         }
         if ($_SESSION['codigo_empresa']<>"95"){
-          $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '$_SESSION[id_vendedor]' order by nome ASC";
-          $lista1 = pg_query("Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '$_SESSION[id_vendedor]' order by nome ASC");
+          $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '".$_SESSION['id_vendedor']."' order by nome ASC";
+          $lista1 = pg_query("Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '".$_SESSION['id_vendedor']."' order by nome ASC");
         }else{
           $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor in ('3','43','51','52') order by nome ASC";
           $lista1 = pg_query("Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor in ('3','43','51','52') order by nome ASC");
@@ -132,18 +132,18 @@ $_SESSION['pagina'] = "listar_clientes.php";
               if ($_SESSION['codigo_empresa']<>"95"){
                 ?>
                 <a href="#" onclick="Acha('cadastrar_clientes.php','localizar_numero=<?php echo $r['cgc'];?>&cnpj_valido=1','Conteudo');">
-                  <?php echo "$r[cgc]";?>
+                  <?php echo $r['cgc'];?>
                 </a>
                 <?php
               }else{
-                echo "$r[cgc]";
+                echo $r['cgc'];
               }
               ?>
             </td>
-            <td class="<?php echo $Cor;?>" width="200"><?php echo "$r[endereco]";?></td>
-            <td class="<?php echo $Cor;?>" width="20"><?php echo "$r[estado]";?></td>
-            <td class="<?php echo $Cor;?>" width="100"><?php echo "$r[cidade]";?></td>
-            <td class="<?php echo $Cor;?>" width="60"><?php echo "$r[telefone]";?></td>
+            <td class="<?php echo $Cor;?>" width="200"><?php echo $r['endereco'];?></td>
+            <td class="<?php echo $Cor;?>" width="20"><?php echo $r['estado'];?></td>
+            <td class="<?php echo $Cor;?>" width="100"><?php echo $r['cidade'];?></td>
+            <td class="<?php echo $Cor;?>" width="60"><?php echo $r['telefone'];?></td>
           </tr>
           <?php
           if ($pagina){
@@ -194,7 +194,7 @@ $_SESSION['pagina'] = "listar_clientes.php";
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";

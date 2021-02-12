@@ -34,7 +34,7 @@ function abreJanela(URL) {
     <select name="busca" class="texto" id="busca" style="width:150px;height:25px;" onchange="carregar()">   
      <option value="<?php echo $_REQUEST['busca'];?>"><?php echo strtoupper($_REQUEST['busca']);?></option>
      <?php
-      $SQL = pg_query($Nextweb, "SELECT id, base, descricao FROM dados WHERE codigo_empresa = '$_SESSION[LogaEmpresa]' AND base <>'$_REQUEST[busca]'");
+      $SQL = pg_query($Nextweb, "SELECT id, base, descricao FROM dados WHERE codigo_empresa = '".$_SESSION['LogaEmpresa']."' AND base <>'".$_REQUEST['busca']."'");
       while($Lista = pg_fetch_array($SQL)){
      ?>
        <option value="<?php echo $Lista['base'];?>"><?php echo $Lista['descricao'];?></option>    
@@ -64,21 +64,21 @@ function abreJanela(URL) {
 <?php
 //aqui inativo o usuario
 if($_REQUEST['inativa'] !==""){
-  $Inativar = "UPDATE vendedores SET ativo='0' WHERE id = '$_REQUEST[inativa]'";
+  $Inativar = "UPDATE vendedores SET ativo='0' WHERE id = '".$_REQUEST['inativa']."'";
 		//echo $Inativar;
   pg_query($conecta, $Inativar);
 }
 
 //aqui ativo o usuario
 if($_REQUEST['ativa'] !==""){
-  $Ativar = "UPDATE vendedores SET ativo='1' WHERE id = '$_REQUEST[ativa]'";
+  $Ativar = "UPDATE vendedores SET ativo='1' WHERE id = '".$_REQUEST['ativa']."'";
 		//echo $Ativar;
   pg_query($conecta, $Ativar);
 }				
 
 //aqui mudo nivel
 if($id !==""){
-  $Nivel = "UPDATE vendedores SET nivel_site='$_REQUEST[nivel]' WHERE id = '$_REQUEST[id]'";
+  $Nivel = "UPDATE vendedores SET nivel_site='".$_REQUEST['nivel']."' WHERE id = '".$_REQUEST['id']."'";
 		//echo $Nivel;
   pg_query($conecta, $Nivel);
 }			

@@ -2,7 +2,7 @@
 include ("inc/common.php");
 include "inc/config.php";
 if ($_SESSION['config']['vendas']['VendedorCliente']){
-  $FiltrarVendedor = " and codigo_vendedor='$_SESSION[id_vendedor]' ";
+  $FiltrarVendedor = " and codigo_vendedor='".$_SESSION['id_vendedor']."' ";
 }
 ?>
 <style>

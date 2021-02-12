@@ -28,7 +28,7 @@ if ($ccc>0){
 }else{
   $Sql2 = "SELECT LOG_LOCALIDADE.*, LOG_LOCALIDADE.CEP
   FROM LOG_LOCALIDADE
-  WHERE LOG_LOCALIDADE.CEP='$Cep'";
+  WHERE LOG_LOCALIDADE.CEP='".$Cep."'";
   $SqlCep2 = pg_query($Sql2);
   $ccc2 = pg_num_rows($SqlCep2);
   //echo $Sql2;
@@ -98,7 +98,7 @@ if ($ccc>0){
   <?php
   pg_close();
   include "inc/config.php";
-  $SqlIBGE = "Select codigo_ibge from municipios where nome='$cep[loc_no]'";
+  $SqlIBGE = "Select codigo_ibge from municipios where nome='".$cep['loc_no']."'";
   $SqlCodigoIBGE = pg_query($SqlIBGE);
   $cccIbge = pg_num_rows($SqlCodigoIBGE);
   if ($cccIbge>0){
@@ -110,7 +110,7 @@ if ($ccc>0){
   <?php if ($CodigoEmpresa=="86"){?>
   <tr>
     <td width="100">Código IBGE: <?php echo $MsgIbge?></td>
-    <td><input name="codigo_ibge" id="codigo_ibge" value="<?php echo "$Ibge[codigo_ibge]";?>" type="text" size="10" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.ddd.focus();}"></td>
+    <td><input name="codigo_ibge" id="codigo_ibge" value="<?php echo $Ibge['codigo_ibge'];?>" type="text" size="10" maxlength="10" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.ddd.focus();}"></td>
   </tr>
   <?php }else{ ?>
    <input name="codigo_ibge" id="codigo_ibge" value="" type="hidden">

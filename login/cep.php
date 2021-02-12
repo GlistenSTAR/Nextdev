@@ -32,7 +32,7 @@ if ($ccc>0){
 }else{
   $Sql2 = "SELECT LOG_LOCALIDADE.*, LOG_LOCALIDADE.CEP
   FROM LOG_LOCALIDADE
-  WHERE LOG_LOCALIDADE.CEP='$Cep'";
+  WHERE LOG_LOCALIDADE.CEP='".$Cep."'";
   $SqlCep2 = pg_query($Sql2);
   $ccc2 = pg_num_rows($SqlCep2);
 

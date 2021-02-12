@@ -15,7 +15,7 @@ include "inc/config.php";
 
 <?php
 if ($_REQUEST['acao']=="Excluir"){
-  $Sql = "Delete from pedidos_internet_novo where numero='$_REQUEST[numero_orcamento]'";
+  $Sql = "Delete from pedidos_internet_novo where numero='".$_REQUEST['numero_orcamento']."'";
 
   $SqlExcluir = pg_query($Sql);
   $_REQUEST['tipo'] = "rascunhos";
@@ -180,17 +180,17 @@ if($_REQUEST['tipo_data'] =="data_efetivacao"){
                                 <?php
                                 echo "a".$_REQUEST['vendedor2_id'];
                                 if ($_REQUEST['vendedor2_id']){
-                                  $SqlCarregaVend = pg_query("SELECT nome FROM vendedores where codigo='$_REQUEST[vendedor2_id]'");
+                                  $SqlCarregaVend = pg_query("SELECT nome FROM vendedores where codigo='".$_REQUEST['vendedor2_id']."'");
                                   $Vend = pg_fetch_array($SqlCarregaVend);
-                                  echo "<option value='$_REQUEST[vendedor2_id]'>$Vend[nome]</option>";
+                                  echo "<option value='".$_REQUEST['vendedor2_id']."'>".$Vend['nome']."</option>";
                                   echo "<option></option>";
-                                  $RetiraCP = " where codigo<>'$_REQUEST[vendedor2_id]' ";
+                                  $RetiraCP = " where codigo<>'".$_REQUEST['vendedor2_id']."' ";
                                 }else{
                                   echo "<option></option>";
                                 }
                                 $SqlCarregaCondpag = pg_query("SELECT codigo, nome FROM vendedores $RetiraCP order by nome ASC");
                                 while ($cp = pg_fetch_array($SqlCarregaCondpag)){
-                                  echo "<option value='$cp[codigo]'>$cp[nome]</option>";
+                                  echo "<option value='".$cp['codigo']."'>".$cp['nome']."</option>";
                                 }                              
                                                                  
                                 ?>
@@ -246,10 +246,10 @@ if($_REQUEST['tipo_data'] =="data_efetivacao"){
                           $FiltroData = $Tipo_Data.">='".$di[2]."-".$di[1]."-".$di[0]."' and ".$Tipo_Data."<='".$df[2]."-".$df[1]."-".$df[0]."'";
                         }
                         if ($_REQUEST['numero_pedido']){
-                          $NumeroPedido = " and numero='$_REQUEST[numero_pedido]' ";
+                          $NumeroPedido = " and numero='".$_REQUEST['numero_pedido']."' ";
                         }
                         if ($_REQUEST['vendedor2_id']){
-                          $Filtro = " and codigo_vendedor = '$_REQUEST[vendedor2_id]' and ";
+                          $Filtro = " and codigo_vendedor = '".$_REQUEST['vendedor2_id']."' and ";
                         }else{
                           if ($_SESSION['nivel']=="2"){
                             $Filtro = " and ";
@@ -257,7 +257,7 @@ if($_REQUEST['tipo_data'] =="data_efetivacao"){
                             if($_SESSION['id_vendedor']=="77"){ //Regra Groupack
                               $Filtro = " and codigo_vendedor = '87' and ";
                             }else{
-                              $Filtro = " and codigo_vendedor = '$_SESSION[id_vendedor]' and ";
+                              $Filtro = " and codigo_vendedor = '".$_SESSION['id_vendedor']."' and ";
                             }                            
                           }
                         }
@@ -342,23 +342,23 @@ if($_REQUEST['tipo_data'] =="data_efetivacao"){
                             /*
                             # Retiramos o IPI mas não temos certeza de ser a melhor opção
                             if ($_REQUEST[tipo]=="rascunhos"){
-                              $SqlIpiItens = pg_query("Select sum(valor_ipi) as valor_ipi from itens_do_pedido_internet where numero_pedido='$r[numero]'");
+                              $SqlIpiItens = pg_query("Select sum(valor_ipi) as valor_ipi from itens_do_pedido_internet where numero_pedido='".$r['numero']."'");
                               $iipi = pg_fetch_array($SqlIpiItens);
                               $ValorPedido = $r[total_com_desconto] + $iipi[valor_ipi];
                             }else{
-                              $SqlIpiItens = pg_query("Select sum(valor_ipi) as valor_ipi from itens_do_pedido_vendas where numero_pedido='$r[numero]'");
+                              $SqlIpiItens = pg_query("Select sum(valor_ipi) as valor_ipi from itens_do_pedido_vendas where numero_pedido='".$r['numero']."'");
                               $iipi = pg_fetch_array($SqlIpiItens);
                               $ValorPedido = $r[total_com_desconto] + $iipi[valor_ipi];
                             }
                             */
                             $ValorPedido = $r[total_com_desconto];
                             ?>
-                            <tr bgcolor="<?php echo "$Cor";?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<?php echo $Cor?>'">
+                            <tr bgcolor="<?php echo $Cor;?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<?php echo $Cor?>'">
                               <td valign="top">
                                 <?php
                                 if ($_REQUEST['tipo']=="rascunhos"){
                                   ?>
-                                  <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<?php echo $r['numero'];?>','Conteudo'); <?php echo $Desativa;?>" title="Clique para alterar o Orçamento"><?php echo "$r[numero]";?></a>
+                                  <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<?php echo $r['numero'];?>','Conteudo'); <?php echo $Desativa;?>" title="Clique para alterar o Orçamento"><?php echo $r['numero'];?></a>
                                   <?php
                                 }else{
                                   echo $r['numero'];
@@ -391,7 +391,7 @@ if($_REQUEST['tipo_data'] =="data_efetivacao"){
                                   echo $Status;
                                   echo "</font>";
                                   ?>
-                                  </td><tr onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '#FFFFFF'"><td colspan=5>Motivo Cancelamento: <font color=red><?php echo "$r[motivo_cancelamento]";?></font>
+                                  </td><tr onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '#FFFFFF'"><td colspan=5>Motivo Cancelamento: <font color=red><?php echo $r['motivo_cancelamento'];?></font>
                                   <?php
                                 }else{
                                   echo $Status;
@@ -399,20 +399,21 @@ if($_REQUEST['tipo_data'] =="data_efetivacao"){
                                 ?>
                               </td>
                               <td valign="top" align="center" width="13">
-                                <?php if ($_REQUEST['tipo']=="rascunhos"){?>
-                                  <img align="center" src="icones/pesquisar.gif" border="0" title="Impressão 1" onclick="window.open('impressao2.php?numero=<?php echo "$r[numero]";?>&t=1','_blank')" style="border: 0pt none ; cursor: pointer;">
-                                <?php }else{ ?>
-                                  <img align="center" src="icones/pesquisar.gif" border="0" title="Impressão 1" onclick="window.open('impressao.php?numero=<?php echo "$r[numero]";?>&t=1','_blank')" style="border: 0pt none ; cursor: pointer;">
+                                <?php if ($_REQUEST['tipo']=="rascunhos"){ $numero = $r['numero']; ?>
+                                  <img align="center" src="icones/pesquisar.gif" border="0" title="Impressão 1" onclick="window.open('impressao2.php?numero=<?php echo $numero;?>&t=1','_blank')" style="border: 0pt none ; cursor: pointer;">
+                                <?php }else{ $numero = $r['numero']; ?>
+                                  <img align="center" src="icones/pesquisar.gif" border="0" title="Impressão 1" onclick="window.open('impressao.php?numero=<?php echo $numero;?>&t=1','_blank')" style="border: 0pt none ; cursor: pointer;">
                                 <?php } ?>
                               </td>                              
                               <td valign="top" align="center" width="13">
                                 <?php
                                 if ($r['desconto_cliente']>0){
+									$numero = $r['numero'];
                                   ?>
                                   <?php if ($_REQUEST['tipo']=="rascunhos"){?>
-                                    <img align="center" src="icones/pesquisar.gif" border="0" title="Impressão 2" onclick="window.open('impressao2.php?numero=<?php echo "$r[numero]";?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">
+                                    <img align="center" src="icones/pesquisar.gif" border="0" title="Impressão 2" onclick="window.open('impressao2.php?numero=<?php echo $numero;?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">
                                   <?php }else{ ?>
-                                    <img align="center" src="icones/pesquisar.gif" border="0" title="Impressão 2" onclick="window.open('impressao.php?numero=<?php echo "$r[numero]";?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">
+                                    <img align="center" src="icones/pesquisar.gif" border="0" title="Impressão 2" onclick="window.open('impressao.php?numero=<?php echo $numero;?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">
                                   <?php }?>
                                   <?php
                                 }else{
@@ -525,7 +526,7 @@ if($_REQUEST['tipo_data'] =="data_efetivacao"){
                                       echo "<strong>";
                                     }
                                     if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                                      echo "$p&nbsp;";
+                                      echo $p."&nbsp;";
                                     }else{
                                       if (!$ret){
                                         echo "...";

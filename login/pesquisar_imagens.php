@@ -8,7 +8,7 @@ $_SESSION['pagina'] = "listar_imagens.php";
 <link href="inc/css.css" rel="stylesheet" type="text/css" media="screen">
 <?php
 if ($_REQUEST['acao']=="excluir"){
-  $SqlExcluir = pg_query("Update imagens set ativo=0 where id='$_REQUEST[id]'");
+  $SqlExcluir = pg_query("Update imagens set ativo=0 where id='".$_REQUEST['id']."'");
 }
 ?>
 <form name="listar">
@@ -83,15 +83,15 @@ if ($_REQUEST['acao']=="excluir"){
         $Cor = "red \" title='Categoria Inativa'\"";
       }
       ?>
-      <tr bgcolor="<?php echo "$Cor";?>">
+      <tr bgcolor="<?php echo $Cor;?>">
         <td align="center">
           <span onmouseover="ddrivetip('<img src=imagens/<?php echo $r['imagem'];?> width=150 height=150>','#cccccc','150')" onmouseout="hideddrivetip()"><img src="admin/icones/imagens.gif" border="0" width="15" height="15"></span>
         </td>
         <td valign="top">
-          <?php echo "$r[imagem]";?>
+          <?php echo $r['imagem'];?>
         </td>
         <td valign="top">
-          <?php echo "$r[legenda]";?>
+          <?php echo $r['legenda'];?>
         </td>
         <td align="center">
           <img src="icones/alta_resolucao.png" width="20" height="20">
@@ -138,7 +138,7 @@ if ($_REQUEST['acao']=="excluir"){
                   echo "<strong>";
                 }
                 if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                  echo "$p&nbsp;";
+                  echo $p."&nbsp;";
                 }else{
                   if (!$ret){
                     echo "...";

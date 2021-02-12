@@ -173,7 +173,7 @@ if ($_REQUEST['tipo']=="trans"){
 /*     if ($_SESSION['nivel']=="2"){
       $sql = "SELECT cgc, apelido, contato, id as codigo, nome,inscricao FROM clientes where nome like '%$Valor1%' and (codigo_bloqueio=0 or codigo_bloqueio is null) and inativo=0 order by nome limit 10";
     }else{
-      $sql = "SELECT cgc, apelido, contato, id as codigo, nome,inscricao FROM clientes where nome like '%$Valor1%' and (codigo_bloqueio=0 or codigo_bloqueio is null) and inativo=0 and codigo_vendedor='$_SESSION[id_vendedor]' order by nome limit 10";
+      $sql = "SELECT cgc, apelido, contato, id as codigo, nome,inscricao FROM clientes where nome like '%$Valor1%' and (codigo_bloqueio=0 or codigo_bloqueio is null) and inativo=0 and codigo_vendedor='".$_SESSION['id_vendedor']."' order by nome limit 10";
     } */
     
     if ($_SESSION['nivel']=="2"){

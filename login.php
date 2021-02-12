@@ -52,7 +52,7 @@ if ((($usuario=="ADMIN") and (strtoupper($_REQUEST["senha"])=="ADMIN@2009")) and
       $_SESSION['qtd_entrada_site'] = $row->qtd_entrada_site + 1;
       $id_vendedor = $row->id;
       $_REQUEST['pg']="menu";
-      $sql = "Update vendedores set ultimo_login='".date("m/d/Y H:i:s")."', qtd_entrada_site='$_SESSION[qtd_entrada_site]' where codigo='$row->codigo'";
+      $sql = "Update vendedores set ultimo_login='".date("m/d/Y H:i:s")."', qtd_entrada_site='".$_SESSION['qtd_entrada_site']."' where codigo='".$row->codigo."'";
       //echo $sql;
       pg_query($db,$sql) or die("Erro na consulta : $consulta. " .pg_last_error($db));
     }else{

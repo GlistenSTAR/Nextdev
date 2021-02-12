@@ -56,7 +56,7 @@ if (!$_REQUEST['cliente_id']){
                         <tr>
                           <td width="20%">CNPJ/CPF:</td>
                           <td width="80%">
-                            <input type="text" size="20" name="clientecnpj_cc" maxlength="18" id="clientecnpj_cc" value="<?php echo "$p[cgc]";?>" onfocus="this.select()" onkeyup="if (this.value.length>3){Acha1('listar.php','tipo=clientecnpj&valor='+this.value+'','listar_clientecnpj');}">
+                            <input type="text" size="20" name="clientecnpj_cc" maxlength="18" id="clientecnpj_cc" value="<?php echo $p['cgc'];?>" onfocus="this.select()" onkeyup="if (this.value.length>3){Acha1('listar.php','tipo=clientecnpj&valor='+this.value+'','listar_clientecnpj');}">
                             <BR>
                             <div id="listar_clientecnpj" style="position:absolute; z-index: 7000;"></div>
                           </td>
@@ -96,7 +96,7 @@ if (!$_REQUEST['cliente_id']){
   <?php
 }else{
   $cod_cliente = $_REQUEST['cliente_id'];
-  $acha_cli_vendedor = pg_query("Select nome from clientes where codigo='$cod_cliente'");
+  $acha_cli_vendedor = pg_query("Select nome from clientes where codigo='".$cod_cliente."'");
 
   $c = pg_fetch_array($acha_cli_vendedor);
   
@@ -116,7 +116,7 @@ if (!$_REQUEST['cliente_id']){
   //echo "Dup. Venc.:".number_format($DupliVenc[dup],2,',','.')."<br>";
   
   //Duplicatas em Aberto
-  $SQlDupli = pg_query("SELECT Sum(valor) as dup FROM duplicatas WHERE vencimento >= '$DtDia' AND pagar <> 1 AND pago = 0 AND codigo_do_cliente = '".$_REQUEST['cliente_id']."'");
+  $SQlDupli = pg_query("SELECT Sum(valor) as dup FROM duplicatas WHERE vencimento >= '".$DtDia."' AND pagar <> 1 AND pago = 0 AND codigo_do_cliente = '".$_REQUEST['cliente_id']."'");
   $DupliAb = pg_fetch_array($SQlDupli);
   //echo "Dup. AB.".number_format($DupliAb[dup],2,',','.')."<br>";
   

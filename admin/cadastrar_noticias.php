@@ -6,7 +6,7 @@ $Modulo_link = "noticias";
 $_SESSION['pagina'] = "listar_noticias.php";
 if (is_numeric($_REQUEST['localizar_numero'])){
   include_once("inc/config.php");
-  $SqlCarregaNoticia = pg_query("Select * from noticias where id='$_REQUEST[localizar_numero]'");
+  $SqlCarregaNoticia = pg_query("Select * from noticias where id='".$_REQUEST['localizar_numero']."'");
   $ccc = pg_num_rows($SqlCarregaNoticia);
   if ($ccc<>""){
     $n = pg_fetch_array($SqlCarregaNoticia);
@@ -15,7 +15,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
 ?>
 <html>
 <head>
-<title><?php echo "$Titulo_Admin ";?></title>
+<title><?php echo $Titulo_Admin;?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <link href="fonte.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" type="text/JavaScript">
@@ -96,7 +96,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                 <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/noticias.gif" border="0" align="left"><center><h3><?php echo "$Modulo_titulo";?></h3></center><hr></hr></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/noticias.gif" border="0" align="left"><center><h3><?php echo $Modulo_titulo;?></h3></center><hr></hr></td>
               </tr>
               <tr>
                 <td valign="top" align="center" width="100%">
@@ -106,17 +106,17 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                     ?>
                     <form method="POST" name="cad" enctype="multipart/form-data">
                       <div id="divAbaMeio">
-                      <input type="hidden" name="id_noticia" id="id_noticia" value="<?php echo "$n[id]";?>">
-                      <input type="hidden" name="posicao" id="posicao" value="<?php echo "$_REQUEST[posicao]";?>">
+                      <input type="hidden" name="id_noticia" id="id_noticia" value="<?php echo $n['id'];?>">
+                      <input type="hidden" name="posicao" id="posicao" value="<?php echo $_REQUEST['posicao'];?>">
                       <input type="hidden" name="acao" id="acao" value="cadastrar">
                       <table align="center" width="95%" border="0" class="arial11" cellspacing="4" cellspading="4">
                         <tr>
                           <td>Titulo<BR>
-                          <textarea rows="4" cols="65" name="titulo" id="titulo" maxlength="120"><?php echo "$n[titulo]";?></textarea></td>
+                          <textarea rows="4" cols="65" name="titulo" id="titulo" maxlength="120"><?php echo $n['titulo'];?></textarea></td>
                         </tr>
                         <tr>
                           <td>Texto<BR>
-                          <textarea rows="8" cols="65" name="texto" id="texto" maxlength="120"><?php echo "$n[texto]";?></textarea></td>
+                          <textarea rows="8" cols="65" name="texto" id="texto" maxlength="120"><?php echo $n['texto'];?></textarea></td>
                         </tr>
                         <!--
                         <tr>
@@ -125,17 +125,17 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                         </tr>
                         <tr>
                           <td>Legenda<BR>
-                          <input type="text" name="legenda" id="legenda" size="40" value="<?php echo "$n[legenda]";?>"></td>
+                          <input type="text" name="legenda" id="legenda" size="40" value="<?php echo $n['legenda'];?>"></td>
                         </tr>
                         -->
                         <tr>
                           <td>Autor<BR>
-                          <input type="text" name="autor" id="autor" size="40" value="<?php echo "$n[autor]";?>"></td>
+                          <input type="text" name="autor" id="autor" size="40" value="<?php echo $n['autor'];?>"></td>
                         </tr>
                         <!--
                         <tr>
                           <td>Categoria<BR>
-                          <input type="text" name="categoria" id="categoria" size="40" value="<?php echo "$n[categoria]";?>"></td>
+                          <input type="text" name="categoria" id="categoria" size="40" value="<?php echo $n['categoria'];?>"></td>
                         </tr>
                         -->
                         <tr>
@@ -147,7 +147,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                           </td>
                         </tr>
                         <tr>
-                          <td>Data: <?php echo "$n[data]";?> <BR>
+                          <td>Data: <?php echo $n['data'];?> <BR>
                            	<select name="dia_inicial" id="dia_inicial" onblur="return VerificaInicial()">
                            		<option value="<?php echo date("d");?>"><?php echo date("d");?></option>
                            		<option value="01">01</option>
@@ -216,7 +216,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                           </td>
                         </tr>
                         <tr>
-                          <td>Horário: <?php echo "$n[hora_publicacao]";?><BR>
+                          <td>Horário: <?php echo $n['hora_publicacao'];?><BR>
                             <select name="hora" id="hora">
                               <option value="01">01</option>
                               <option value="02">02</option>
@@ -291,7 +291,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                             <tr>
                               <td>
                                 Erro ao gravar Imagem, faça a seleção novamente.<BR><BR>
-                                <a href="cadastrar_<?php echo "$Modulo_link";?>.php">Voltar</a>
+                                <a href="cadastrar_<?php echo $Modulo_link;?>.php">Voltar</a>
                               </td>
                             </tr>
                           </table>
@@ -309,16 +309,16 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                     $Data_publicar = "".$_REQUEST['ano_inicial']."-".$_REQUEST['mes_inicial']."-".$_REQUEST['dia_inicial']."";
                     $Hora_publicar = "".$_REQUEST['hora'].":".$_REQUEST['minuto']."";
                     if ($_REQUEST['id_noticia']){ //se tiver Id somente atualizo
-                      $Grava = "Update $Modulo_link set
-                                  titulo='$Titulo_Artigo',
-                                  texto='$Texto',
-                                  autor='$Autor',
-                                  legenda='$Legenda',
-                                  categoria='$Categoria',
-                                  publicado='$Publicado',
-                                  data_publicacao='$Data_publicar',
-                                  hora_publicacao='$Hora_publicar'
-                                Where id='$_REQUEST[id_noticia]'
+                      $Grava = "Update ".$Modulo_link." set
+                                  titulo='".$Titulo_Artigo."',
+                                  texto='".$Texto."',
+                                  autor='".$Autor."',
+                                  legenda='".$Legenda."',
+                                  categoria='".$Categoria."',
+                                  publicado='".$Publicado."',
+                                  data_publicacao='".$Data_publicar."',
+                                  hora_publicacao='".$Hora_publicar."'
+                                Where id='".$_REQUEST['id_noticia']."'
                                  ";
                       //echo $Grava;
                       $as = "Edição efetuada por $_SESSION[usuario] - $Modulo_titulo";

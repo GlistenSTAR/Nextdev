@@ -160,7 +160,7 @@ margin: 1;}
           }
           ?>
           <tr height="18px">
-            <td class="<?php echo $Cor;?>">&nbsp;<?php echo "$r[cgc]";?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['cgc'];?></td>
             <td class="<?php echo $Cor;?>">&nbsp;
               <?php
               $Nome = $r['nome'];
@@ -170,10 +170,10 @@ margin: 1;}
               echo $Nome;
               ?>
             </td>
-            <td class="<?php echo $Cor;?>">&nbsp;<?php echo "$r[endereco]";?></td>
-            <td class="<?php echo $Cor;?>">&nbsp;<?php echo "$r[cidade]";?></td>
-            <td class="<?php echo $Cor;?>">&nbsp;<?php echo "$r[estado]";?></td>
-            <td class="<?php echo $Cor;?>">&nbsp;<?php echo "$r[telefone]";?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['endereco'];?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['cidade'];?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['estado'];?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['telefone'];?></td>
           </tr>
           <?php
           if ($pagina){
@@ -223,7 +223,7 @@ margin: 1;}
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";
