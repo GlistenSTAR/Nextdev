@@ -1,4 +1,4 @@
-<?
+<?php
 //set_error_handler('trataErro');
 //
 //function trataErro($msg,$errno,$errstr,$errfile,$errline) {

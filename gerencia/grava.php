@@ -1,4 +1,5 @@
-<?
+<?php
+include_once ("include/common.php");
 session_start();
 if($_SESSION['LogaUser']){
 include "include/config.php";
@@ -10,16 +11,16 @@ include "include/config.php";
      echo str_repeat("<br>", 8);     
      if(isset($_POST)){
      
-        $User   = trim(strtoupper($_REQUEST[usuario]));
-        $Senha  = trim(strtoupper($_REQUEST[senha])); 
+        $User   = trim(strtoupper($_REQUEST['usuario']));
+        $Senha  = trim(strtoupper($_REQUEST['senha'])); 
       
         //gravo dados na tabela vendedores
         $UpVendedor = "UPDATE vendedores SET 
-                       login       = '$User', 
-                       senha       = '$Senha', 
-                       ativo       = '$_REQUEST[status]',
-                       nivel_site  = '$_REQUEST[nivel]'
-                       WHERE id    = '$_REQUEST[vendedores]'
+                       login       = '".$User."', 
+                       senha       = '".$Senha."', 
+                       ativo       = '".$_REQUEST['status']."',
+                       nivel_site  = '".$_REQUEST['nivel']."'
+                       WHERE id    = '".$_REQUEST['vendedores']."'
                        ";    
                        
          pg_query($conecta, $UpVendedor) OR DIE ("Ops, algo deu errado. Copie o texto e envie a tnsistemas".$UpVendedor.$err++);   
@@ -31,18 +32,18 @@ include "include/config.php";
          $UltimoID = $ID['ultimo_id'] + 1;    
          
          //Checo se usuários já está cadastrado
-         $Checagem = pg_query($Nextweb, "SELECT id FROM usuarios WHERE nome='$User' AND senha='$Senha'");
+         $Checagem = pg_query($Nextweb, "SELECT id FROM usuarios WHERE nome='".$User."' AND senha='".$Senha."'");
          $Check = pg_num_rows($Checagem);
          
          if($Check <="0" OR $Check ==""){
             //se já não estiver cadastradi gravo dados na tabela usuários
             $InsertUser = "INSERT INTO usuarios(id, nome, senha, ativo, nivel, codigo_empresa) 
-                           VALUES('$UltimoID', '$User', '$Senha', '$_REQUEST[status]', '$_REQUEST[nivel]', '$_SESSION[LogaEmpresa]')";
+                           VALUES('".$UltimoID."', '".$User."', '".$Senha."', '".$_REQUEST['status']."', '".$_REQUEST['nivel']."', '".$_SESSION['LogaEmpresa']."')";
             pg_query($Nextweb, $InsertUser) OR DIE("Ops, algo deu errado. Copie o texto e envie a tnsistemas".$InsertUser.$err++);
          }          
            
          //busco o id do banco de dados
-         $SqlDados = pg_query($Nextweb, "SELECT id FROM dados WHERE base='$_REQUEST[busca]'");
+         $SqlDados = pg_query($Nextweb, "SELECT id FROM dados WHERE base='".$_REQUEST['busca']."'");
          $Dados= pg_fetch_array($SqlDados);            
            
            

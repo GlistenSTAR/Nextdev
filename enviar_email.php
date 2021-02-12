@@ -1,23 +1,24 @@
-<?
+<?php
 ##############################################################################
 #                           - Form Mail -
 #              Desenvolvido por Emerson Roberto Mellado
 #                             06/11/2008
 ##############################################################################
+include_once ("inc/common.php");
 include "inc/verifica.php";
 include "inc/config.php";
-if ($_REQUEST[acao]=="enviar"){
-  if ((strlen($_REQUEST[email])<8) or (!strstr($_REQUEST[email],"@"))){  //se não for vazio continua
+if ($_REQUEST['acao']=="enviar"){
+  if ((strlen($_REQUEST['email'])<8) or (!strstr($_REQUEST['email'],"@"))){  //se não for vazio continua
     $destinatario="uoposto@gmail.com";
   }else{
-    $destinatario=$_REQUEST[email];
+    $destinatario=$_REQUEST['email'];
   }
   if ($destinatario!=""){
-    $msg = str_replace(chr(13),"<br>", $_REQUEST[msg]);
+    $msg = str_replace(chr(13),"<br>", $_REQUEST['msg']);
     $corpo = "$msg<BR><hr>";
-    if ($_REQUEST[anexo]){
-      $numero = $_REQUEST[anexo];
-      $consulta = pg_query("select * from pedidos where numero = '$numero'");
+    if ($_REQUEST['anexo']){
+      $numero = $_REQUEST['anexo'];
+      $consulta = pg_query("select * from pedidos where numero = '".$numero."'");
       //echo $consulta;
       $row = pg_fetch_object($consulta, 0);
       $id_vendedor = $row->codigo_vendedor;

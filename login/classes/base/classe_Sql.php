@@ -54,7 +54,7 @@ class bd {
 	* @name $bd
 	* @return void
 	*/
-	function bd() {
+	function __construct() {
 		register_shutdown_function( array( &$this, "desconecta" ) );
 	}
 

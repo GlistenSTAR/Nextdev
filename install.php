@@ -1,7 +1,8 @@
-<?
+<?php
+include_once ("inc/common.php");
 include_once "inc/config.php";
 function ConfereCampos($Tabela,$Campo,$Tipo){
-  $Sql = pg_query("SELECT column_name FROM information_schema.columns WHERE table_name ='$Tabela' and column_name='$Campo'");
+  $Sql = pg_query("SELECT column_name FROM information_schema.columns WHERE table_name ='".$Tabela."' and column_name='".$Campo."'");
   $ccc = pg_num_rows($Sql);
   if (!$ccc){
     $Sql = "
@@ -20,7 +21,7 @@ function ConfereCampos($Tabela,$Campo,$Tipo){
 ##########################################################################################################
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $Tabela = "log_site";
-    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='$Tabela'");
+    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='".$Tabela."'");
     $ccc = pg_num_rows($Sql);
     if (!$ccc){
       $Sql = "
@@ -47,7 +48,7 @@ function ConfereCampos($Tabela,$Campo,$Tipo){
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $Tabela = "pedidos_internet_novo";
-    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='$Tabela'");
+    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='".$Tabela."'");
     $ccc = pg_num_rows($Sql);
     if (!$ccc){
       $Sql = "
@@ -180,7 +181,7 @@ function ConfereCampos($Tabela,$Campo,$Tipo){
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $Tabela = "itens_do_pedido_internet";
-    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='$Tabela'");
+    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='".$Tabela."'");
     $ccc = pg_num_rows($Sql);
     if (!$ccc){
       $Sql = "
@@ -262,7 +263,7 @@ function ConfereCampos($Tabela,$Campo,$Tipo){
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $Tabela = "noticias";
-    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='$Tabela'");
+    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='".$Tabela."'");
     $ccc = pg_num_rows($Sql);
     if (!$ccc){
       $Sql = "
@@ -301,7 +302,7 @@ function ConfereCampos($Tabela,$Campo,$Tipo){
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $Tabela = "categorias";
-    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='$Tabela'");
+    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='".$Tabela."'");
     $ccc = pg_num_rows($Sql);
     if (!$ccc){
       $Sql = "
@@ -329,7 +330,7 @@ function ConfereCampos($Tabela,$Campo,$Tipo){
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $Tabela = "alteracao_pedidos";
-    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='$Tabela'");
+    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='".$Tabela."'");
     $ccc = pg_num_rows($Sql);
     if (!$ccc){
       $Sql = "
@@ -357,7 +358,7 @@ function ConfereCampos($Tabela,$Campo,$Tipo){
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $Tabela = "categorias_sub";
-    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='$Tabela'");
+    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='".$Tabela."'");
     $ccc = pg_num_rows($Sql);
     if (!$ccc){
       $Sql = "
@@ -385,7 +386,7 @@ function ConfereCampos($Tabela,$Campo,$Tipo){
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $Tabela = "categorias_sub_sub";
-    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='$Tabela'");
+    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='".$Tabela."'");
     $ccc = pg_num_rows($Sql);
     if (!$ccc){
       $Sql = "
@@ -414,7 +415,7 @@ function ConfereCampos($Tabela,$Campo,$Tipo){
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     $Tabela = "imagens";
-    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='$Tabela'");
+    $Sql = pg_query("select * from information_schema.tables where table_schema='public' and table_type='BASE TABLE' and table_name='".$Tabela."''");
     $ccc = pg_num_rows($Sql);
     if (!$ccc){
       $Sql = "

@@ -1,4 +1,5 @@
-<?
+<?php
+include_once ("inc/common.php");
 //include "inc/verifica.php";
 include "inc/config.php";
 ?>
@@ -53,7 +54,7 @@ margin: 1;}
 
             &nbsp;&nbsp;&nbsp;&nbsp;
             <td align="left" valign="top" width="200">
-              <? if ($CONF['logotipo_empresa']){
+              <?php if ($CONF['logotipo_empresa']){
                   echo "aa<img src='images/$CONF[logotipo_empresa]' border='0'>"; 
                 }else{
                   echo "<span class='arialg'><strong>".ucfirst($Empresa)."</strong></span>";
@@ -66,12 +67,12 @@ margin: 1;}
           </td>
           <td class="texto_print">
             <div align="right" class="texto_print">
-              <?
+              <?php
               setlocale(LC_TIME,'pt_BR','ptb');
               //echo  ucfirst(strftime('%A, %d de %B de %Y',mktime(0,0,0,date('n'),date('d'),date('Y'))));
               echo "Data: <b>".date("d/m/Y")."</b>";
               ?><BR>
-              Vendedor: <b><? echo $_SESSION[usuario];?></b>
+              Vendedor: <b><?php echo $_SESSION['usuario'];?></b>
             </div>
           </td>
         </tr>
@@ -95,31 +96,31 @@ margin: 1;}
           <td width="30"><b>&nbsp;Estado</b></td>
           <td width="70"><b>&nbsp;Telefone</b></td>
         </tr>
-        <?
-        if ($_REQUEST[filtro]){
-          if ($_REQUEST[filtro]=="ATIVOS"){
+        <?php
+        if ($_REQUEST['filtro']){
+          if ($_REQUEST['filtro']=="ATIVOS"){
             $Filtro = " AND inativo='0'";
-          }elseif ($_REQUEST[filtro]=="INATIVOS"){
+          }elseif ($_REQUEST['filtro']=="INATIVOS"){
             $Filtro = " AND inativo='1'";
           }
         }
-        $pagina = $_REQUEST[pagina];
-        if ($_SESSION[nivel]=="2"){
+        $pagina = $_REQUEST['pagina'];
+        if ($_SESSION['nivel']=="2"){
           $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where 1=1 $Filtro order by nome ASC";
         }else{
-          if($_SESSION[id_vendedor]=="77"){ //Regra Groupack          
+          if($_SESSION['id_vendedor']=="77"){ //Regra Groupack          
              $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '87' $Filtro order by nome ASC";
           }else{
-             $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '$_SESSION[id_vendedor]' $Filtro order by nome ASC";
+             $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '".$_SESSION['id_vendedor']."' $Filtro order by nome ASC";
           }          
         }
         $lista1 = pg_query($lista);
         $ccc = pg_num_rows($lista1);
-        $offset = $_REQUEST[offset];
-        if ($_REQUEST[total_reg]){
-          if (is_numeric($_REQUEST[total_reg])){
-            $total_reg = $_REQUEST[total_reg];
-          }elseif ($_REQUEST[total_reg]=="TODOS"){
+        $offset = $_REQUEST['offset'];
+        if ($_REQUEST['total_reg']){
+          if (is_numeric($_REQUEST['total_reg'])){
+            $total_reg = $_REQUEST['total_reg'];
+          }elseif ($_REQUEST['total_reg']=="TODOS"){
             $total_reg = $ccc;
             $pagina = "1";
             $offset = "0";
@@ -159,22 +160,22 @@ margin: 1;}
           }
           ?>
           <tr height="18px">
-            <td class="<? echo $Cor;?>">&nbsp;<? echo "$r[cgc]";?></td>
-            <td class="<? echo $Cor;?>">&nbsp;
-              <?
-              $Nome = $r[nome];
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['cgc'];?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;
+              <?php
+              $Nome = $r['nome'];
               //if (strlen($Nome)>100) {
               //  $Nome = substr($Nome,0,100)."";
               //}
               echo $Nome;
               ?>
             </td>
-            <td class="<? echo $Cor;?>">&nbsp;<? echo "$r[endereco]";?></td>
-            <td class="<? echo $Cor;?>">&nbsp;<? echo "$r[cidade]";?></td>
-            <td class="<? echo $Cor;?>">&nbsp;<? echo "$r[estado]";?></td>
-            <td class="<? echo $Cor;?>">&nbsp;<? echo "$r[telefone]";?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['endereco'];?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['cidade'];?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['estado'];?></td>
+            <td class="<?php echo $Cor;?>">&nbsp;<?php echo $r['telefone'];?></td>
           </tr>
-          <?
+          <?php
           if ($pagina){
             if (!$qtd_registros){
               $qtd_registros = $qtd_registros + $inicio + 1;
@@ -196,12 +197,12 @@ margin: 1;}
             <td align="center">
               <div id="listagem_clientes">
                 <table width="100%" border="0" class="texto_print">
-                  <?
+                  <?php
                   if ($ccc<>""){
                     ?>
                     <tr>
                       <td height="25" align="center">
-                      <?
+                      <?php
                       $anterior = $pc -1;
                       $proximo = $pc +1;
                       $qtd_paginas = $ccc / $total_reg;
@@ -222,7 +223,7 @@ margin: 1;}
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";
@@ -253,7 +254,7 @@ margin: 1;}
                     <div id="paginacao" class="texto_print">
                       <tr>
                         <td height="25" align="center" valign="top"><div>
-                          <?
+                          <?php
                           echo "<div>Mostrando registro <strong>";
                           echo $inicio + 1;
                           echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong> - Página: <b>$pagina</b></div>";
@@ -262,7 +263,7 @@ margin: 1;}
                         </td>
                       </tr>
                     </div>
-                    <?
+                    <?php
                   }
                   ?>
                 </table>
@@ -270,8 +271,8 @@ margin: 1;}
             </td>
           </tr>
           <form method="POST" name="limitador">
-            <input type="hidden" name="pagina" value="<? echo $pagina;?>">
-            <input type="hidden" name="offset" value="<? echo $inicio;?>">
+            <input type="hidden" name="pagina" value="<?php echo $pagina;?>">
+            <input type="hidden" name="offset" value="<?php echo $inicio;?>">
             <tr>
               <td align="center" valign="top">
                 <input type="button" value="Imprimir" id="botao" name="TESTE" onclick="imprimir(); return false;" STYLE="font-size: 10pt; color:#ffffff ; background:#182463; border-width: 2; border-color: #ffffff">               

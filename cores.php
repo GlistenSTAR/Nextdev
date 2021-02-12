@@ -1,15 +1,16 @@
-<?
+<?php
+include_once ("inc/common.php");
 include_once("inc/config.php");
-if ($_REQUEST[numero_pedido]){
-  $_SESSION[UltimoTemCores] = "SIM";
-  $Sql = "Select preto, branco, azul, verde, vermelho, amarelo, marrom, cinza, laranja, rosa, violeta,bege, outra from itens_do_pedido_internet where numero_pedido='".$_REQUEST[numero_pedido]."' AND codigo='".$_REQUEST[codigo_cc]."' ";
+if ($_REQUEST['numero_pedido']){
+  $_SESSION['UltimoTemCores'] = "SIM";
+  $Sql = "Select preto, branco, azul, verde, vermelho, amarelo, marrom, cinza, laranja, rosa, violeta,bege, outra from itens_do_pedido_internet where numero_pedido='".$_REQUEST['numero_pedido']."' AND codigo='".$_REQUEST['codigo_cc']."' ";
   $SqlCarregaCores = pg_query($Sql);
   $cores = pg_fetch_array($SqlCarregaCores);
-  $Falta = $_REQUEST[qtd_cc] - ($cores[preto] +  $cores[branco] + $cores[azul] + $cores[verde] + $cores[vermelho] + $cores[amarelo] + $cores[marrom] + $cores[cinza] + $cores[laranja] + $cores[rosa] + $cores[violeta] + $cores[bege] + $cores[outra]);
+  $Falta = $_REQUEST['qtd_cc'] - ($cores['preto'] +  $cores['branco'] + $cores['azul'] + $cores['verde'] + $cores['vermelho'] + $cores['amarelo'] + $cores['marrom'] + $cores['cinza'] + $cores['laranja'] + $cores['rosa'] + $cores['violeta'] + $cores['bege'] + $cores['outra']);
 }
 ?>
 <BR>
-<input type="hidden" name="descontocores2" id="descontocores2" value="<? echo $_REQUEST[descontocores];?>">
+<input type="hidden" name="descontocores2" id="descontocores2" value="<?php echo $_REQUEST['descontocores'];?>">
 <table width="580" height="100" border="0" cellspacing="0" cellpadding="0" class="texto1">
   <tr>
     <td><img src="images/spacer.gif" width="1" height="3"></td>
@@ -28,13 +29,13 @@ if ($_REQUEST[numero_pedido]){
                   <table width = "590" class="texto1">
                     <tr>
                       <td>
-                        Escolha das cores do produto codigo: <b><input type="hidden" name="codigo_cores" id="codigo_cores" value="<? echo $_REQUEST[codigo_cc];?>"><? echo $_REQUEST[codigo_cc];?></b>
+                        Escolha das cores do produto codigo: <b><input type="hidden" name="codigo_cores" id="codigo_cores" value="<?php echo $_REQUEST['codigo_cc'];?>"><?php echo $_REQUEST['codigo_cc'];?></b>
                       </td>
                       <td>
-                        Quantidade requisitada: <b><input type="hidden" name="qtd_cores" id="qtd_cores" value="<? echo $_REQUEST[qtd_cc];?>"><? echo $_REQUEST[qtd_cc];?></b>
+                        Quantidade requisitada: <b><input type="hidden" name="qtd_cores" id="qtd_cores" value="<?php echo $_REQUEST['qtd_cc'];?>"><?php echo $_REQUEST['qtd_cc'];?></b>
                       </td>
                       <td>
-                        Pedido: <b><input type="hidden" name="numero_cores" id="numero_cores" value="<? echo $_REQUEST[numero_pedido];?>"><? echo $_REQUEST[numero_pedido];?></b>
+                        Pedido: <b><input type="hidden" name="numero_cores" id="numero_cores" value="<?php echo $_REQUEST['numero_pedido'];?>"><?php echo $_REQUEST['numero_pedido'];?></b>
                       </td>
                     </tr>
                   </table>
@@ -42,39 +43,39 @@ if ($_REQUEST[numero_pedido]){
                   <table width = "590" class="texto1">
                     <tr>
                        <td>Preto:</td>
-                       <td><input name="preto" id="preto" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[preto];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.branco.focus();}"></td>
+                       <td><input name="preto" id="preto" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['preto'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.branco.focus();}"></td>
                        <td>Branco:</td>
-                       <td><input name="branco" id="branco" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[branco];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.azul.focus();}"></td>
+                       <td><input name="branco" id="branco" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['branco'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.azul.focus();}"></td>
                        <td>Azul:</td>
-                       <td><input name="azul" id="azul" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[azul];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.verde.focus();}"></td>
+                       <td><input name="azul" id="azul" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['azul'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.verde.focus();}"></td>
                     </tr>
                     <tr>
                        <td>Verde:</td>
-                       <td><input name="verde" id="verde" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[verde];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.vermelho.focus();}"></td>
+                       <td><input name="verde" id="verde" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['verde'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.vermelho.focus();}"></td>
                        <td>Vermelho:</td>
-                       <td><input name="vermelho" id="vermelho" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[vermelho];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.amarelo.focus();}"></td>
+                       <td><input name="vermelho" id="vermelho" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['vermelho'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.amarelo.focus();}"></td>
                        <td>Amarelo:</td>
-                       <td><input name="amarelo" id="amarelo" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[amarelo];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.marrom.focus();}"></td>
+                       <td><input name="amarelo" id="amarelo" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['amarelo'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.marrom.focus();}"></td>
                     </tr>
                     <tr>
                        <td>Marrom:</td>
-                       <td><input name="marrom" id="marrom" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[marrom];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.cinza.focus();}"></td>
+                       <td><input name="marrom" id="marrom" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['marrom'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.cinza.focus();}"></td>
                        <td>Cinza:</td>
-                       <td><input name="cinza" id="cinza" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[cinza];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.laranja.focus();}"></td>
+                       <td><input name="cinza" id="cinza" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['cinza'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.laranja.focus();}"></td>
                        <td>Laranja:</td>
-                       <td><input name="laranja" id="laranja" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[laranja];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.rosa.focus();}"></td>
+                       <td><input name="laranja" id="laranja" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['laranja'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.rosa.focus();}"></td>
                     </tr>
                     <tr>
                        <td>Rosa:</td>
-                       <td><input name="rosa" id="rosa" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[rosa];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.violeta.focus();}"></td>
+                       <td><input name="rosa" id="rosa" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['rosa'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.violeta.focus();}"></td>
                        <td>Violeta:</td>
-                       <td><input name="violeta" id="violeta" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[violeta];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.bege.focus();}"></td>
+                       <td><input name="violeta" id="violeta" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['violeta'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.bege.focus();}"></td>
                        <td>Bege:</td>
-                       <td><input name="bege" id="bege" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<? echo $cores[bege];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.outra.focus();}"></td>
+                       <td><input name="bege" id="bege" type="text" size="18" onfocus="this.select()" onblur="cores();" value="<?php echo $cores['bege'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.outra.focus();}"></td>
                     </tr>
                     <tr>
                        <td colspan="3">Outra:</td>
-                       <td colspan="3"><input name="outra" id="outra" type="text" size="18" onblur="cores();" value="<? echo $cores[outra];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.gravar_cores.focus();}"></td>
+                       <td colspan="3"><input name="outra" id="outra" type="text" size="18" onblur="cores();" value="<?php echo $cores['outra'];?>" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.gravar_cores.focus();}"></td>
                     </tr>
                     <tr>
                        <td colspan="6"><hr></hr></td>
@@ -82,7 +83,7 @@ if ($_REQUEST[numero_pedido]){
                     <tr>
                        <td colspan="3">Falta escolher:</td>
                        <td colspan="3">
-                         <input type="button" name="falta_cores1" id="falta_cores1" value="<? echo $Falta;?>">
+                         <input type="button" name="falta_cores1" id="falta_cores1" value="<?php echo $Falta;?>">
                        </td>
                     </tr>
                     <tr>

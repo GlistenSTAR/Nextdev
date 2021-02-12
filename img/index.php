@@ -1,4 +1,4 @@
-<?
+<?php
 include "../inc/verifica.php";
 ?>
 <HTML>

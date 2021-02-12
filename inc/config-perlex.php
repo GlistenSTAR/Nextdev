@@ -1,6 +1,6 @@
 <?php
 session_start();
-$id_vendedor = $_SESSION[id_vendedor];
+$id_vendedor = $_SESSION['id_vendedor'];
 ##############################################################
 ##          CHECA CLIENTE         -          TNINFO
 ###############################################################

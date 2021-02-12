@@ -1,15 +1,15 @@
-<?
-if ($_SESSION[usuario]){
-  if (!$_SESSION[bd][host]){
-    $_SESSION[usuario]=="";
-  }else{
-    include "config.php";
+<?php
+  if (isset($_SESSION['usuario'])){
+    if (!isset($_SESSION['bd']['host'])){
+      $_SESSION['usuario']=="";
+    }else{
+      include "config.php";
+    }
   }
-}
 ?>
-<title><? echo $base;?> - Sistema de Pedidos ON-LINE </title>
-<?
-if ($_SESSION[usuario]){
+<title><?php if(isset($base)) echo $base; else echo '';?> - Sistema de Pedidos ON-LINE </title>
+  <?php
+    if (isset($_SESSION['usuario'])){
   ?>
   <div id="dhtmltooltip"></div>
   <script language="JavaScript" src="inc/menu.js"></script>
@@ -42,7 +42,7 @@ if ($_SESSION[usuario]){
       var minutes = now.getMinutes();
       var seconds = now.getSeconds()
       var date = (day + "/" + month + "/" + year)
-      var timeValue = date + " ‡s " + ((hours >24) ? hours -24 :hours)
+      var timeValue = date + " √†s " + ((hours >24) ? hours -24 :hours)
       timeValue += ((minutes < 10) ? ":0" : ":") + minutes
       timeValue += ((seconds < 10) ? ":0" : ":") + seconds
       return timeValue;
@@ -50,8 +50,8 @@ if ($_SESSION[usuario]){
     function checa(campo, caminho){
       if (campo!="1234567890"){
         if(!isCPFCNPJ(campo,0)){
-          //alert("Por favor informe um CPF/CNPJ v·lido");
-          //document.getElementById('Inicio').innerHTML = "Por favor informe um CPF/CNPJ v·lido";
+          //alert("Por favor informe um CPF/CNPJ vÔøΩlido");
+          //document.getElementById('Inicio').innerHTML = "Por favor informe um CPF/CNPJ vÔøΩlido";
           Acha('cadastrar_clientes.php','localizar_numero='+campo+'&cnpj_valido=0','Conteudo');
           //setTimeout("document.cad.inscricao.focus()",500);
           return false;
@@ -60,8 +60,8 @@ if ($_SESSION[usuario]){
         //setTimeout("document.cad.inscricao.focus()",500);
         return true;
       }else{
-        //alert("Por favor informe um CPF/CNPJ v·lido");
-        //document.getElementById('Inicio').innerHTML = "Por favor informe um CPF/CNPJ v·lido";
+        //alert("Por favor informe um CPF/CNPJ vÔøΩlido");
+        //document.getElementById('Inicio').innerHTML = "Por favor informe um CPF/CNPJ vÔøΩlido";
         Acha('cadastrar_clientes.php','localizar_numero='+campo+'&cnpj_valido=0','Conteudo');
         //setTimeout("document.cad.inscricao.focus()",500);
         return false;
@@ -69,7 +69,7 @@ if ($_SESSION[usuario]){
     }
     function checaCodigo(campo, caminho){
       if(isEmpty(campo,0)){
-        alert("Por favor informe o cÛdigo");
+        alert("Por favor informe o cÔøΩdigo");
         setTimeout(caminho+".focus()",10);
         return false;
       }
@@ -78,7 +78,7 @@ if ($_SESSION[usuario]){
     window.onload = function() { preload(); }
     window.document.write("<style type=\"text/css\">#preloader { display: block !important; }</style>");
   </script>
-  <?
+  <?php
 }
 ?>
 <link href="css.css" rel="stylesheet" type="text/css">
@@ -87,8 +87,8 @@ if ($_SESSION[usuario]){
 <table width="100%" align="center" cellspacing="0" cellpadding="0">
   <tr>
     <td height="80" valign="top">
-      <?
-      if ($_SESSION[usuario]){
+      <?php
+      if (isset($_SESSION['usuario'])){
         ?>
         <div id="menu">
         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" style="background: #FFFFFF;">
@@ -104,13 +104,13 @@ if ($_SESSION[usuario]){
                         </td>
                         <td valign="top">
                           <BR><BR>
-                          <center>Conectado a <b><? echo $base;?></b></center>
+                          <center>Conectado a <b><?php echo $base;?></b></center>
                         </td>
                         <td align="right">
-                          <?
+                          <?php
                           setlocale(LC_TIME,'pt_BR','ptb');
                           echo  ucfirst(strftime('%A, %d de %B de %Y',mktime(0,0,0,date('n'),date('d'),date('Y'))));
-                          echo "<BR><BR>Vers„o: <b>".$_SESSION['config']['versao']."</b>";
+                          echo "<BR><BR>Vers√£o: <b>".$_SESSION['config']['versao']."</b>";
                           ?>
                         </td>
                       </tr>
@@ -122,7 +122,7 @@ if ($_SESSION[usuario]){
           </tr>
         </table>
         </div>
-        <?
+        <?php
       }
       ?>
     </td>

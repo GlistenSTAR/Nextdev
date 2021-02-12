@@ -18,7 +18,7 @@ class Observacao {
   private $observacao;
 
   //Construtor
-  public function Observacao(){
+  public function __construct(){
 
   }
 
@@ -52,7 +52,7 @@ class Observacao {
     $numero = $this->numero_internet;
     $observacao = $this->observacao;
     
-//    $SqlAAAA = "Select * from observacao_do_pedido where numero_pedido='$numero'";
+//    $SqlAAAA = "Select * from observacao_do_pedido where numero_pedido='".$numero."'";
 //  //  echo $SqlAAAA;
 //    $SqlObservacao = pg_query($SqlAAAA);
 //    #########################################################################################
@@ -79,7 +79,7 @@ class Observacao {
       break;
       case 'edita' :
         /// Escreve Observação.
-        $OBS = "Update observacao_do_pedido set observacao='$observacao' where numero_pedido = $numero";
+        $OBS = "Update observacao_do_pedido set observacao='".$observacao."' where numero_pedido = '".$numero."'";
         if (!$_Err){
           pg_query($db, TrocaCaracteres($OBS)) or die ($MensagemDbError.TrocaCaracteres($OBS).pg_query ($db));
         }

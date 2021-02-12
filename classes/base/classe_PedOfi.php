@@ -10,7 +10,7 @@ class PedidoOficial {
   //Atributos
   private $numero_internet;
   //Construtor
-  public function PedidoOficial(){                                                                                                     }
+  public function __construct(){                                                                                                     }
   //Setando acesso e pegando atributos
   public function set_numero_internet($numero_internet){                $this->numero_internet = $numero_internet;                     }
   public function get_numero_internet(){                         return $this->numero_internet;                                        }
@@ -27,12 +27,12 @@ class PedidoOficial {
     ######################################################
     # Armazena envio de pedido
     ######################################################
-    $sql = "Update pedidos_internet_novo set enviado='1' where numero='$this->numero_internet'";
+    $sql = "Update pedidos_internet_novo set enviado='1' where numero='".$this->numero_internet."'";
     pg_query($sql) or die ($MensagemDbError.$sql.pg_query ($db, "rollback"));
     ######################################################
     # Conferindo se o pedido ja foi gravado
     ######################################################
-    $SqlPedidoGravado = pg_query("Select numero from pedidos where numero_internet='$this->numero_internet'") or die ($MensagemDbError.pg_query ($db, "rollback"));
+    $SqlPedidoGravado = pg_query("Select numero from pedidos where numero_internet='".$this->numero_internet."'") or die ($MensagemDbError.pg_query ($db, "rollback"));
     $ccc = pg_num_rows($SqlPedidoGravado);
     if ($ccc){
       $ped = pg_fetch_array($SqlPedidoGravado);
@@ -45,7 +45,7 @@ class PedidoOficial {
       #########################################################################
       # Carrega os dados do pedido da internet para gravar no pedidos oficial
       #########################################################################
-      $SqlCarregaDados = pg_query("Select * from pedidos_internet_novo where numero='$this->numero_internet'");
+      $SqlCarregaDados = pg_query("Select * from pedidos_internet_novo where numero='".$this->numero_internet."'");
       $p = pg_fetch_array($SqlCarregaDados);						
 
       
@@ -112,9 +112,9 @@ class PedidoOficial {
             $ACHEI = 1;
           }
         }
-        $_SESSION[NumeroPedidoGravado] = $max;
+        $_SESSION['NumeroPedidoGravado'] = $max;
       }else{
-        $_SESSION[NumeroPedidoGravado] = $original;
+        $_SESSION['NumeroPedidoGravado'] = $original;
       }
       ######################################################
       # Fim Rotina de carregamento
@@ -142,22 +142,22 @@ class PedidoOficial {
       }else{
         $SqlCampo['data_prevista_entrega'] = $p[data_prevista_entrega];
       }
-      $SqlCampo['id_cliente'] = $p[id_cliente];
-      $SqlCampo['local_entrega'] = $p[local_entrega];
-      $SqlCampo['numero_pedido_vendedor'] = $p[numero_pedido_vendedor];
+      $SqlCampo['id_cliente'] = $p['id_cliente'];
+      $SqlCampo['local_entrega'] = $p['local_entrega'];
+      $SqlCampo['numero_pedido_vendedor'] = $p['numero_pedido_vendedor'];
       $SqlCampo['numero'] = $max;
-      $SqlCampo['numero_cliente'] = $p[numero_cliente];
-      $SqlCampo['transportadora'] = $p[transportadora];
-      $SqlCampo['vendedor'] = $_SESSION[nome_vendedor];
+      $SqlCampo['numero_cliente'] = $p['numero_cliente'];
+      $SqlCampo['transportadora'] = $p['transportadora'];
+      $SqlCampo['vendedor'] = $_SESSION['nome_vendedor'];
       $SqlCampo['comissao'] = $Comissao;
-      $SqlCampo['transportadora'] = $p[transportadora];
-      $SqlCampo['codigo_pagamento'] = ($p[codigo_pagamento])? "$p[codigo_pagamento]":"0";
-      $SqlCampo['codigo_pagamento1'] = ($p[codigo_pagamento1])? "$p[codigo_pagamento1]":"0";
-      //$SqlCampo['desconto_cliente'] = ($p[desconto_cliente])? "$p[desconto_cliente]":"0";        
-      $SqlCampo['fator1'] = ($p[fator1])? "$p[fator1]":"0";
-      $SqlCampo['fator2'] = ($p[fator2])? "$p[fator2]":"0";
-      $SqlCampo['fob'] = $p[fob];
-      $SqlCampo['cif'] = $p[cif];
+      $SqlCampo['transportadora'] = $p['transportadora'];
+      $SqlCampo['codigo_pagamento'] = ($p['codigo_pagamento'])? "$p[codigo_pagamento]":"0";
+      $SqlCampo['codigo_pagamento1'] = ($p['codigo_pagamento1'])? "$p[codigo_pagamento1]":"0";
+      //$SqlCampo['desconto_cliente'] = ($p['desconto_cliente'])? "$p[desconto_cliente]":"0";        
+      $SqlCampo['fator1'] = ($p['fator1'])? "$p[fator1]":"0";
+      $SqlCampo['fator2'] = ($p['fator2'])? "$p[fator2]":"0";
+      $SqlCampo['fob'] = $p['fob'];
+      $SqlCampo['cif'] = $p['cif'];
       $SqlCampo['numero_internet'] = $this->numero_internet;
       $SqlCampo['data_importacao'] = $data_hoje;
       $SqlCampo['aprovado'] = "-1";
@@ -183,11 +183,16 @@ class PedidoOficial {
       
       //Fiz isso pois a regra de desconto utilizada no site esta diferente da regra do next
       // 30/04/2014 11:42 - Dênis      
-      $SQlDesc = pg_query($db, "SELECT codigo FROM descontos WHERE valor='$p[fator1]'");
+      $SQlDesc = pg_query($db, "SELECT codigo FROM descontos WHERE valor='".$p['fator1']."'");
       $DescCli = pg_fetch_array($SQlDesc);
-      if(isset($DescCli[codigo])){ $SqlCampo['desconto_cliente'] = $DescCli[codigo];}
+      if(isset($DescCli['codigo'])){ $SqlCampo['desconto_cliente'] = $DescCli['codigo'];}
       
        while( $Campo = each($SqlCampo )){
+		   if($Campo['key'] == 'codigo_vendedor'){
+			   if(!isset($Campo['value']) && $Campo['value'] == ''){
+				   $Campo['value'] = '0';
+			   }
+		   }
          $SqlInicio = "Insert into pedidos (";
          $SqlExecutar .= " $Campo[key],";
          $SqlExecutar2 = " ) VALUES ( ";
@@ -200,6 +205,7 @@ class PedidoOficial {
        if (!$_Err){
          pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.TrocaCaracteres($Grava).pg_query ($db, "rollback"));
        }
+	   pg_query ($db, "rollback");
        unset($SqlCampo);
        unset($SqlExecutar);
        unset($SqlExecutar2);
@@ -210,21 +216,21 @@ class PedidoOficial {
        unset($Grava);
        //exit;
       /////////////////////////////////////////////////////////
-      $SqlAlter = "Update pedidos set usuario_cadastrou='".left($_SESSION[usuario], 10)."', data_alteracao='$data_hoje' where numero='$max'";
+      $SqlAlter = "Update pedidos set usuario_cadastrou='".left($_SESSION['usuario'], 10)."', data_alteracao='".$data_hoje."' where numero='".$max."'";
       pg_query($db, $SqlAlter);
 
       //Cria uma sequencia para o campo ID
-      $uid = strtoupper($_REQUEST[id]+1);
+      $uid = strtoupper($_REQUEST['id']+1);
       $ultimoid="SELECT MAX(id)+1 as ultimoid FROM alteracao_pedidos";
       $ultimoid = pg_query($ultimoid);
       $row = pg_fetch_array($ultimoid);
       //echo $row[ultimoid];
 
-      $SqlCampo['id'] = $row[ultimoid];
+      $SqlCampo['id'] = $row['ultimoid'];
       $SqlCampo['numero_pedido'] = $max;
-      $SqlCampo['usuario_alterou'] = left($_SESSION[login], 10);
+      $SqlCampo['usuario_alterou'] = left($_SESSION['login'], 10);
       $SqlCampo['data_alteracao'] = $data_hoje;
-      $SqlCampo['ip'] = $_SERVER[REMOTE_ADDR];
+      $SqlCampo['ip'] = $_SERVER['REMOTE_ADDR'];
       $SqlCampo['alteracao'] = "CADASTROU NOVO PEDIDO VIA SITE";
 
        while($Campo = each($SqlCampo)){
@@ -240,6 +246,7 @@ class PedidoOficial {
        if (!$_Err){
          pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_query ($db, "rollback"));
        }
+	   pg_query ($db, "rollback");
        unset($SqlCampo);
        unset($SqlExecutar);
        unset($SqlExecutar2);
@@ -251,7 +258,7 @@ class PedidoOficial {
       /////////////////////////////////////////////////////////
       // Itens
       /////////////////////////////////////////////////////////
-      $SqlCarregaItens = "Select * from itens_do_pedido_internet where numero_pedido = '$numero' order by id";
+      $SqlCarregaItens = "Select * from itens_do_pedido_internet where numero_pedido = '".$numero."' order by id";
       if (($CodigoEmpresa=="75") or ($CodigoEmpresa=="86")){
         $SqlCarregaItens .= " , especial ";
       }
@@ -264,42 +271,42 @@ class PedidoOficial {
         }else{
           $Especificado = "0";
         }
-        $prod = pg_query("Select base_reduzida from produtos where codigo='$i[codigo]'");
+        $prod = pg_query("Select base_reduzida from produtos where codigo='".$i['codigo']."'");
         $prod = pg_fetch_array($prod);
 
-        $Cliente = pg_query("Select estado from clientes where cgc='$p[cgc]'");
+        $Cliente = pg_query("Select estado from clientes where cgc='".$p['cgc']."'");
         $Cliente = pg_fetch_array($Cliente);
 
-        $Aliquota = pg_query("Select aliquota_01 from aliquotas_de_icm where est='$Cliente[estado]'");
+        $Aliquota = pg_query("Select aliquota_01 from aliquotas_de_icm where est='".$Cliente['estado']."'");
         $Aliquota = pg_fetch_array($Aliquota);
-        $IcmItem = $Aliquota[aliquota_01] / 100;
-        if ($prod[base_reduzida]=="1"){
-          if ($Cliente[estado]=="SP"){
-            $IcmItem = $prod[codigo_icms] / 100;
+        $IcmItem = $Aliquota['aliquota_01'] / 100;
+        if ($prod['base_reduzida']=="1"){
+          if ($Cliente['estado']=="SP"){
+            $IcmItem = $prod['codigo_icms'] / 100;
           }
         }
-        $IcmItem = $i[valor_total] * $IcmItem;
+        $IcmItem = $i['valor_total'] * $IcmItem;
         $TotalIcm += $IcmItem;
-        $TotalItens += $i[valor_total];
+        $TotalItens += $i['valor_total'];
         
 								//Busco comissão do vendedor
-								$SCom = pg_query("SELECT comissao FROM vendedores WHERE id='$id_vendedor'");						
+								$SCom = pg_query("SELECT comissao FROM vendedores WHERE id='".$id_vendedor."'");						
 								$Com = pg_fetch_array($SCom);		
 
-								if($Com[comissao]==""){
+								if($Com['comissao']==""){
 										$VCom = "0";
 								}else{
-										$VCom = $Com[comissao];
+										$VCom = $Com['comissao'];
 								}								
 								
-								$ComissaoItem = $i[valor_total] * ($VCom / 100);
+								$ComissaoItem = $i['valor_total'] * ($VCom / 100);
 								
-        if ($i[especial]==0){
+        if ($i['especial']==0){
           /////////////////////////////////////////////////////////
           // NORMAL
           /////////////////////////////////////////////////////////
-          $ValorLiquido = $i[valor_total] - $IcmItem;
-          if ($i[qtd]>0){
+          $ValorLiquido = $i['valor_total'] - $IcmItem;
+          if ($i['qtd']>0){
             $consulta = "INSERT INTO itens_do_pedido_vendas ";
             $consulta = $consulta." (numero_pedido,codigo,qtd,valor_unitario,";
             $consulta = $consulta."valor_total,";
@@ -311,7 +318,7 @@ class PedidoOficial {
               $consulta = $consulta."fator1, ";
             }
             $consulta = $consulta." quantidade_reservada, reservado, preco_alterado, comissao, valor_comissao) values( ";
-            $consulta=  $consulta."$max, '$i[codigo]', $i[qtd], ";
+            $consulta=  $consulta."'$max', '$i[codigo]', '$i[qtd]', ";
             $consulta = $consulta."'$i[valor_unitario]', ";
             $consulta = $consulta."'$i[valor_total]', ";
             if (($CodigoEmpresa=="75") or ($CodigoEmpresa=="86")){
@@ -357,7 +364,7 @@ class PedidoOficial {
             $consulta = $consulta."'$Especificado', '$i[qtd]','1', '$ValorLiquido') ";
             $Total = $Total + $i[valor_total];
             $TotalEspecial = $TotalEspecial + $i[valor_total];
-            pg_query ($db,$consulta) or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
+            pg_query ($db,$consulta) or die("Erro na consulta : $consulta. " .pg_last_error($db));
           }
         }
         //echo $consulta;
@@ -418,30 +425,30 @@ class PedidoOficial {
              $divisor = ",";
           }
           $consulta .= ",especificado=1, quantidade_reservada=$i[qtd], reservado=1 ";
-          $consulta .= " WHERE numero_pedido=".$max." AND codigo='$i[codigo]'";
+          $consulta .= " WHERE numero_pedido=".$max." AND codigo='".$i[codigo]."'";
           if (($CodigoEmpresa=="75") or ($CodigoEmpresa=="86")){
-            $consulta .= " and especial='$i[especial]' ";
+            $consulta .= " and especial='".$i['especial']."' ";
           }
           pg_query ($db,$consulta);
-          $CodigoReserva = $i[codigo];
+          $CodigoReserva = $i['codigo'];
         }
-        $PesoBruto = $PesoBruto + $i[peso_bruto];
-        $PesoLiquido = $PesoLiquido + $i[peso_liquido];
+        $PesoBruto = $PesoBruto + $i['peso_bruto'];
+        $PesoLiquido = $PesoLiquido + $i['peso_liquido'];
       }						
 						
-      if ($p[desconto_cliente]){
+      if ($p['desconto_cliente']){
         $TotalDesconto = $Total  - $TotalEspecial; // TOTAL COM DESCONTO = TOTAL - ESPECIAL.
       }else{
         $TotalDesconto = $Total;
       }
       if (($CodigoEmpresa=="75") or ($CodigoEmpresa=="86")){
-        $SqlCamposExtra = "valor_total_liquido='$TotalLiquido', ";
+        $SqlCamposExtra = "valor_total_liquido='".$TotalLiquido."', ";
       }
 						
       $TotalComissao = $Total * ($VCom / 100);
 						//echo "totalcom:".$TotalComissao;						
 						
-      $SqlUpdate = "update pedidos set especificado='$Especificado', $SqlCamposExtra total_sem_desconto='$Total', total_com_desconto='$TotalDesconto', comissao='$VCom', total_comissao='$TotalComissao', peso_bruto='$PesoBruto', peso_liquido='$PesoLiquido',pedido_internet='1' where numero='$max'";
+      $SqlUpdate = "update pedidos set especificado='".$Especificado."', $SqlCamposExtra total_sem_desconto='".$Total."', total_com_desconto='".$TotalDesconto."', comissao='".$VCom."', total_comissao='".$TotalComissao."', peso_bruto='".$PesoBruto."', peso_liquido='".$PesoLiquido."',pedido_internet='1' where numero='".$max."'";
       pg_query($SqlUpdate);
       if ($original){
         //////////////////////////////////////////////////////////////////
@@ -454,11 +461,11 @@ class PedidoOficial {
         $max = $numero; //desfaz o negreiro
         /////////////////////////////////////////////////////////////////
       }else{
-        pg_query("update referencias set ultimo_numero_pedido='$max'");
+        pg_query("update referencias set ultimo_numero_pedido='".$max."'");
       }
       
       //Checo OBS Cliente/Pedido
-      $SqlObs = "SELECT incluir_obs_pedido, observacao FROM clientes WHERE id='$p[id_cliente]'";
+      $SqlObs = "SELECT incluir_obs_pedido, observacao FROM clientes WHERE id='".$p['id_cliente']."'";
       //echo $SqlObs;
       $SqlObs = pg_query($db, $SqlObs);
       $ObsPed = pg_fetch_array($SqlObs);
@@ -483,7 +490,7 @@ class PedidoOficial {
                  FROM itens_do_pedido_vendas AS itn
                  JOIN pedidos AS ped ON ped.numero = itn.numero_pedido
                  JOIN produtos AS prod ON prod.codigo = itn.codigo
-                 WHERE ped.numero='$max'
+                 WHERE ped.numero='".$max."'
                  GROUP BY ped.numero, ped.numero_internet";
                  
        //echo $SqlDes;

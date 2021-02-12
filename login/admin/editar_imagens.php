@@ -1,12 +1,13 @@
 <?php
+include_once ("inc/common.php");
 include "inc/config.php";
 include "inc/verifica.php";
 $Modulo_titulo = "Imagens";
 $Modulo_link = "imagens";
-$_SESSION[pagina] = "listar_imagens.php";
-if (is_numeric($_REQUEST[localizar_numero])){
+$_SESSION['pagina'] = "listar_imagens.php";
+if (is_numeric($_REQUEST['localizar_numero'])){
   include_once("inc/config.php");
-  $SqlCarregaImagem = pg_query("Select * from imagens where id='$_REQUEST[localizar_numero]'");
+  $SqlCarregaImagem = pg_query("Select * from imagens where id='".$_REQUEST['localizar_numero']."'");
   $ccc = pg_num_rows($SqlCarregaImagem);
   if ($ccc<>""){
     $f = pg_fetch_array($SqlCarregaImagem);
@@ -15,7 +16,7 @@ if (is_numeric($_REQUEST[localizar_numero])){
 ?>
 <html>
 <head>
-<title><? echo "$Titulo_Admin ";?></title>
+<title><?php echo $Titulo_Admin;?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <link href="fonte.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" type="text/JavaScript">
@@ -32,7 +33,7 @@ if (is_numeric($_REQUEST[localizar_numero])){
 <table border="0" cellspacing="1" cellpadding="1" class="adminform"  width="100%" height="350">
   <tr align="center">
       <?php
-      if ($_SESSION[usuario]){
+      if ($_SESSION['usuario']){
           ?>
           <td width="548" valign="top">
             <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="arial11">
@@ -49,7 +50,7 @@ if (is_numeric($_REQUEST[localizar_numero])){
                 <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<? echo $site_url;?>icones/imagens.gif" border="0" align="left"><center><h3><? echo "$Modulo_titulo";?></h3></center><hr></hr></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/imagens.gif" border="0" align="left"><center><h3><?php echo $Modulo_titulo;?></h3></center><hr></hr></td>
               </tr>
               <tr>
                 <td valign="top" align="center" width="100%">
@@ -62,13 +63,13 @@ if (is_numeric($_REQUEST[localizar_numero])){
                               <tr>
                                 <td width='100%'>
                                   <fieldset>
-                                    <legend>Foto <? echo $f[id];?>: </legend>
-                                    <input type="hidden" name="id" value="<? echo $f[id];?>">
-                                    <input type="hidden" name="imagem_antiga" value="<? echo $f[imagem];?>">
+                                    <legend>Foto <?php echo $f['id'];?>: </legend>
+                                    <input type="hidden" name="id" value="<?php echo $f['id'];?>">
+                                    <input type="hidden" name="imagem_antiga" value="<?php echo $f['imagem'];?>">
                                     <table border=0 align=center cellpadding=2 cellspacing=2 class=texto1>
                                       <tr>
                                         <td>
-                                          <img src="../imagens/<? echo $f[imagem];?>" border="0" width="250" height="250">
+                                          <img src="../imagens/<?php echo $f['imagem'];?>" border="0" width="250" height="250">
                                           <BR>
                                           <input type="checkbox" name="excluir_antiga"> Excluir essa imagem
                                         </td>
@@ -80,7 +81,7 @@ if (is_numeric($_REQUEST[localizar_numero])){
                                       </tr>
                                       <tr>
                                         <td>
-                                          <input type=text name=legenda value="<? echo $f[legenda];?>">
+                                          <input type=text name=legenda value="<?php echo $f['legenda'];?>">
                                         </td>
                                       </tr>
                                       <tr>
@@ -104,7 +105,7 @@ if (is_numeric($_REQUEST[localizar_numero])){
               </tr>
             </table>
           </td>
-          <?
+          <?php
       }
       ?>
     </td>

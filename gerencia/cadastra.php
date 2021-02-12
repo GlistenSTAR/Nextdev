@@ -1,4 +1,5 @@
-<?
+<?php
+include_once ("include/common.php");
 session_start();
 if($_SESSION['LogaUser']){
 include "include/config.php";
@@ -36,8 +37,8 @@ include "include/config.php";
 
 </script>
 
-<?
-   $SQLVendedor = pg_query($conecta, "SELECT nome FROM vendedores WHERE id='$_REQUEST[vendedores]'");
+<?php
+   $SQLVendedor = pg_query($conecta, "SELECT nome FROM vendedores WHERE id='".$_REQUEST['vendedores']."'");
    $ResVend = pg_fetch_array($SQLVendedor); 
    echo str_repeat("<br>", 3); 
    
@@ -46,12 +47,12 @@ include "include/config.php";
 <form  name="cad" action="?pg=grava" method="post" enctype="multipart/form-data">
 
 <!-- AQUI PEGO OS VALORES DA TELA ANTERIOR PARA UTILIZA-LOS NO UPDATE -->
-<input type="hidden" name="busca" id="busca" value="<?= $_REQUEST['busca'];?>">
-<input type="hidden" name="vendedores" id="vendedores" value="<?= $_REQUEST['vendedores'];?>">   
+<input type="hidden" name="busca" id="busca" value="<?php echo $_REQUEST['busca'];?>">
+<input type="hidden" name="vendedores" id="vendedores" value="<?php echo $_REQUEST['vendedores'];?>">   
 
 <table cellpadding="2" cellspacing="0" border="0" width="550px"  style="background:URL('images/bg_form_vendedor.png')repeat-x">
   <tr style="background: URL('#images/bg_nome_vendedor.png');">
-    <td colspan="4" style="background:URL('images/seta_01.png') no-repeat;"><b><?= str_repeat("&nbsp;", 3).$ResVend['nome'];?></b></td>
+    <td colspan="4" style="background:URL('images/seta_01.png') no-repeat;"><b><?php echo str_repeat("&nbsp;", 3).$ResVend['nome'];?></b></td>
   </tr> 
   <tr>
     <td colspan="4" align="center">&nbsp;</td>
@@ -96,7 +97,7 @@ include "include/config.php";
 </table>
 </form>
 
-<? 
+<?php
 echo str_repeat("<br>", 5);
 }else{
   include"include/login.php";

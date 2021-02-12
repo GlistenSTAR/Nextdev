@@ -99,7 +99,7 @@
                 <td><img src="images/spacer.gif" width="1" height="5"></td>
               </tr>
             </table>
-            <?
+            <?php
             if ($CodigoEmpresa=="86"){ //Perfil
               //Retirado por indicação do Sérgio
               // Não vão liberar esse tipo de opção, foi uma idéia da Edjane para suprir uma necessidade simples
@@ -112,19 +112,19 @@
                       <tr>
                         <td width="18"><img src="images/icone.gif" width="10" height="8"></td>
                         <td width="120" height="18"><strong>
-                          <?
+                          <?php
                           if ($_SESSION[usuario]){
                             ?>
                             <a href="img/" target="_blank">
                               Imagens
                             </a>
-                            <?
+                            <?php
                           }else{
                             ?>
                             <a href="#" onclick="Acha('credito.php','','Conteudo');">
                               Imagens
                             </a>
-                            <?
+                            <?php
                           }
                           ?>
 
@@ -160,7 +160,7 @@
                   <td><img src="images/linha_menu.gif" width="138" height="1"></td>
                 </tr>
               </table>
-              <?
+              <?php
             }
             ?>
             <!--

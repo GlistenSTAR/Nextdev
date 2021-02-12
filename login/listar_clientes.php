@@ -1,7 +1,8 @@
-<?
+<?php
+include_once ("inc/common.php");
 include "inc/verifica.php";
 include "inc/config.php";
-$_SESSION[pagina] = "listar_clientes.php";
+$_SESSION['pagina'] = "listar_clientes.php";
 ?>
 <style>
   .cinza {
@@ -23,14 +24,14 @@ $_SESSION[pagina] = "listar_clientes.php";
         <tr>
           <td class="texto1">
             <center>
-              <h3>Relatório de clientes <i>ON-LINE</i></h3>
+              <h3>Relatï¿½rio de clientes <i>ON-LINE</i></h3>
             </center>
             <div align="right" class="texto1">
-              <?
+              <?php
               setlocale(LC_TIME,'pt_BR','ptb');
               echo  ucfirst(strftime('%A, %d de %B de %Y',mktime(0,0,0,date('n'),date('d'),date('Y'))));
               ?><BR>
-              Representação: <b><? echo $_SESSION[usuario];?></b>
+              RepresentaÃ§Ã£o: <b><?php echo $_SESSION['usuario'];?></b>
             </div>
           </td>
         </tr>
@@ -47,30 +48,30 @@ $_SESSION[pagina] = "listar_clientes.php";
           <td class="normal" width="230"><b>Nome: </b>
           </td>
           <td class="normal" width="80"><b>CNPJ: </b></td>
-          <td class="normal" width="180"><b>Endereço: </b></td>
+          <td class="normal" width="180"><b>Endereï¿½o: </b></td>
           <td class="normal" width="20"><b>UF: </b></td>
           <td class="normal" width="100"><b>Cidade: </b></td>
           <td class="normal" width="60"><b>Telefone: </b></td>
         </tr>
-        <?
-        $pagina = $_REQUEST[pagina];
-        if (!$_SESSION[id_vendedor]){
-          $_SESSION[id_vendedor] = 1;
+        <?php
+        $pagina = $_REQUEST['pagina'];
+        if (!$_SESSION['id_vendedor']){
+          $_SESSION['id_vendedor'] = 1;
         }
-        if ($_SESSION[codigo_empresa]<>"95"){
-          $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '$_SESSION[id_vendedor]' order by nome ASC";
-          $lista1 = pg_query("Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '$_SESSION[id_vendedor]' order by nome ASC");
+        if ($_SESSION['codigo_empresa']<>"95"){
+          $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '".$_SESSION['id_vendedor']."' order by nome ASC";
+          $lista1 = pg_query("Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor = '".$_SESSION['id_vendedor']."' order by nome ASC");
         }else{
           $lista = "Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor in ('3','43','51','52') order by nome ASC";
           $lista1 = pg_query("Select nome, endereco, cidade, estado, telefone, cgc from clientes where codigo_vendedor in ('3','43','51','52') order by nome ASC");
         }
         //echo $lista;
         $ccc = pg_num_rows($lista1);
-        $offset = $_REQUEST[offset];
-        if ($_REQUEST[total_reg]){
-          if (is_numeric($_REQUEST[total_reg])){
-            $total_reg = $_REQUEST[total_reg];
-          }elseif ($_REQUEST[total_reg]=="TODOS"){
+        $offset = $_REQUEST['offset'];
+        if ($_REQUEST['total_reg']){
+          if (is_numeric($_REQUEST['total_reg'])){
+            $total_reg = $_REQUEST['total_reg'];
+          }elseif ($_REQUEST['total_reg']=="TODOS"){
             $total_reg = $ccc;
             $pagina = "1";
             $offset = "0";
@@ -110,41 +111,41 @@ $_SESSION[pagina] = "listar_clientes.php";
           }
           ?>
           <tr>
-            <td class="<? echo $Cor;?>" width="260">
-              <?
-              $Nome = $r[nome];
-//              if ($_SESSION[codigo_empresa]<>"95"){
+            <td class="<?php echo $Cor;?>" width="260">
+              <?php
+              $Nome = $r['nome'];
+//              if ($_SESSION['codigo_empresa']<>"95"){
                 ?>
-                <a href="#" onclick="Acha('cadastrar_clientes.php','localizar_numero=<? echo $r[cgc];?>&cnpj_valido=1','Conteudo');">
-                  <?
+                <a href="#" onclick="Acha('cadastrar_clientes.php','localizar_numero=<?php echo $r['cgc'];?>&cnpj_valido=1','Conteudo');">
+                  <?php
                   echo $Nome;
                   ?>
                 </a>
-                <?
+                <?php
 //              }else{
 //                echo $Nome;
 //              }
               ?>
             </td>
-            <td class="<? echo $Cor;?>" width="80">
-              <?
-              if ($_SESSION[codigo_empresa]<>"95"){
+            <td class="<?php echo $Cor;?>" width="80">
+              <?php
+              if ($_SESSION['codigo_empresa']<>"95"){
                 ?>
-                <a href="#" onclick="Acha('cadastrar_clientes.php','localizar_numero=<? echo $r[cgc];?>&cnpj_valido=1','Conteudo');">
-                  <? echo "$r[cgc]";?>
+                <a href="#" onclick="Acha('cadastrar_clientes.php','localizar_numero=<?php echo $r['cgc'];?>&cnpj_valido=1','Conteudo');">
+                  <?php echo $r['cgc'];?>
                 </a>
-                <?
+                <?php
               }else{
-                echo "$r[cgc]";
+                echo $r['cgc'];
               }
               ?>
             </td>
-            <td class="<? echo $Cor;?>" width="200"><? echo "$r[endereco]";?></td>
-            <td class="<? echo $Cor;?>" width="20"><? echo "$r[estado]";?></td>
-            <td class="<? echo $Cor;?>" width="100"><? echo "$r[cidade]";?></td>
-            <td class="<? echo $Cor;?>" width="60"><? echo "$r[telefone]";?></td>
+            <td class="<?php echo $Cor;?>" width="200"><?php echo $r['endereco'];?></td>
+            <td class="<?php echo $Cor;?>" width="20"><?php echo $r['estado'];?></td>
+            <td class="<?php echo $Cor;?>" width="100"><?php echo $r['cidade'];?></td>
+            <td class="<?php echo $Cor;?>" width="60"><?php echo $r['telefone'];?></td>
           </tr>
-          <?
+          <?php
           if ($pagina){
             if (!$qtd_registros){
               $qtd_registros = $qtd_registros + $inicio + 1;
@@ -167,12 +168,12 @@ $_SESSION[pagina] = "listar_clientes.php";
             <td align="center">
               <div id="listagem_clientes">
                 <table width="100%" border="0" class="texto1">
-                  <?
+                  <?php
                   if ($ccc<>""){
                     ?>
                     <tr>
                       <td height="25" align="center">
-                      <?
+                      <?php
                       $anterior = $pc -1;
                       $proximo = $pc +1;
                       $qtd_paginas = $ccc / $total_reg;
@@ -193,7 +194,7 @@ $_SESSION[pagina] = "listar_clientes.php";
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";
@@ -213,10 +214,10 @@ $_SESSION[pagina] = "listar_clientes.php";
                       $fim = $ccc / $total_reg;
                       if ($pc<$fim) {
                           echo " | ";
-                          echo " <a href='?pagina=$proximo&total_reg=$total_reg'> Próxima -> </a>";
+                          echo " <a href='?pagina=$proximo&total_reg=$total_reg'> Prï¿½xima -> </a>";
                       }else{
                           echo " | ";
-                          echo " Próxima ->";
+                          echo " Prï¿½xima ->";
                       }
                       ?>
                       </td>
@@ -224,16 +225,16 @@ $_SESSION[pagina] = "listar_clientes.php";
                     <div id="paginacao" class="noPrint">
                       <tr>
                         <td height="25" align="center" valign="top"><div>
-                          <?
+                          <?php
                           echo "<div>Mostrando registro <strong>";
                           echo $inicio + 1;
-                          echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong> - Página: <b>$pagina</b></div>";
+                          echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong> - PÃ¡gina: <b>$pagina</b></div>";
                           ?>
                           </div>
                         </td>
                       </tr>
                     </div>
-                    <?
+                    <?php
                   }
                   ?>
                 </table>
@@ -241,8 +242,8 @@ $_SESSION[pagina] = "listar_clientes.php";
             </td>
           </tr>
           <form method="POST" name="limitador">
-            <input type="hidden" name="pagina" value="<? echo $pagina;?>">
-            <input type="hidden" name="offset" value="<? echo $inicio;?>">
+            <input type="hidden" name="pagina" value="<?php echo $pagina;?>">
+            <input type="hidden" name="offset" value="<?php echo $inicio;?>">
           -->
             <tr>
               <td align="center" valign="top">
@@ -255,11 +256,11 @@ $_SESSION[pagina] = "listar_clientes.php";
           <tr>
             <td>
               <BR>
-              <b>* Para retirar o cabeçalho e o rodapé da página acesse:</b><BR>
-              1 - Arquivo/ Configurar página;<BR>
-              2 - Retire o conteúdo dos campos Cabeçalho e Rodapé;<BR>
-              3 - Clique em OK e faça a impressão.<BR>
-              <b>**</b> Essa observação não sairá na impressão, contanto que o botão Imprimir seja clicado.
+              <b>* Para retirar o cabeï¿½alho e o rodapï¿½ da PÃ¡gina acesse:</b><BR>
+              1 - Arquivo/ Configurar PÃ¡gina;<BR>
+              2 - Retire o conteï¿½do dos campos Cabeï¿½alho e Rodapï¿½;<BR>
+              3 - Clique em OK e faï¿½a a impressï¿½o.<BR>
+              <b>**</b> Essa observaï¿½ï¿½o nï¿½o sairï¿½ na impressï¿½o, contanto que o botï¿½o Imprimir seja clicado.
             </td>
           </tr>
         </table>

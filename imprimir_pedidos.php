@@ -1,18 +1,19 @@
-<?
+<?php
+include_once ("inc/common.php");
 //include "inc/verifica.php";
 include "inc/config.php";
-if ($_REQUEST[data_inicial]){
-  $DataInicial = $_REQUEST[data_inicial];
+if ($_REQUEST['data_inicial']){
+  $DataInicial = $_REQUEST['data_inicial'];
 }else{
   //$DataInicial = date("d/m/Y");
   $DataInicial = date("d/m/Y", mktime(0,0,0, date("m")-1, date("d"), date("Y"))); //Mês + 1
 }
-if ($_REQUEST[data_final]){
-  $DataFinal = $_REQUEST[data_final];
+if ($_REQUEST['data_final']){
+  $DataFinal = $_REQUEST['data_final'];
 }else{
   $DataFinal = date("d/m/Y", mktime(0,0,0, date("m")+1, date("d"), date("Y"))); //Mês + 1
 }
-if ($_REQUEST[total_reg]){
+if ($_REQUEST['total_reg']){
   $filtrou = true;
 }else{
   $filtrou = false;
@@ -24,7 +25,7 @@ if ($pos=="ASC"){
   $pos1 = "DESC";
   $pos = "ASC";
 }
-if ($_REQUEST[ordem]){
+if ($_REQUEST['ordem']){
   $Ordem = "order by $_REQUEST[ordem] $pos";
 }else{
   $Ordem = "order by numero $pos";
@@ -70,7 +71,7 @@ margin: 1;}
   }
 </script>
 <link href="inc/css.css" rel="stylesheet" type="text/css" media="screen">
-<body <? if (!$filtrou){ ?> onload="alert('Para filtrar os pedidos por data utilize os campos (Data Inicial e Data Final) no rodapé e clique no botão Visualizar.')" <?}?>>
+<body <?php if (!$filtrou){ ?> onload="alert('Para filtrar os pedidos por data utilize os campos (Data Inicial e Data Final) no rodapé e clique no botão Visualizar.')" <?php } ?>>
 <table width="700" border="0" cellspacing="1" cellpadding="1" class="texto_print">
   <tr>
     <td align="center">
@@ -79,11 +80,11 @@ margin: 1;}
           <td width="77">
             &nbsp;&nbsp;&nbsp;&nbsp;
             <td align="left" valign="top" width="200">
-              <img src="images/<?=$CONF['logotipo_empresa']?>">
+              <img src="images/<?php echo $CONF['logotipo_empresa']?>">
             </td>
           </td>
           <td valign="bottom">
-            <span class="arialg"><strong><? echo ucfirst($Empresa);?></strong></span>
+            <span class="arialg"><strong><?php echo ucfirst($Empresa);?></strong></span>
           </td>
           <td class="texto_print">
             <center>
@@ -92,17 +93,17 @@ margin: 1;}
               </span>
             </center>
             <div align="right" class="texto_print">
-              <?
+              <?php
               setlocale(LC_TIME,'pt_BR','ptb');
               echo  ucfirst(strftime('%A, %d de %B de %Y',mktime(0,0,0,date('n'),date('d'),date('Y'))));
               ?><BR>
-              Vendedor: <b><? echo $_SESSION[usuario];?></b>
+              Vendedor: <b><?php echo $_SESSION['usuario'];?></b>
             <table class="texto_print">
               <tr>
                 <td valign="top">Data Inicial:</td>
-                <td valign="top"><b><? echo $DataInicial;?></b>
+                <td valign="top"><b><?php echo $DataInicial;?></b>
                 <td valign="top">Data Final:</td>
-                <td valign="top"><b><? echo $DataFinal;?></b>
+                <td valign="top"><b><?php echo $DataFinal;?></b>
               </tr>
             </table>
             </div>
@@ -124,8 +125,8 @@ margin: 1;}
           <td width="350"><b>Cliente</b></td>
           <td width="80"><b>Valor Total</b></td>
         </tr>
-        <?
-        if (($_REQUEST[data_inicial]) and ($_REQUEST[data_final])){
+        <?php
+        if (($_REQUEST['data_inicial']) and ($_REQUEST['data_final'])){
           $di = explode("/", $DataInicial);
           $df = explode("/", $DataFinal);
           $FiltroData = " data>='".$di[2]."-".$di[1]."-".$di[0]."' and data<='".$df[2]."-".$df[1]."-".$df[0]."'";
@@ -134,20 +135,20 @@ margin: 1;}
           $DataFinal = date("d/m/Y", mktime(0,0,0, date("m"), date("d"), date("Y"))); //Mês + 1
           $FiltroData = " data>='".date("Y-m-d", mktime(0,0,0, date("m"), date("d")-7, date("Y")))."' and data<='".date("Y-m-d", mktime(0,0,0, date("m"), date("d"), date("Y")))."'";
         }
-        $pagina = $_REQUEST[pagina];
-        if ($_SESSION[nivel]=="2"){
+        $pagina = $_REQUEST['pagina'];
+        if ($_SESSION['nivel']=="2"){
 
         }else{
-          $Filtro = " codigo_vendedor = '$_SESSION[id_vendedor]' and ";
+          $Filtro = " codigo_vendedor = '".$_SESSION['id_vendedor']."' and ";
         }
         $lista = "Select numero, data, cliente, cgc, total_com_desconto from pedidos where $Filtro $FiltroData order by data DESC";
         $lista1 = pg_query("Select numero, data, cliente, cgc, total_com_desconto from pedidos where $Filtro $FiltroData order by data DESC");
         $ccc = pg_num_rows($lista1);
-        $offset = $_REQUEST[offset];
-        if ($_REQUEST[total_reg]){
-          if (is_numeric($_REQUEST[total_reg])){
-            $total_reg = $_REQUEST[total_reg];
-          }elseif ($_REQUEST[total_reg]=="TODOS"){
+        $offset = $_REQUEST['offset'];
+        if ($_REQUEST['total_reg']){
+          if (is_numeric($_REQUEST['total_reg'])){
+            $total_reg = $_REQUEST['total_reg'];
+          }elseif ($_REQUEST['total_reg']=="TODOS"){
             $total_reg = $ccc;
             $pagina = "1";
             $offset = "0";
@@ -187,27 +188,27 @@ margin: 1;}
           }
           ?>
           <tr>
-            <td class="<? echo $Cor;?>"><? echo "$r[numero]";?></td>
-            <td class="<? echo $Cor;?>">
-              <?
-              $da = $r[data];
+            <td class="<?php echo $Cor;?>"><?php echo $r['numero'];?></td>
+            <td class="<?php echo $Cor;?>">
+              <?php
+              $da = $r['data'];
               $d = explode("-", $da);
               echo "".$d[2]."/".$d[1]."/".$d[0]."";
               ?>
             </td>
-            <td class="<? echo $Cor;?>"><? echo "$r[cgc]";?></td>
-            <td class="<? echo $Cor;?>">
-              <?
-              $Nome = $r[cliente];
+            <td class="<?php echo $Cor;?>"><?php echo $r['cgc'];?></td>
+            <td class="<?php echo $Cor;?>">
+              <?php
+              $Nome = $r['cliente'];
               //if (strlen($Nome)>100) {
               //  $Nome = substr($Nome,0,100)."";
               //}
               echo $Nome;
               ?>
             </td>
-            <td class="<? echo $Cor;?>" align="right"><? echo number_format($r[total_com_desconto], 2, ",", ".");?></td>
+            <td class="<?php echo $Cor;?>" align="right"><?php echo number_format($r['total_com_desconto'], 2, ",", ".");?></td>
           </tr>
-          <?
+          <?php
           if ($pagina){
             if (!$qtd_registros){
               $qtd_registros = $qtd_registros + $inicio + 1;
@@ -215,15 +216,15 @@ margin: 1;}
               $qtd_registros = $qtd_registros +  1;
             }
           }
-          $Total = $Total + $r[total_com_desconto];
+          $Total = $Total + $r['total_com_desconto'];
         }
         ?>
         <tr>
-          <td class="<? echo $Cor;?>"></td>
-          <td class="<? echo $Cor;?>"></td>
-          <td class="<? echo $Cor;?>"></td>
-          <td class="<? echo $Cor;?>" align="right"><BR>Total </td>
-          <td class="<? echo $Cor;?>" align="right"><hr></hr><? echo number_format($Total, 2, ",", ".");?></td>
+          <td class="<?php echo $Cor;?>"></td>
+          <td class="<?php echo $Cor;?>"></td>
+          <td class="<?php echo $Cor;?>"></td>
+          <td class="<?php echo $Cor;?>" align="right"><BR>Total </td>
+          <td class="<?php echo $Cor;?>" align="right"><hr></hr><?php echo number_format($Total, 2, ",", ".");?></td>
         </tr>
       </table>
       <hr></hr>
@@ -237,12 +238,12 @@ margin: 1;}
             <td align="center" colspan="2">
               <div id="listagem_clientes">
                 <table width="100%" border="0" class="texto_print">
-                  <?
+                  <?php
                   if ($ccc<>""){
                     ?>
                     <tr>
                       <td height="25" align="center" colspan="2">
-                      <?
+                      <?php
                       $anterior = $pc -1;
                       $proximo = $pc +1;
                       $qtd_paginas = $ccc / $total_reg;
@@ -263,7 +264,7 @@ margin: 1;}
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";
@@ -294,7 +295,7 @@ margin: 1;}
                     <div id="paginacao" class="texto_print">
                       <tr>
                         <td height="25" align="center" valign="top" colspan="2"><div>
-                          <?
+                          <?php
                           echo "<div>Mostrando registro <strong>";
                           echo $inicio + 1;
                           echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong> - Página: <b>$pagina</b></div>";
@@ -303,7 +304,7 @@ margin: 1;}
                         </td>
                       </tr>
                     </div>
-                    <?
+                    <?php
                   }
                   ?>
                 </table>
@@ -311,15 +312,15 @@ margin: 1;}
             </td>
           </tr>
           <form method="POST" name="limitador">
-            <input type="hidden" name="pagina" value="<? echo $pagina;?>">
-            <input type="hidden" name="offset" value="<? echo $inicio;?>">
+            <input type="hidden" name="pagina" value="<?php echo $pagina;?>">
+            <input type="hidden" name="offset" value="<?php echo $inicio;?>">
             <tr>
               <td>
                 <table class="texto_print">
                     <td valign="top">Data Inicial:</td>
-                    <td valign="top"><input name="data_inicial" id="data_inicial"  type="text" size="12" maxlength="20" value="<? echo $DataInicial;?>"></td>
+                    <td valign="top"><input name="data_inicial" id="data_inicial"  type="text" size="12" maxlength="20" value="<?php echo $DataInicial;?>"></td>
                     <td valign="top">Data Final:</td>
-                    <td valign="top"><input name="data_final" id="data_final"  type="text" size="12" maxlength="20" value="<? echo $DataFinal;?>"></td>
+                    <td valign="top"><input name="data_final" id="data_final"  type="text" size="12" maxlength="20" value="<?php echo $DataFinal;?>"></td>
                 </table>
               </td>
               <td align="center" valign="top">

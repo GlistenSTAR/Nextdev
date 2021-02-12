@@ -1,7 +1,7 @@
-<?
+<?php
 include "inc/verifica.php";
 include "inc/config.php";
-$_SESSION[pagina] = "listar_clientes.php";
+$_SESSION['pagina'] = "listar_clientes.php";
 ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
 <table border="0" cellspacing="1" cellpadding="1" class="adminform"  width="100%" height="350">
@@ -9,7 +9,7 @@ $_SESSION[pagina] = "listar_clientes.php";
     <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
   </tr>
   <tr>
-    <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;<img src="<? echo $site_url;?>icones/usuarios.png" border="0" align="left">
+    <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/usuarios.png" border="0" align="left">
       <center><h3>Listagem de clientes</h3></center><hr></hr>
     </td>
   </tr>
@@ -18,17 +18,17 @@ $_SESSION[pagina] = "listar_clientes.php";
   </tr>
   <tr>
     <td>
-      <?
-      if ($_REQUEST[acao]=="Excluir"){
-        $SqlDeletaNoticia = pg_query($db2,"Delete from clientes where id='$_REQUEST[id]'");
+      <?php
+      if ($_REQUEST['acao']=="Excluir"){
+        $SqlDeletaNoticia = pg_query($db2,"Delete from clientes where id='".$_REQUEST['id']."'");
       }
-      if ($_REQUEST[data_inicial]){
-        $DataInicial = $_REQUEST[data_inicial];
+      if ($_REQUEST['data_inicial']){
+        $DataInicial = $_REQUEST['data_inicial'];
       }else{
         $DataInicial = date("d/m/Y", mktime(0,0,0, date("m")-1, date("d"), date("Y"))); //Mês + 1
       }
-      if ($_REQUEST[data_final]){
-        $DataFinal = $_REQUEST[data_final];
+      if ($_REQUEST['data_final']){
+        $DataFinal = $_REQUEST['data_final'];
       }else{
         $DataFinal = date("d/m/Y", mktime(0,0,0, date("m")+1, date("d"), date("Y"))); //Mês + 1
       }
@@ -48,13 +48,13 @@ $_SESSION[pagina] = "listar_clientes.php";
       <form name="listar">
         <div id="listar">
           <table border="0" cellspacing="1" cellpadding="4" class="texto1" valign="top" align="center">
-            <?
+            <?php
             if (!$FiltroData){
               $lista = "Select * from clientes where habilitado_site=1 and inativo=0 and codigo_bloqueio=0 $Ordem";
               $lista1 = pg_query($db2,$lista);
               $ccc = pg_num_rows($lista1);
               $total_reg = "10";
-              $pagina = $_REQUEST[pagina];
+              $pagina = $_REQUEST['pagina'];
               if (!$pagina){
                 $inicio = "0";
                 $pc = "1";
@@ -81,7 +81,7 @@ $_SESSION[pagina] = "listar_clientes.php";
                 <td width="350"><b>CPF / CNPJ</b></td>
                 <td width="20"><b>Excluir</b></td>
               </tr>
-              <?
+              <?php
               while ($r = pg_fetch_array($not1)){
 
                 if ($Cor=="#EEEEEE"){
@@ -90,20 +90,20 @@ $_SESSION[pagina] = "listar_clientes.php";
                   $Cor="#EEEEEE";
                 }
                 ?>
-                <tr bgcolor="<? echo "$Cor";?>">
+                <tr bgcolor="<?php echo $Cor;?>">
                   <td valign="top">
-                    <a href="#" onclick="Acha('cadastrar_vendedor.php','localizar_numero=<? echo $r[codigo];?>','Conteudo');"><? echo "$r[nome]";?></a>
+                    <a href="#" onclick="Acha('cadastrar_vendedor.php','localizar_numero=<?php echo $r['codigo'];?>','Conteudo');"><?php echo $r['nome'];?></a>
                   </td>
                   <td valign="top">
-                    <?
-                    echo $r[cgc];
+                    <?php
+                    echo $r['cgc'];
                     ?>
                   </td>
                   <td>
-                    <img src="icones/excluir.png" style="border: 0pt none ; cursor: pointer;" border="0" title="Clique para excluir o vendedor" onclick="if (confirm('Deseja realmente excluir esse vendedor?')){ Acha('listar_vendedor.php', 'acao=Excluir&id=<? echo $r[id];?>', 'Conteudo')}">
+                    <img src="icones/excluir.png" style="border: 0pt none ; cursor: pointer;" border="0" title="Clique para excluir o vendedor" onclick="if (confirm('Deseja realmente excluir esse vendedor?')){ Acha('listar_vendedor.php', 'acao=Excluir&id=<?php echo $r['id'];?>', 'Conteudo')}">
                   </td>
                 </tr>
-                <?
+                <?php
                 if ($pagina){
                   if (!$qtd_registros){
                     $qtd_registros = $qtd_registros + $inicio + 1;
@@ -122,12 +122,12 @@ $_SESSION[pagina] = "listar_clientes.php";
             <tr>
               <td align="center" colspan="5"> <hr>
                 <table width="100%" border="0" class="texto1">
-                  <?
+                  <?php
                   if ($ccc<>""){
                     ?>
                     <tr>
                       <td height="25" align="center">
-                      <?
+                      <?php
                       $anterior = $pc -1;
                       $proximo = $pc +1;
                       $qtd_paginas = $ccc / $total_reg;
@@ -148,7 +148,7 @@ $_SESSION[pagina] = "listar_clientes.php";
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo "$p&nbsp;";
+                          echo $p."&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";
@@ -173,7 +173,7 @@ $_SESSION[pagina] = "listar_clientes.php";
                     </tr>
                     <tr>
                       <td height="25" align="center" valign="top"><div>
-                        <?
+                        <?php
                         echo "<div>Mostrando registro <strong>";
                         echo $inicio + 1;
                         echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong></div>";
@@ -181,7 +181,7 @@ $_SESSION[pagina] = "listar_clientes.php";
                         </div>
                       </td>
                     </tr>
-                    <?
+                    <?php
                   }
                   ?>
                </table>
@@ -190,8 +190,8 @@ $_SESSION[pagina] = "listar_clientes.php";
           </table>
         </div>
       </form>
-      <?
-      $_SESSION[pagina] = "inicio.php";
+      <?php
+      $_SESSION['pagina'] = "inicio.php";
       ?>
     </td>
   </tr>

@@ -1,4 +1,5 @@
-<?
+<?php
+include_once ("include/common.php");
 session_start();
 if($_SESSION['LogaUser']){
 ?>
@@ -31,13 +32,13 @@ function abreJanela(URL) {
   <form action="?pg=listar" name="cad" method="post" enctype="multipart/form-data">  
     &nbsp;<b>Base de Dados:</b>
     <select name="busca" class="texto" id="busca" style="width:150px;height:25px;" onchange="carregar()">   
-     <option value="<?= $_REQUEST[busca];?>"><?= strtoupper($_REQUEST[busca]);?></option>
-     <?
-      $SQL = pg_query($Nextweb, "SELECT id, base, descricao FROM dados WHERE codigo_empresa = '$_SESSION[LogaEmpresa]' AND base <>'$_REQUEST[busca]'");
+     <option value="<?php echo $_REQUEST['busca'];?>"><?php echo strtoupper($_REQUEST['busca']);?></option>
+     <?php
+      $SQL = pg_query($Nextweb, "SELECT id, base, descricao FROM dados WHERE codigo_empresa = '".$_SESSION['LogaEmpresa']."' AND base <>'".$_REQUEST['busca']."'");
       while($Lista = pg_fetch_array($SQL)){
      ?>
-       <option value="<?= $Lista['base'];?>"><?= $Lista['descricao'];?></option>    
-     <?
+       <option value="<?php echo $Lista['base'];?>"><?php echo $Lista['descricao'];?></option>    
+     <?php
       }
      ?>
     </select>
@@ -60,24 +61,24 @@ function abreJanela(URL) {
 
 <div style="border:0px solid #CCCCCC;width:920px;height:210px;overflow:auto;">
 <table width="900" cellpadding="0" cellspacing="1" border="0" align="left">	
-<?
+<?php
 //aqui inativo o usuario
-if($_REQUEST[inativa] !==""){
-  $Inativar = "UPDATE vendedores SET ativo='0' WHERE id = '$_REQUEST[inativa]'";
+if($_REQUEST['inativa'] !==""){
+  $Inativar = "UPDATE vendedores SET ativo='0' WHERE id = '".$_REQUEST['inativa']."'";
 		//echo $Inativar;
   pg_query($conecta, $Inativar);
 }
 
 //aqui ativo o usuario
-if($_REQUEST[ativa] !==""){
-  $Ativar = "UPDATE vendedores SET ativo='1' WHERE id = '$_REQUEST[ativa]'";
+if($_REQUEST['ativa'] !==""){
+  $Ativar = "UPDATE vendedores SET ativo='1' WHERE id = '".$_REQUEST['ativa']."'";
 		//echo $Ativar;
   pg_query($conecta, $Ativar);
 }				
 
 //aqui mudo nivel
 if($id !==""){
-  $Nivel = "UPDATE vendedores SET nivel_site='$_REQUEST[nivel]' WHERE id = '$_REQUEST[id]'";
+  $Nivel = "UPDATE vendedores SET nivel_site='".$_REQUEST['nivel']."' WHERE id = '".$_REQUEST['id']."'";
 		//echo $Nivel;
   pg_query($conecta, $Nivel);
 }			
@@ -127,20 +128,20 @@ switch($Resultado['nivel_site']){
 
 ?>
 
- <tr class="texto" bgcolor="<?= $Cor;?>" onMouseOver="javascript:this.style.backgroundColor='#d2e2f1'" onMouseOut="javascript:this.style.backgroundColor=''">
-	 <td width="400px">&nbsp;<?= $Resultado['nome'];?></td>
-		<td width="100px">&nbsp;<font color="red"><b><?= $Resultado['login'];?></b></font></td>
-		<td width="100px">&nbsp;<font color="red"><b><?= $Resultado['senha'];?></b></font></td>
+ <tr class="texto" bgcolor="<?php echo $Cor;?>" onMouseOver="javascript:this.style.backgroundColor='#d2e2f1'" onMouseOut="javascript:this.style.backgroundColor=''">
+	 <td width="400px">&nbsp;<?php echo $Resultado['nome'];?></td>
+		<td width="100px">&nbsp;<font color="red"><b><?php echo $Resultado['login'];?></b></font></td>
+		<td width="100px">&nbsp;<font color="red"><b><?php echo $Resultado['senha'];?></b></font></td>
   <td width="100px">&nbsp;<font color="red">
     <select id="nivel" name="nivel" style="width:100px;" onchange="javascript: abreJanela(this.value)">
-      <option value="<?= $Resultado['nivel_site'];?>"><?= $Status;?></option>
+      <option value="<?php echo $Resultado['nivel_site'];?>"><?php echo $Status;?></option>
       <option value=""> - - - - - - - - -</option>
-      <?= $Status2;?>
+      <?php echo $Status2;?>
     </select>    
   </td>
-		<td width="50px" align="center"><?= $Acao;?></td>		
+		<td width="50px" align="center"><?php echo $Acao;?></td>		
 	</tr>
-<?
+<?php
 }
 echo $Aviso;
 ?>
@@ -149,7 +150,7 @@ echo $Aviso;
 </div>
 </div>
 </div>
-<?
+<?php
 }else{
   include"include/login.php";
 }		

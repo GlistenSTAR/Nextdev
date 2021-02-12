@@ -1,4 +1,4 @@
-<?
+<?php
 //DADOS
 echo "DIRETÓRIO RAIZ: $_SERVER[DOCUMENT_ROOT] <br>";
 echo "CAMINHO DO SCRIPT: $_SERVER[SCRIPT_NAME] <br>";

@@ -1,6 +1,7 @@
-<?
+<?php
+include_once ("inc/common.php");
 include "inc/verifica.php";
-$_SESSION[pagina] = "clientes.php";
+$_SESSION['pagina'] = "clientes.php";
 ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
 <table width="603" border="0" cellspacing="0" cellpadding="0" class="texto1">

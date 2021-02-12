@@ -1,5 +1,5 @@
-<?
-if ($_SESSION[usuario]){
+<?php
+if (isset($_SESSION['usuario'])){
   ?>
   <table width="100%" border="0" align="center" cellpadding="2" cellspacing="2">
     <tr bgcolor="#EEEEEE">
@@ -11,30 +11,30 @@ if ($_SESSION[usuario]){
                 <table width="90%" border="0" align="center" cellpadding="2" cellspacing="0" class="arial11">
                   <tr bgcolor="#EEEEEE">
                     <td width="180" valign="top">
-                      Representação: <b><? echo $_SESSION[usuario];?></b>
+                    RepresentaÃ§Ã£o: <b><?php echo isset($_SESSION['usuario'])?$_SESSION['usuario']:'';?></b>
                     </td>
                     <td width="100" valign="top">
-                      Base: <b><? echo $base;?></b>
+                      Base: <b><?php echo $base;?></b>
                     </td>
                     <td width="100" valign="top">
-                      <?
-                      if (($_SESSION[ultimo_login]) and ($_SESSION[qtd_entrada_site])){
+                      <?php
+                      if (isset($_SESSION['ultimo_login']) and isset($_SESSION['qtd_entrada_site'])){
                         ?>
-                        Total Acessos: <b><? echo $_SESSION[qtd_entrada_site];?></b>
+                        Total Acessos: <b><?php echo $_SESSION['qtd_entrada_site'];?></b>
                         </td>
                         <td align="right" width="250" valign="top" NOWRAP>
-                          Último acesso:
+                          Ãšltimo acesso
                           <b>
-                            <?
-                            $ano  = substr($_SESSION[ultimo_login],  0, 4);
-                            $mes  = substr($_SESSION[ultimo_login],  5, 2);
-                            $dia  = substr($_SESSION[ultimo_login],  8, 2);
-                            $hora = substr($_SESSION[ultimo_login], 11, 8);
-                            echo $dia."/".$mes."/".$ano." às ".$hora;
+                            <?php
+                            $ano  = substr($_SESSION['ultimo_login'],  0, 4);
+                            $mes  = substr($_SESSION['ultimo_login'],  5, 2);
+                            $dia  = substr($_SESSION['ultimo_login'],  8, 2);
+                            $hora = substr($_SESSION['ultimo_login'], 11, 8);
+                            echo $dia."/".$mes."/".$ano." Ã s ".$hora;
                             ?>
                           </b>
                         </td>
-                        <?
+                        <?php
                       }
                       ?>
                     </td>
@@ -47,6 +47,6 @@ if ($_SESSION[usuario]){
       </td>
     </tr>
   </table>
-  <?
+  <?php
 }
 ?>

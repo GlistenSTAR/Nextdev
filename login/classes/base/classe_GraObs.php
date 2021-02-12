@@ -18,7 +18,7 @@ class Observacao {
   private $observacao;
 
   //Construtor
-  public function Observacao(){
+  public function __construct(){
 
   }
 
@@ -55,7 +55,7 @@ class Observacao {
     switch ($operacao) {
       case 'adiciona' :
         /// Escreve Observação.
-        @pg_query("Delete from observacao_do_pedido where numero_pedido='$numero'");
+        @pg_query("Delete from observacao_do_pedido where numero_pedido='".$numero."'");
         $OBS = "INSERT INTO observacao_do_pedido (numero_pedido, observacao) VALUES (";
         $OBS = $OBS.$numero.",";
         $OBS = $OBS."'".strtoupper($observacao)."')";
