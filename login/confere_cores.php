@@ -1,7 +1,6 @@
-<?php
-include_once ("inc/common.php");
+<?
 include "inc/config.php";
-$SQL = "UPDATE pedidos_internet_novo SET especificado = 1 WHERE numero = ".$_REQUEST['numero_cores'];
+$SQL = "UPDATE pedidos_internet_novo SET especificado = 1 WHERE numero = ".$_REQUEST[numero_cores];
 pg_query($db,$SQL);
 if ($erro == 0){
   $consulta = "UPDATE itens_do_pedido_internet set ";
@@ -58,7 +57,7 @@ if ($erro == 0){
     $divisor = ",";
   }
   $consulta = $consulta.",especificado=1 ";
-  $consulta = $consulta." WHERE numero_pedido=".$_REQUEST['numero_cores']." AND codigo='".$_REQUEST['codigo_cores']."'";
+  $consulta = $consulta." WHERE numero_pedido=".$_REQUEST[numero_cores]." AND codigo='".$_REQUEST[codigo_cores]."'";
   pg_query ($db,$consulta);
 }
 ?>

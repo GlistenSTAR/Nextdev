@@ -1,5 +1,4 @@
-<?php
-include_once ("include/common.php");
+<?
 include "include/config.php";
 include "css/css.php";
 ?>
@@ -11,13 +10,13 @@ include "css/css.php";
 <title>ADMIN - NEXTWEB</title>
 <table width="980" cellpadding="0" cellspacing="0" border="0" align="center" bgcolor="#FFFFFF">
  <tr>
-	 <td align="center"><?php include("include/topo.php");?></td>
+	 <td align="center"><? include("include/topo.php");?></td>
 	</tr>
  <tr>
 	 <td align="center" background="images/root.jpg">		
 				<?php
-					if (!@include($_REQUEST['pg']).".php"){
-								if(!$_SESSION['LogaUser']){
+					if (!@include($_REQUEST[pg]).".php"){
+								if(!$_SESSION[LogaUser]){
 										include "include/login.php";
 								}else{
 									include"index.php?pg=busca";
@@ -27,6 +26,6 @@ include "css/css.php";
 		</td>
 	</tr>
  <tr>
-	 <td align="center"><?php include("include/baixo.php");?></td>
+	 <td align="center"><? include("include/baixo.php");?></td>
 	</tr>	
 </table>

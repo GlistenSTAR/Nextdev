@@ -3,10 +3,10 @@ include "inc/config.php";
 include "inc/verifica.php";
 $Modulo_titulo = "Categorias";
 $Modulo_link = "categorias";
-$_SESSION['pagina'] = "listar_categorias.php";
-if (is_numeric($_REQUEST['localizar_numero'])){
+$_SESSION[pagina] = "listar_categorias.php";
+if (is_numeric($_REQUEST[localizar_numero])){
   include_once("inc/config.php");
-  $SqlCarregaCat = pg_query("Select * from categorias where id='".$_REQUEST['localizar_numero']."'");
+  $SqlCarregaCat = pg_query("Select * from categorias where id='$_REQUEST[localizar_numero]'");
   $ccc = pg_num_rows($SqlCarregaCat);
   if ($ccc<>""){
     $n = pg_fetch_array($SqlCarregaCat);
@@ -15,7 +15,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
 ?>
 <html>
 <head>
-<title><?php echo $Titulo_Admin;?></title>
+<title><? echo "$Titulo_Admin ";?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <link href="fonte.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" type="text/JavaScript">
@@ -79,7 +79,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
 <table border="0" cellspacing="1" cellpadding="1" class="adminform"  width="100%" height="350">
   <tr align="center">
       <?php
-      if ($_SESSION['usuario']){
+      if ($_SESSION[usuario]){
           ?>
           <td width="548" valign="top">
             <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="arial11">
@@ -96,41 +96,41 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                 <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/categorias.gif" border="0" align="left"><center><h3><?php echo $Modulo_titulo;?></h3></center><hr></hr></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<? echo $site_url;?>icones/categorias.gif" border="0" align="left"><center><h3><? echo "$Modulo_titulo";?></h3></center><hr></hr></td>
               </tr>
               <tr>
                 <td valign="top" align="center" width="100%">
-                  <?php
+                  <?
                   //Verifico se o cara mandou algo pra gravar.
-                  if ($_REQUEST['acao']==""){
+                  if ($_REQUEST[acao]==""){
                     ?>
                     <form method="POST" name="cad" enctype="multipart/form-data">
                       <div id="divAbaMeio">
-                      <input type="hidden" name="id_categoria" id="id_categoria" value="<?php echo $n['id'];?>">
+                      <input type="hidden" name="id_categoria" id="id_categoria" value="<? echo "$n[id]";?>">
                       <input type="hidden" name="acao" id="acao" value="cadastrar">
                       <table align="center" width="95%" border="0" class="arial11" cellspacing="4" cellspading="4">
                         <tr>
                           <td>Nome<BR>
-                          <input type="text" name="nome" id="nome" size="40" value="<?php echo $n['nome'];?>"></td>
+                          <input type="text" name="nome" id="nome" size="40" value="<? echo "$n[nome]";?>"></td>
                         </tr>
                         <tr>
                           <td>Descrição<BR>
-                          <textarea rows="4" cols="65" name="descricao" id="descricao" maxlength="120"><?php echo $n['descricao'];?></textarea></td>
+                          <textarea rows="4" cols="65" name="descricao" id="descricao" maxlength="120"><? echo "$n[descricao]";?></textarea></td>
                         </tr>
                         <tr>
                           <td>Ativo<BR>
                             <select name="ativo" id="ativo" size="1">
-                              <?php
-                              if (($n['ativo']) or ($n['ativo']=="")){
+                              <?
+                              if (($n[ativo]) or ($n[ativo]=="")){
                                 ?>
                                 <option value="1">SIM</option>
                                 <option value="0">NÃO</option>
-                                <?php
+                                <?
                               }else{
                                 ?>
                                 <option value="0">NÃO</option>
                                 <option value="1">SIM</option>
-                                <?php
+                                <?
                               }
                               ?>
                             </select>
@@ -145,18 +145,18 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                       </table>
                       </div>
                     </form>
-                    <?php
+                    <?
                   }else{
                     //Verifico se o cara mandou algo pra gravar.
-                    $Nome = utf8_decode($_REQUEST['nome']);
-                    $Descricao = utf8_decode(str_replace(chr(13),"<br>",$_REQUEST['descricao']));
+                    $Nome = utf8_decode($_REQUEST[nome]);
+                    $Descricao = utf8_decode(str_replace(chr(13),"<br>",$_REQUEST[descricao]));
                     
-                    if ($_REQUEST['id_categoria']){ //se tiver Id somente atualizo
-                      $Grava = "Update ".$Modulo_link." set
-                                  nome='".$Nome."',
-                                  descricao='".$Descricao."',
-                                  ativo='".$_REQUEST['ativo']."'
-                                Where id='".$_REQUEST['id_categoria']."'
+                    if ($_REQUEST[id_categoria]){ //se tiver Id somente atualizo
+                      $Grava = "Update $Modulo_link set
+                                  nome='$Nome',
+                                  descricao='$Descricao',
+                                  ativo='$_REQUEST[ativo]'
+                                Where id='$_REQUEST[id_categoria]'
                                  ";
                       //echo $Grava;
                       $as = "Edição efetuada por $_SESSION[usuario] - $Modulo_titulo";
@@ -206,13 +206,13 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                         </td>
                       </tr>
                     </table>
-                    <?php
+                    <?
                   }
                   ?>
               </tr>
             </table>
           </td>
-          <?php
+          <?
       }
       ?>
     </td>

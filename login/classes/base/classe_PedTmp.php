@@ -292,40 +292,40 @@ class PedidoTemporario {
         }else {
           $cif = 0;
         }
-        if ($condpag2_id){ $CondicaoPagamento2 = "codigo_pagamento1='".$condpag2_id."', ";}
+        if ($condpag2_id){ $CondicaoPagamento2 = "codigo_pagamento1='$condpag2_id', ";}
         $sql = "Update pedidos_internet_novo set
-                  cgc='".$clientecnpj_cc."',
-                  cliente='".$cliente_cc."',
+                  cgc='$clientecnpj_cc',
+                  cliente='$cliente_cc',
                   contato='".left($contato_cc,20)."',
-                  id_cliente='".$cliente_id."',
-                  codigo_pagamento='".$condpag1_id."',
-                  codigo_vendedor='".$vendedor2_id."',
+                  id_cliente='$cliente_id',
+                  codigo_pagamento='$condpag1_id',
+                  codigo_vendedor='$vendedor2_id',
                   $CondicaoPagamento2
-                  numero_cliente='".$numero_cliente."',
-                  transportadora='".$trans_cc."',
-                  data_prevista_entrega='".$DataPrevistaEntrega."', ";
+                  numero_cliente='$numero_cliente',
+                  transportadora='$trans_cc',
+                  data_prevista_entrega='$DataPrevistaEntrega', ";
                   if (($desconto11_cc) or ($desconto1_cc)){
                     if ($desconto11_cc){
-                      $sql = $sql."fator1='".$desconto11_cc."', "; //Desconto do Item
+                      $sql = $sql."fator1='$desconto11_cc', "; //Desconto do Item
                     }elseif ($desconto1_cc){
-                      $sql = $sql."fator1='".$desconto1_cc."', ";  //Desconto do Pedido
+                      $sql = $sql."fator1='$desconto1_cc', ";  //Desconto do Pedido
                     }else{
                       $sql = $sql."0, ";
                     }
                   }
                   if (($desconto22_cc) or ($desconto2_cc)){
                     if ($desconto22_cc){
-                      $sql = $sql."fator2='".$desconto22_cc."', "; //Desconto do Item
+                      $sql = $sql."fator2='$desconto22_cc', "; //Desconto do Item
                     }elseif ($desconto2_cc){
-                      $sql = $sql."fator2='".$desconto2_cc."', ";  //Desconto do Pedido
+                      $sql = $sql."fator2='$desconto2_cc', ";  //Desconto do Pedido
                     }else{
                       $sql = $sql."0, ";
                     }
                   }
                   if ($desconto>0){
-                    $sql = $sql."desconto='".$desconto."', ";
+                    $sql = $sql."desconto='$desconto', ";
                   }
-        $sql = $sql." cif='".$cif."' where numero='".$numero."' ";
+        $sql = $sql." cif='$cif' where numero='$numero' ";
 
         //echo $sql;
 

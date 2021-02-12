@@ -1,13 +1,12 @@
-<?php
-include_once ("inc/common.php");
-  require("inc/config.php");
+<?
+include_once("inc/config.php");
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="7">&nbsp;</td>
     <td width="603">
-      <?php
-      if (!$_SESSION['erro']){
+      <?
+      if (!$_SESSION[erro]){
       ?>
       <table width="603" border="0" cellspacing="0" cellpadding="0">
         <tr>
@@ -17,17 +16,17 @@ include_once ("inc/common.php");
           <td>          
             <table border="0" cellspacing="2" cellpadding="2">
               <tr>
-                <?php
-                  $SqlListaNoticia = pg_query("Select * from noticias where ativo=1 order by id DESC limit 1 OFFSET 0");
-                  while ($r = pg_fetch_array($SqlListaNoticia)){
-                ?>
+                <?
+                $SqlListaNoticia = pg_query("Select * from noticias where ativo=1 order by id DESC limit 1 OFFSET 0");
+                while ($r = pg_fetch_array($SqlListaNoticia)){
+                  ?>
 	          <!--<td><img src="images/lt3_r1_c1.jpg" width="8" height="214"></td>
                   <td width="378" background="images/lt3_r1_c2.jpg" valgin="top">-->
                   <td valgin="top">
-                    <a href="#" onclick="Acha('ver.php','id=<?php echo $r['id'];?>','Conteudo');">
+                    <a href="#" onclick="Acha('ver.php','id=<? echo $r[id];?>','Conteudo');">
                       <span class="titulo1">                        
-                          <?php
-                          $Titulo = $r['titulo'];
+                          <?
+                          $Titulo = $r[titulo];
                           if (strlen($Titulo)>60) {
                           $Titulo = substr($Titulo,0,60)."...";
                           }
@@ -35,16 +34,16 @@ include_once ("inc/common.php");
                           ?>                        
                       </span>
                       <BR><BR>
-                      <?php
-                      if ($r['foto']){
+                      <?
+                      if ($r[foto]){
                         ?>
-                        <img src="imagens/<?php echo $r['foto'];?>" border="0" align="left">
-                        <?php
+                        <img src="imagens/<? echo "$r[foto]";?>" border="0" align="left">
+                        <?
                       }
                       ?>
                       <span class="texto1">
-                        <?php
-                        $Texto = $r['texto'];
+                        <?
+                        $Texto = $r[texto];
                         if (strlen($Texto)>500) {
                         $Texto = substr($Texto,0,500)."...";
                         }
@@ -58,7 +57,7 @@ include_once ("inc/common.php");
                     </a>
                   </td>
                   <!--<td><img src="images/lt3_r1_c4.jpg" width="8" height="214"></td>-->
-                  <?php
+                  <?
                   $atual++;
                   if ($atual==$QtdColunas){
                     echo "</tr><tr>";
@@ -73,15 +72,15 @@ include_once ("inc/common.php");
           <td width="7">&nbsp;</td>
           <td width="218" valign="top">
             <table width="218" border="0" align="right" cellpadding="0" cellspacing="0">
-                <?php
+                <?
                 $SqlListaNoticia = pg_query("Select * from noticias where ativo=1 order by id DESC limit 1 OFFSET 1");
                 while ($r = pg_fetch_array($SqlListaNoticia)){
                   ?>
                   <td><img src="images/lt2_r1_c1.jpg" width="7" height="150"></td>
                   <td width="212" background="images/lt2_r1_c2.jpg">
-                    <a href="#" onclick="Acha('ver.php','id=<?php echo $r[id];?>','Conteudo');">
+                    <a href="#" onclick="Acha('ver.php','id=<? echo $r[id];?>','Conteudo');">
                       <span class="titulo1">                        
-                          <?php
+                          <?
                           $Titulo = $r[titulo];
                           if (strlen($Titulo)>60) {
                           $Titulo = substr($Titulo,0,60)."...";
@@ -91,7 +90,7 @@ include_once ("inc/common.php");
                       </span>
                       <BR><BR>
                       <span class="texto1">
-                        <?php
+                        <?
                         $Texto = $r[texto];
                         if (strlen($Texto)>120) {
                         $Texto = substr($Texto,0,120)."...";
@@ -106,7 +105,7 @@ include_once ("inc/common.php");
                     </a>
                   </td>
                   <td><img src="images/lt2_r1_c4.jpg" width="7" height="150"></td>
-                  <?php
+                  <?
                 }
                 ?>
             </table>
@@ -128,17 +127,17 @@ include_once ("inc/common.php");
                     <tr>
                       <td colspan="3"><img src="images/spacer.gif" width="1" height="10"></td>
                     </tr>
-                      <?php
+                      <?
                       $SqlListaNoticia = pg_query("Select * from noticias where ativo<>'0' order by id DESC limit 10 OFFSET 1");
                       while ($r = pg_fetch_array($SqlListaNoticia)){
                         ?>
                         <tr>
                           <td>&nbsp;</td>
                           <td width="100%" valgin="top">
-                            <a href="#" onclick="Acha('ver.php','id=<?php echo $r['id'];?>','Conteudo');">
+                            <a href="#" onclick="Acha('ver.php','id=<? echo $r[id];?>','Conteudo');">
                               <span class="titulo1">
                                 <strong>
-                                  <?php
+                                  <?
                                   $Titulo = $r[titulo];
                                   if (strlen($Titulo)>60) {
                                     $Titulo = substr($Titulo,0,60)."...";
@@ -149,8 +148,8 @@ include_once ("inc/common.php");
                               </span>
                               <BR>
                               <span class="texto1">
-                                <?php
-                                $Texto = $r['texto'];
+                                <?
+                                $Texto = $r[texto];
                                 if (strlen($Texto)>100) {
                                   $Texto = substr($Texto,0,100)."...";
                                 }
@@ -170,7 +169,7 @@ include_once ("inc/common.php");
                         <tr>
                           <td><img src="images/spacer.gif" width="1" height="10"></td>
                         </tr>
-                        <?php
+                        <?
                       }
                       ?>
                     <tr>
@@ -180,7 +179,7 @@ include_once ("inc/common.php");
                   <!--
                   <table width="592" border="0" align="center" cellpadding="0" cellspacing="0">
                     <tr>
-                      <td class="titulo1" align="center"><img src="images/spacer.gif" width="1" height="5"> <b>ï¿½ltimas imagens cadastradas</b></td>
+                      <td class="titulo1" align="center"><img src="images/spacer.gif" width="1" height="5"> <b>Últimas imagens cadastradas</b></td>
                     </tr>
                     <tr>
                       <td bgcolor="#CCCCCC" ><img src="images/spacer.gif" width="1" height="1"></td>
@@ -189,23 +188,23 @@ include_once ("inc/common.php");
                       <td>                         
                         <table width="592" border="0" align="center" cellpadding="0" cellspacing="0">
                           <tr>
-                            <?php
+                            <?
                             $SqlCarregaImagens = pg_query("Select * from imagens where ativo<>0 order by id DESC limit 3");
                             while($i = pg_fetch_array($SqlCarregaImagens)){
                               ?>
                               <td>&nbsp;</td>
                               <td valgin="top">
-                                <a href="#" onclick="Acha('ver_imagem.php','id=<?php echo $i[id];?>','Conteudo');">
+                                <a href="#" onclick="Acha('ver_imagem.php','id=<? echo $i[id];?>','Conteudo');">
                                   <span class="titulo1">
                                     <strong>
-                                      <?php echo $i[legenda]; ?>
+                                      <? echo $i[legenda]; ?>
                                     </strong>
-                                    <img src="imagens/<?php echo $i[imagem];?>" width="50" height="50" align="left" border="0">
+                                    <img src="imagens/<? echo $i[imagem];?>" width="50" height="50" align="left" border="0">
                                   </span>
                                 </a>
                               </td>
                               <td width="20">&nbsp;</td>
-                              <?php
+                              <?
                             }
                             ?>
                           </tr>
@@ -231,12 +230,12 @@ include_once ("inc/common.php");
       </table>
       <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
         <tr>
-          <td class="texto1" align="center">&nbsp; O site Ã© melhor visualizado em <b>1024x768</b></td>
+          <td class="texto1" align="center">&nbsp; O site é melhor visualizado em <b>1024x768</b></td>
         </tr>
       </table>
-      <?php
+      <?
       }else{
-        echo $_SESSION['erro'];
+        echo "$_SESSION[erro]";
         session_destroy();
       }
       ?>

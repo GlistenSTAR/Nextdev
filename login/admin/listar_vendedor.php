@@ -1,14 +1,13 @@
-<?php
-include_once ("inc/common.php");
+<?
 include "inc/verifica.php";
 include "inc/config.php";
-$_SESSION['pagina'] = "listar_vendedor.php";
+$_SESSION[pagina] = "listar_vendedor.php";
 ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
-<?php
-if ($_REQUEST['acao']=="Excluir"){
+<?
+if ($_REQUEST[acao]=="Excluir"){
   ?>
-  <?php
+  <?
 }
 ?>
 <table border="0" cellspacing="1" cellpadding="1" class="adminform"  width="100%" height="350">
@@ -16,7 +15,7 @@ if ($_REQUEST['acao']=="Excluir"){
     <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
   </tr>
   <tr>
-    <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/usuarios.png" border="0" align="left">
+    <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;<img src="<? echo $site_url;?>icones/usuarios.png" border="0" align="left">
       <center><h3>Listagem de vendedores</h3></center><hr></hr>
     </td>
   </tr>
@@ -25,17 +24,17 @@ if ($_REQUEST['acao']=="Excluir"){
   </tr>
   <tr>
     <td>
-      <?php
-      if ($_REQUEST['acao']=="Excluir"){
-        $SqlDeletaNoticia = pg_query("Delete from vendedores where id='".$_REQUEST['id']."'");
+      <?
+      if ($_REQUEST[acao]=="Excluir"){
+        $SqlDeletaNoticia = pg_query("Delete from vendedores where id='$_REQUEST[id]'");
       }
-      if ($_REQUEST['data_inicial']){
-        $DataInicial = $_REQUEST['data_inicial'];
+      if ($_REQUEST[data_inicial]){
+        $DataInicial = $_REQUEST[data_inicial];
       }else{
         $DataInicial = date("d/m/Y", mktime(0,0,0, date("m")-1, date("d"), date("Y"))); //Mês + 1
       }
-      if ($_REQUEST['data_final']){
-        $DataFinal = $_REQUEST['data_final'];
+      if ($_REQUEST[data_final]){
+        $DataFinal = $_REQUEST[data_final];
       }else{
         $DataFinal = date("d/m/Y", mktime(0,0,0, date("m")+1, date("d"), date("Y"))); //Mês + 1
       }
@@ -46,7 +45,7 @@ if ($_REQUEST['acao']=="Excluir"){
         $pos1 = "DESC";
         $pos = "ASC";
       }
-      if ($_REQUEST['ordem']){
+      if ($_REQUEST[ordem]){
         $Ordem = "order by $_REQUEST[ordem] $pos";
       }else{
         $Ordem = "order by nome ASC";
@@ -55,13 +54,13 @@ if ($_REQUEST['acao']=="Excluir"){
       <form name="listar">
         <div id="listar">
           <table border="0" cellspacing="1" cellpadding="4" class="texto1" valign="top" align="center">
-            <?php
+            <?
             if (!$FiltroData){
               $lista = "Select * from vendedores $Ordem";
               $lista1 = pg_query("Select * from vendedores $Ordem");
               $ccc = pg_num_rows($lista1);
               $total_reg = "10";
-              $pagina = $_REQUEST['pagina'];
+              $pagina = $_REQUEST[pagina];
               if (!$pagina){
                 $inicio = "0";
                 $pc = "1";
@@ -88,7 +87,7 @@ if ($_REQUEST['acao']=="Excluir"){
                 <td width="350"><b>CPF / CNPJ</b></td>
                 <td width="20"><b>Excluir</b></td>
               </tr>
-              <?php
+              <?
               while ($r = pg_fetch_array($not1)){
 
                 if ($Cor=="#EEEEEE"){
@@ -97,20 +96,20 @@ if ($_REQUEST['acao']=="Excluir"){
                   $Cor="#EEEEEE";
                 }
                 ?>
-                <tr bgcolor="<?php echo $Cor;?>">
+                <tr bgcolor="<? echo "$Cor";?>">
                   <td valign="top">
-                    <a href="#" onclick="Acha('cadastrar_vendedor.php','localizar_numero=<?php echo $r['codigo'];?>','Conteudo');"><?php echo $r['nome'];?></a>
+                    <a href="#" onclick="Acha('cadastrar_vendedor.php','localizar_numero=<? echo $r[codigo];?>','Conteudo');"><? echo "$r[nome]";?></a>
                   </td>
                   <td valign="top">
-                    <?php
-                    echo $r['cgc'];
+                    <?
+                    echo $r[cgc];
                     ?>
                   </td>
                   <td>
-                    <img src="icones/excluir.png" style="border: 0pt none ; cursor: pointer;" border="0" title="Clique para excluir o vendedor" onclick="if (confirm('Deseja realmente excluir esse vendedor?')){ Acha('listar_vendedor.php', 'acao=Excluir&id=<?php echo $r['id'];?>', 'Conteudo')}">
+                    <img src="icones/excluir.png" style="border: 0pt none ; cursor: pointer;" border="0" title="Clique para excluir o vendedor" onclick="if (confirm('Deseja realmente excluir esse vendedor?')){ Acha('listar_vendedor.php', 'acao=Excluir&id=<? echo $r[id];?>', 'Conteudo')}">
                   </td>
                 </tr>
-                <?php
+                <?
                 if ($pagina){
                   if (!$qtd_registros){
                     $qtd_registros = $qtd_registros + $inicio + 1;
@@ -129,12 +128,12 @@ if ($_REQUEST['acao']=="Excluir"){
             <tr>
               <td align="center" colspan="5"> <hr>
                 <table width="100%" border="0" class="texto1">
-                  <?php
+                  <?
                   if ($ccc<>""){
                     ?>
                     <tr>
                       <td height="25" align="center">
-                      <?php
+                      <?
                       $anterior = $pc -1;
                       $proximo = $pc +1;
                       $qtd_paginas = $ccc / $total_reg;
@@ -155,7 +154,7 @@ if ($_REQUEST['acao']=="Excluir"){
                           echo "<strong>";
                         }
                         if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                          echo $p."&nbsp;";
+                          echo "$p&nbsp;";
                         }else{
                           if (!$ret){
                             echo "...";
@@ -180,7 +179,7 @@ if ($_REQUEST['acao']=="Excluir"){
                     </tr>
                     <tr>
                       <td height="25" align="center" valign="top"><div>
-                        <?php
+                        <?
                         echo "<div>Mostrando registro <strong>";
                         echo $inicio + 1;
                         echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong></div>";
@@ -188,7 +187,7 @@ if ($_REQUEST['acao']=="Excluir"){
                         </div>
                       </td>
                     </tr>
-                    <?php
+                    <?
                   }
                   ?>
                </table>
@@ -197,8 +196,8 @@ if ($_REQUEST['acao']=="Excluir"){
           </table>
         </div>
       </form>
-      <?php
-      $_SESSION['pagina'] = "inicio.php";
+      <?
+      $_SESSION[pagina] = "inicio.php";
       ?>
     </td>
   </tr>

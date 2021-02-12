@@ -1,8 +1,7 @@
-<?php
-include_once ("inc/common.php");
+<?
 include "inc/verifica.php";
 include "inc/config.php";
-$msg = str_replace("<br>", chr(13), $_REQUEST['msg']);
+$msg = str_replace("<br>", chr(13), $_REQUEST[msg]);
 ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
 <form name="listar">
@@ -37,19 +36,19 @@ $msg = str_replace("<br>", chr(13), $_REQUEST['msg']);
                               <input type="hidden" name="acao" value="enviar" id="acao">
                               <table width="100%" height="100%" border="0" cellspacing="3" cellpadding="0" class="texto1" valign="top">
                                 <tr>
-                                  <td>De:</td><td><?php echo $_SESSION['usuario'];?> <<?php echo $_SESSION['email'];?>></td>
+                                  <td>De:</td><td><? echo $_SESSION[usuario];?> <<? echo $_SESSION[email];?>></td>
                                 </tr>
                                 <tr>
-                                  <td>Para:</td><td><input type="text" name="email" value="<?php echo $_REQUEST['email']?>" id="email" size="45"></td>
+                                  <td>Para:</td><td><input type="text" name="email" value="<?=$_REQUEST[email]?>" id="email" size="45"></td>
                                 </tr>
                                 <tr>
-                                  <td>Assunto:</td><td><input type="text" name="assunto" value="<?php echo $_REQUEST['assunto']?>" id="assunto" size="45"></td>
+                                  <td>Assunto:</td><td><input type="text" name="assunto" value="<?=$_REQUEST[assunto]?>" id="assunto" size="45"></td>
                                 </tr>
                                 <tr>
-                                  <td>Anexar pedido Nº:</td><td><input type="text" name="anexo" value="<?php echo $_REQUEST['anexo']?>" id="anexo" size="45"></td>
+                                  <td>Anexar pedido Nº:</td><td><input type="text" name="anexo" value="<?=$_REQUEST[anexo]?>" id="anexo" size="45"></td>
                                 </tr>
                                 <tr>
-                                  <td>Mensagem:</td><td><textarea name="msg" id="msg" rows="6" cols="43"><?php echo $msg?></textarea></td>
+                                  <td>Mensagem:</td><td><textarea name="msg" id="msg" rows="6" cols="43"><?=$msg?></textarea></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2" align="center">
@@ -76,6 +75,6 @@ $msg = str_replace("<br>", chr(13), $_REQUEST['msg']);
     </table>
   </div>
 </form>
-<?php
-$_SESSION['pagina'] = "emails.php";
+<?
+$_SESSION[pagina] = "emails.php";
 ?>

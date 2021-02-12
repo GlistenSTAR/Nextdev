@@ -18,7 +18,7 @@ class MovEst {
   private $usuario;
 
   //Construtor
-  public function __construct(){
+  public function MovEst(){
 
   }
 

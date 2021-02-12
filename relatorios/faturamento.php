@@ -1,22 +1,21 @@
-<?php
-include_once ("../inc/common.php");
+<?
 include "../inc/verifica.php";
 include "../inc/config.php";
 ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
-<?php
-if ($_REQUEST['acao']=="Excluir"){
+<?
+if ($_REQUEST[acao]=="Excluir"){
   ?>
-  <?php
+  <?
 }
-if ($_REQUEST['data_inicial']){
-  $DataInicial = $_REQUEST['data_inicial'];
+if ($_REQUEST[data_inicial]){
+  $DataInicial = $_REQUEST[data_inicial];
 }else{
   //$DataInicial = date("d/m/Y");
   $DataInicial = date("d/m/Y", mktime(0,0,0, date("m")-1, date("d"), date("Y"))); //Mês + 1
 }
-if ($_REQUEST['data_final']){
-  $DataFinal = $_REQUEST['data_final'];
+if ($_REQUEST[data_final]){
+  $DataFinal = $_REQUEST[data_final];
 }else{
   $DataFinal = date("d/m/Y", mktime(0,0,0, date("m")+1, date("d"), date("Y"))); //Mês + 1
 }
@@ -27,7 +26,7 @@ if ($pos=="ASC"){
   $pos1 = "DESC";
   $pos = "ASC";
 }
-if ($_REQUEST['ordem']){
+if ($_REQUEST[ordem]){
   $Ordem = "order by $_REQUEST[ordem] $pos";
 }else{
   $Ordem = "order by numero_nota $pos";
@@ -65,19 +64,19 @@ if ($_REQUEST['ordem']){
                               <tr>
                                 <td>Cliente:</td>
                                 <td>
-                                  <input type="hidden" name="pedidos_clientes_id" id="pedidos_clientes_id" value="<?php echo $_REQUEST['pedidos_clientes_id'];?>">
-                                  <input type="text" title="Digite o nome do cliente que deseja procurar." size="40" name="pedidos_clientes_cc" id="pedidos_clientes_cc" value="<?php echo $_REQUEST['pedidos_clientes_cc'];?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;} if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (tecla == '38'){ getPrevNode('1');}else if (tecla == '40'){ getProxNode('1');}else { if (this.value.length>3){Acha1('listar.php','tipo=pedidos_clientes&valor='+this.value+'','listar_pedidos_clientes');}}}">
+                                  <input type="hidden" name="pedidos_clientes_id" id="pedidos_clientes_id" value="<? echo "$_REQUEST[pedidos_clientes_id]";?>">
+                                  <input type="text" title="Digite o nome do cliente que deseja procurar." size="40" name="pedidos_clientes_cc" id="pedidos_clientes_cc" value="<? echo "$_REQUEST[pedidos_clientes_cc]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;} if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (tecla == '38'){ getPrevNode('1');}else if (tecla == '40'){ getProxNode('1');}else { if (this.value.length>3){Acha1('listar.php','tipo=pedidos_clientes&valor='+this.value+'','listar_pedidos_clientes');}}}">
                                   <BR>
                                   <div id="listar_pedidos_clientes" style="position:absolute; z-index: 7000;"></div>
                                 </td>
                                 <td valign="top" nowrap>Data Inicial:</td>
-                                <td valign="top" colspan="2" align="right"><input name="data_inicial" id="data_inicial"  type="button" size="12" maxlength="20" value="<?php echo $DataInicial;?>" onclick="MostraCalendario(document.listar.data_inicial,'dd/mm/yyyy',this)"></td>
+                                <td valign="top" colspan="2" align="right"><input name="data_inicial" id="data_inicial"  type="button" size="12" maxlength="20" value="<? echo $DataInicial;?>" onclick="MostraCalendario(document.listar.data_inicial,'dd/mm/yyyy',this)"></td>
                               </tr>
                               <tr>
                                 <td valign="top">Número:</td>
-                                <td valign="top"><input name="numero_pedido" id="numero_pedido"  type="text" size="15" maxlength="20" value="<?php echo $_REQUEST['numero_pedido'];?>"></td>
+                                <td valign="top"><input name="numero_pedido" id="numero_pedido"  type="text" size="15" maxlength="20" value="<? echo $_REQUEST[numero_pedido];?>"></td>
                                 <td valign="top" nowrap>Data Final:</td>
-                                <td valign="top" align="right" colspan="2"><input name="data_final" id="data_final"  type="button" size="12" maxlength="20" value="<?php echo $DataFinal;?>" onclick="MostraCalendario(document.listar.data_final,'dd/mm/yyyy',this)"></td>
+                                <td valign="top" align="right" colspan="2"><input name="data_final" id="data_final"  type="button" size="12" maxlength="20" value="<? echo $DataFinal;?>" onclick="MostraCalendario(document.listar.data_final,'dd/mm/yyyy',this)"></td>
                                 <td valign="top">
                                 </td>
                               </tr>
@@ -85,51 +84,51 @@ if ($_REQUEST['ordem']){
                                 <td valign="top">Natureza da operação:</td>
                                 <td valign="top">
                                   <select name="id_natureza" id="id_natureza" size="1" style="width:225px;">
-                                    <?php
-                                    $id_natureza = $_REQUEST['id_natureza'];
+                                    <?
+                                    $id_natureza = $_REQUEST[id_natureza];
                                     $SqlSelect = "SELECT * FROM natureza_da_operacao";
                                     $SqlSelect = pg_query($SqlSelect);
                                     $i=0;$j=0;
                                     while ($rs = pg_fetch_array($SqlSelect)){
-                                      if ($rs['id']==$id_natureza){
-                                        $Produto['id'] = $rs['id'];
-                                        $Produto['natureza'] = "$rs[cfop] - $rs[natureza]";
+                                      if ($rs[id]==$id_natureza){
+                                        $Produto[id] = $rs[id];
+                                        $Produto[natureza] = "$rs[cfop] - $rs[natureza]";
                                       }else{
                                         $i++;
-                                        $Produto[$i]['id'] = $rs['id'];
-                                        $Produto[$i]['natureza'] = "$rs[cfop] - $rs[natureza]";
+                                        $Produto[$i][id] = $rs[id];
+                                        $Produto[$i][natureza] = "$rs[cfop] - $rs[natureza]";
                                       }
                                     }
-                                    if ($_SESSION['id_natureza']>1){
-                                      $id_secao = $_SESSION['id_natureza'];
+                                    if ($_SESSION[id_natureza]>1){
+                                      $id_secao = $_SESSION[id_natureza];
                                     }
                                     
                                     //regra para cfop de venda PAC: 16703
-                                    if($_REQUEST['id_natureza']=="v"){
+                                    if($_REQUEST[id_natureza]=="v"){
                                     ?>           
                                       <option value="v">VENDAS(Todas CFOP's)</option>
-                                    <?php
+                                    <?
                                     }else{ 
                                     ?>
-                                      <option value="<?php echo $Produto['id']?>"><?php echo $Produto['natureza']?></option>
-                                    <?php
+                                      <option value="<?=$Produto[id]?>"><?=$Produto[natureza]?></option>
+                                    <?
                                     }
-                                    if($_REQUEST['id_natureza']!=="v"){
+                                    if($_REQUEST[id_natureza]!=="v"){
                                     ?>
                                       <option value="v">VENDAS(Todas CFOP's)</option>
-                                    <?php
+                                    <?
                                     }else{
                                     ?>
                                       <option value=""></option>
-                                    <?php
+                                    <?
                                     }
                                     //encerra filtro das cfop's de venda
                                     
                                     for ($j=0;$j<=$i;$j++){
-                                      if ($Produto[$j]['id']!=$Produto['id']){
+                                      if ($Produto[$j][id]!=$Produto[id]){
                                         ?>
-                                        <option value="<?php echo $Produto[$j][id]?>"><?php echo $Produto[$j]['natureza']?></option>
-                                        <?php
+                                        <option value="<?=$Produto[$j][id]?>"><?=$Produto[$j][natureza]?></option>
+                                        <?
                                       }
                                     }
                                     ?>
@@ -147,7 +146,7 @@ if ($_REQUEST['ordem']){
                               </tr>
                               <tr>
                                <td></td>
-                               <td><input type="checkbox" name="nao_canceladas" value="1" <?php if($_REQUEST['nao_canceladas']=="1"){ echo "checked=checked";}; ?>> Não listar Canceladas/Devolvidas</td>
+                               <td><input type="checkbox" name="nao_canceladas" value="1" <? if($_REQUEST[nao_canceladas]=="1"){ echo "checked=checked";}; ?>> Não listar Canceladas/Devolvidas</td>
                                <td colspan="3"></td>
                               </tr>
                             </table>
@@ -156,32 +155,32 @@ if ($_REQUEST['ordem']){
                         <tr>
                           <td colspan="7"><hr></hr></td>
                         </tr>
-                        <?php
-                        if (($_REQUEST['data_inicial']) and ($_REQUEST['data_final'])){
+                        <?
+                        if (($_REQUEST[data_inicial]) and ($_REQUEST[data_final])){
                           $di = explode("/", $DataInicial);
                           $df = explode("/", $DataFinal);
                           $Filtro = " and data_emissao>='".$di[2]."-".$di[1]."-".$di[0]."' and data_emissao<='".$df[2]."-".$df[1]."-".$df[0]."'";
                         }
-                        if ($_REQUEST['numero_pedido']){
-                          $NumeroPedido = " and numero_nota='".$_REQUEST['numero_pedido']."' ";
+                        if ($_REQUEST[numero_pedido]){
+                          $NumeroPedido = " and numero_nota='$_REQUEST[numero_pedido]' ";
                         }
-                        if ($_REQUEST['pedidos_clientes_id']){
-                          $Filtro .= " and codigo_cliente='".$_REQUEST['pedidos_clientes_id']."'";
+                        if ($_REQUEST[pedidos_clientes_id]){
+                          $Filtro .= " and codigo_cliente='$_REQUEST[pedidos_clientes_id]'";
                         }
-                        if ($_REQUEST['id_natureza']){
-                           if ($_REQUEST['id_natureza']=="v"){ // Filtra por CFOP de venda apenas.
+                        if ($_REQUEST[id_natureza]){
+                           if ($_REQUEST[id_natureza]=="v"){ // Filtra por CFOP de venda apenas.
                               $Filtro .= " and (natureza_da_operacao in (Select natureza from natureza_da_operacao where cfop like '5%')";
                               $Filtro .= " OR natureza_da_operacao in (Select natureza from natureza_da_operacao  where cfop like '6%')";
                               $Filtro .= " OR natureza_da_operacao in (Select natureza from natureza_da_operacao  where cfop like '7%')";
                               $Filtro .= " OR natureza_auxiliar in (Select natureza from natureza_da_operacao  where cfop like '5%'))";                           
                            }else{
-                              $Filtro .= " and (natureza_da_operacao in (Select natureza from natureza_da_operacao where id='".$_REQUEST['id_natureza']."')";
-                              $Filtro .= " OR natureza_auxiliar in (Select natureza from natureza_da_operacao where id='".$_REQUEST['id_natureza']."'))";
+                              $Filtro .= " and (natureza_da_operacao in (Select natureza from natureza_da_operacao where id='$_REQUEST[id_natureza]')";
+                              $Filtro .= " OR natureza_auxiliar in (Select natureza from natureza_da_operacao where id='$_REQUEST[id_natureza]'))";
                            }                                                     
                         }                          
 
                         //filtro pra não permitir listar canceladas
-                        if($_REQUEST['nao_canceladas']=="1"){
+                        if($_REQUEST[nao_canceladas]=="1"){
                           $Filtro .=" AND devolvida = '0' AND status_nfe <> '5'";
                           
                         }
@@ -189,18 +188,18 @@ if ($_REQUEST['ordem']){
                         
                         if ($Filtro){
 //                          if ($_REQUEST[tipo]=="rascunhos"){
-//                            $lista = "Select numero, cgc, cliente, data, total_com_desconto, desconto_cliente from pedidos_internet_novo where codigo_vendedor = '".$_SESSION['id_vendedor']."' and enviado=0 $Filtro $NumeroPedido $Ordem";
+//                            $lista = "Select numero, cgc, cliente, data, total_com_desconto, desconto_cliente from pedidos_internet_novo where codigo_vendedor = '$_SESSION[id_vendedor]' and enviado=0 $Filtro $NumeroPedido $Ordem";
 //                          }else{
-                            if (($_SESSION['login']=="LAILA") AND ($_SESSION['nivel']=="2")){
+                            if (($_SESSION[login]=="LAILA") AND ($_SESSION[nivel]=="2")){
                                 $lista = "Select * from notas1 where 1=1 $Filtro $NumeroPedido $Ordem";
                                 $SqlSomaTotal = "Select SUM(valor) AS total_geral, SUM(valor_produtos) AS total_geral_produtos from notas1 where 1=1 $Filtro $NumeroPedido";
                             }else{
-                                if($_SESSION['id_vendedor']=="77"){ //Regra Groupack 
+                                if($_SESSION[id_vendedor]=="77"){ //Regra Groupack 
                                    $lista = "Select * from notas1  where codigo_vendedor = '87' $Filtro $NumeroPedido $Ordem";                                
                                 }else{
-                                   $lista = "Select * from notas1  where codigo_vendedor = '".$_SESSION['id_vendedor']."' $Filtro $NumeroPedido $Ordem";                                
+                                   $lista = "Select * from notas1  where codigo_vendedor = '$_SESSION[id_vendedor]' $Filtro $NumeroPedido $Ordem";                                
                                 } 
-                                $SqlSomaTotal = "Select SUM(valor) AS total_geral, SUM(valor_produtos) AS total_geral_produtos from notas1  where codigo_vendedor = '".$_SESSION['id_vendedor']."' $Filtro $NumeroPedido";
+                                $SqlSomaTotal = "Select SUM(valor) AS total_geral, SUM(valor_produtos) AS total_geral_produtos from notas1  where codigo_vendedor = '$_SESSION[id_vendedor]' $Filtro $NumeroPedido";
                             }                            
 //                          }
                            $SomaTotal = pg_query($SqlSomaTotal);
@@ -211,7 +210,7 @@ if ($_REQUEST['ordem']){
                           //echo $lista;
                           $ccc = pg_num_rows($lista1);
                           $total_reg = "20";
-                          $pagina = $_REQUEST['pagina'];
+                          $pagina = $_REQUEST[pagina];
                           if (!$pagina){
                             $inicio = "0";
                             $pc = "1";
@@ -234,10 +233,10 @@ if ($_REQUEST['ordem']){
                           $not1  = pg_query($sql);
                           ?>
                           <tr>
-                            <td width="40"><a href='#' onclick="Acha('relatorios/faturamento.php','pagina=<?php echo $pagina;?>&pedidos_clientes_id=<?php echo $_REQUEST['pedidos_clientes_id']?>&pedidos_clientes_cc=<?php echo $_REQUEST['pedidos_clientes_cc']?>&ordem=numero&pos=<?php if ($_REQUEST['ordem']=="numero"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'&id_natureza=<?php echo $_REQUEST['id_natureza']?>','Conteudo');"><b>Nº</b><img src="icones/<?php if ($_REQUEST['ordem']=="numero"){ echo $pos;}else{echo $pos1;}?>.gif" border="0" width="10" height="10"></a></td>
+                            <td width="40"><a href='#' onclick="Acha('relatorios/faturamento.php','pagina=<? echo $pagina;?>&pedidos_clientes_id=<?=$_REQUEST[pedidos_clientes_id]?>&pedidos_clientes_cc=<?=$_REQUEST[pedidos_clientes_cc]?>&ordem=numero&pos=<? if ($_REQUEST[ordem]=="numero"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'&id_natureza=<?=$_REQUEST[id_natureza]?>','Conteudo');"><b>Nº</b><img src="icones/<? if ($_REQUEST[ordem]=="numero"){ echo $pos;}else{echo $pos1;}?>.gif" border="0" width="10" height="10"></a></td>
                             <td width="30"><b>CFOP</b></td>
-                            <td width="40"><a href='#' onclick="Acha('relatorios/faturamento.php','pagina=<?php echo $pagina;?>&pedidos_clientes_id=<?php echo $_REQUEST['pedidos_clientes_id']?>&pedidos_clientes_cc=<?php echo $_REQUEST['pedidos_clientes_cc']?>&ordem=data&pos=<?php if ($_REQUEST['ordem']=="data"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'&id_natureza=<?php echo $_REQUEST['id_natureza']?>','Conteudo');"><b>Data</b><img src="icones/<?php if ($_REQUEST['ordem']=="data"){ echo $pos;}else{echo $pos1;}?>.gif" border="0" width="10" height="10"></a></td>
-                            <td width="230"><a href='#' onclick="Acha('relatorios/faturamento.php','pagina=<?php echo $pagina;?>&pedidos_clientes_id=<?php echo $_REQUEST['pedidos_clientes_id']?>&pedidos_clientes_cc=<?php echo $_REQUEST['pedidos_clientes_cc']?>&ordem=cliente&pos=<?php if ($_REQUEST['ordem']=="cliente"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'&id_natureza=<?php echo $_REQUEST['id_natureza']?>','Conteudo');"><b>Cliente</b><img src="icones/<?php if ($_REQUEST['ordem']=="cliente"){ echo $pos;}else{echo $pos1;}?>.gif" border="0" width="10" height="10"></a></td>
+                            <td width="40"><a href='#' onclick="Acha('relatorios/faturamento.php','pagina=<? echo $pagina;?>&pedidos_clientes_id=<?=$_REQUEST[pedidos_clientes_id]?>&pedidos_clientes_cc=<?=$_REQUEST[pedidos_clientes_cc]?>&ordem=data&pos=<? if ($_REQUEST[ordem]=="data"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'&id_natureza=<?=$_REQUEST[id_natureza]?>','Conteudo');"><b>Data</b><img src="icones/<? if ($_REQUEST[ordem]=="data"){ echo $pos;}else{echo $pos1;}?>.gif" border="0" width="10" height="10"></a></td>
+                            <td width="230"><a href='#' onclick="Acha('relatorios/faturamento.php','pagina=<? echo $pagina;?>&pedidos_clientes_id=<?=$_REQUEST[pedidos_clientes_id]?>&pedidos_clientes_cc=<?=$_REQUEST[pedidos_clientes_cc]?>&ordem=cliente&pos=<? if ($_REQUEST[ordem]=="cliente"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'&id_natureza=<?=$_REQUEST[id_natureza]?>','Conteudo');"><b>Cliente</b><img src="icones/<? if ($_REQUEST[ordem]=="cliente"){ echo $pos;}else{echo $pos1;}?>.gif" border="0" width="10" height="10"></a></td>
                             <td width="50"><b>Vl. Prod.</b></td>
                             <td width="50"><b>Valor</b></td>
                             <td width="30"><b>Status</b></td>
@@ -245,7 +244,7 @@ if ($_REQUEST['ordem']){
                           <tr>
                             <td colspan="7"><hr></hr></td>
                           </tr>
-                          <?php
+                          <?
                           $SubTotalProd = 0;
                           $SubTotal = 0;
                           while ($r = pg_fetch_array($not1)){
@@ -265,34 +264,34 @@ if ($_REQUEST['ordem']){
                                $Status = "Cancelada";
                             }
                             
-                            $SubTotalProd = ($SubTotalProd + $r['valor_produtos']);
-                            $SubTotal = ($SubTotal + $r['valor']);
+                            $SubTotalProd = ($SubTotalProd + $r[valor_produtos]);
+                            $SubTotal = ($SubTotal + $r[valor]);
                             ?>
-                            <tr bgcolor="<?php echo $Cor;?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<?php echo $Cor;?>'">
+                            <tr bgcolor="<? echo "$Cor";?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<? echo "$Cor";?>'">
                               <td valign="top">
-                                <?php echo $r['numero_nota'];?>
+                                <?="$r[numero_nota]";?>
                               </td>
                               <td valign="top">
-                                <?php echo $r['cfop'];?>
+                                <? echo "$r[cfop]";?>
                               </td>
                               <td valign="top">
-                                <?php
-                                $d = explode(" ", $r['data_emissao']);
+                                <?
+                                $d = explode(" ", $r[data_emissao]);
                                 $d = explode("-", $d[0]);
                                 echo "".$d[2]."/".$d[1]."/".$d[0]."";
                                 ?>
                               </td>
                               <td valign="top">
-                                <?php echo $r['cliente'];?>
+                                <? echo "$r[cliente]";?>
                               </td>
                               <td valign="top" align="right">
-                                <?php echo number_format($r['valor_produtos'], 2, ",", ".");?>
+                                <? echo number_format($r[valor_produtos], 2, ",", ".");?>
                               </td>                              
                               <td valign="top" align="right">
-                                <?php echo number_format($r['valor'], 2, ",", ".");?>
+                                <? echo number_format($r[valor], 2, ",", ".");?>
                               </td>
                               <td align="center">
-                                <?php
+                                <?
                                 if ($Status=="Cancelada"){
                                   echo " <font color=red>";
                                   echo $Status;
@@ -303,7 +302,7 @@ if ($_REQUEST['ordem']){
                                 ?>
                               </td>
                             </tr>
-                            <?php
+                            <?
                             if ($pagina){
                               if (!$qtd_registros){
                                 $qtd_registros = $qtd_registros + $inicio + 1;
@@ -316,22 +315,22 @@ if ($_REQUEST['ordem']){
                         ?>
                         <tr>
                           <td colspan="5" valign="top" height="100%" align="right">
-                          <br>SUB-TOTAL PRODUTOS:<b> R$ <?php echo number_format($SubTotalProd, 2, ",", ".");?></b>&nbsp;<br>
-                          <br>TOTAL-GERAL PRODUTOS:<b> R$ <?php echo number_format($SomaTotal['total_geral_produtos'], 2, ",", ".");?></b>&nbsp;<br>
-                          <br>SUB-TOTAL:<b> R$ <?php echo number_format($SubTotal, 2, ",", ".");?></b>&nbsp;<br>                         
-                          <br>TOTAL-GERAL:<b> R$ <?php echo number_format($SomaTotal['total_geral'], 2, ",", ".");?></b>&nbsp;                            
+                          <br>SUB-TOTAL PRODUTOS:<b> R$ <? echo number_format($SubTotalProd, 2, ",", ".");?></b>&nbsp;<br>
+                          <br>TOTAL-GERAL PRODUTOS:<b> R$ <? echo number_format($SomaTotal[total_geral_produtos], 2, ",", ".");?></b>&nbsp;<br>
+                          <br>SUB-TOTAL:<b> R$ <? echo number_format($SubTotal, 2, ",", ".");?></b>&nbsp;<br>                         
+                          <br>TOTAL-GERAL:<b> R$ <? echo number_format($SomaTotal[total_geral], 2, ",", ".");?></b>&nbsp;                            
                           </td>
                         </tr>
                         <tr>
                           <td align="center" colspan="7">                            
                             <table width="100%" border="0" class="texto1">
-                              <?php
+                              <?
                               if ($ccc<>""){
                                 ?>
                                 <tr>
                                   <td height="25" align="center">                                  
                                    <hr>
-                                  <?php
+                                  <?
                                   $anterior = $pc -1;
                                   $proximo = $pc +1;
                                   $qtd_paginas = $ccc / $total_reg;
@@ -352,7 +351,7 @@ if ($_REQUEST['ordem']){
                                       echo "<strong>";
                                     }
                                     if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                                      echo $p."&nbsp;";
+                                      echo "$p&nbsp;";
                                     }else{
                                       if (!$ret){
                                         echo "...";
@@ -377,7 +376,7 @@ if ($_REQUEST['ordem']){
                                 </tr>
                                 <tr>
                                   <td height="25" align="center" valign="top"><div>
-                                    <?php
+                                    <?
                                     echo "<div>Mostrando registro <strong>";
                                     echo $inicio + 1;
                                     echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong></div>";
@@ -385,7 +384,7 @@ if ($_REQUEST['ordem']){
                                     </div>
                                   </td>
                                 </tr>
-                                <?php
+                                <?
                               }
                               ?>
                            </table>
@@ -411,6 +410,6 @@ if ($_REQUEST['ordem']){
     </table>
   </div>
 </form>
-<?php
-$_SESSION['pagina'] = "relatorios/index.php";
+<?
+$_SESSION[pagina] = "relatorios/index.php";
 ?>

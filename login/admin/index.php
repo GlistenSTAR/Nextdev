@@ -1,5 +1,4 @@
-<?php
-include_once ("inc/common.php");
+<?
 session_start();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -9,9 +8,9 @@ session_start();
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<?php include ("inc/cm.php"); ?>
-<?php
-if (!$_SESSION['usuario']){
+<? include ("inc/cm.php"); ?>
+<?
+if (!$_SESSION[usuario]){
   ?>
   <table border="0" cellspacing="0" cellpadding="0" align="center" width="100%">
     <tr>
@@ -35,26 +34,26 @@ if (!$_SESSION['usuario']){
        			<p>Use um usuário e senha válidos para entrar no painel de administração.</p>
        		</div>
        		<div class="clr"></div>
-        	<?php
-        	if ($_SESSION['Erro']){
+        	<?
+        	if ($_SESSION[Erro]){
            ?>
            <BR><BR>
-           <div class="form-block"><?php echo $_SESSION['Erro'];?></div>
-           <?php
-           $_SESSION['Erro'] = "";
+           <div class="form-block"><? echo $_SESSION[Erro];?></div>
+           <?
+           $_SESSION[Erro] = "";
         	}
         	?>
        	</div>
      	</td>
    	</tr>
   </table>
- 	<?php
+ 	<?
 }else{
   ?>
   <table border="0" cellspacing="0" cellpadding="0" align="center" width="100%">
     <tr>
       <td width="7">&nbsp;</td>
-      <td align="left" width="130" valign="top"><?php include ("inc/es.php"); ?></td>
+      <td align="left" width="130" valign="top"><? include ("inc/es.php"); ?></td>
       <td width="7">&nbsp;</td>
       <td align="center" valign="top">
         <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
@@ -66,7 +65,7 @@ if (!$_SESSION['usuario']){
           <tr>
             <td align="center">
               <div id="Inicio">
-                <?php
+                <?
                 include "inicio.php";
                 ?>
               </div>
@@ -76,9 +75,9 @@ if (!$_SESSION['usuario']){
       </td>
     </tr>
   </table>
-  <?php include ("inc/bx.php"); ?>
+  <? include ("inc/bx.php"); ?>
   </body>
   </html>
-  <?php
+  <?
 }
 ?>

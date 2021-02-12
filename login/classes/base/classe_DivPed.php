@@ -15,7 +15,7 @@ class DivPed {
   private $;
 
   //Construtor
-  public function __construct(){
+  public function DivPed(){
 
   }
 
@@ -45,7 +45,7 @@ class DivPed {
     $Maximo = $ArrayReferencias[numero_maximo_itens];
     $FatMin = $ArrayReferencias[fat_min];
     //Arredonda ítens
-    $SqlItens = pg_query("Select * from itens_pedidos_internet_novo where numero_pedido = '".$this->numero."' order by id ") or die ("Erro 2");
+    $SqlItens = pg_query("Select * from itens_pedidos_internet_novo where numero_pedido = '$this->numero' order by id ") or die ("Erro 2");
     $NumeroItens = pg_num_rows($SqlItens);
     
     if ($NumeroItens % $Maximo <> 0){
@@ -84,7 +84,7 @@ class DivPed {
     $PrimeiraVez = true;
     
     while($ItemTemp = pg_fetch_array($SqlListaTemp)){
-      pg_query("Update divisao_pedidos set pedido_novo='".$Con."t' where pedido_novo='".$ItemTemp['pedido_novo']."'") or die ("Erro 4");
+      pg_query("Update divisao_pedidos set pedido_novo='$Cont' where pedido_novo='$ItemTemp[pedido_novo]'") or die ("Erro 4");
       if ($PrimeiraVez){
         $Cont = $Cont - 1
       }else{
@@ -103,7 +103,7 @@ class DivPed {
       exit;
     }
 
-    $SqlPedidos = pg_query("Select * from pedidos where numero ='".$this->numero."'");
+    $SqlPedidos = pg_query("Select * from pedidos where numero ='$this->numero'");
     $Pedido = $this->numero + 1;
     
     while (){

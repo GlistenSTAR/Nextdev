@@ -9,7 +9,7 @@
         <tr>
           <td width="7">&nbsp;</td>
           <td width="148" valign="top">
-            <?php include ("es.php"); ?>
+            <? include ("es.php"); ?>
           </td>
           <td width="7">&nbsp;</td>
           <td width="603" valign="top">

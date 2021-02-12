@@ -16,7 +16,7 @@ class PedidoOficial {
   private $numero_internet;
 
   //Construtor
-  public function __construct(){
+  public function PedidoOficial(){
 
   }
 
@@ -94,9 +94,9 @@ class PedidoOficial {
             $ACHEI = 1;
           }
         }
-        $_SESSION['NumeroPedidoGravado'] = $max;
+        $_SESSION[NumeroPedidoGravado] = $max;
       }else{
-        $_SESSION['NumeroPedidoGravado'] = $original;
+        $_SESSION[NumeroPedidoGravado] = $original;
       }
       ######################################################
       # Fim Rotina de carregamento
@@ -109,7 +109,7 @@ class PedidoOficial {
                      codigo_vendedor,
                      contato, data,
                 ";
-                if ($p['data_prevista_entrega']<>""){
+                if ($p[data_prevista_entrega]<>""){
                   $sql .= " data_prevista_entrega, ";
                 }
                 if ($CodigoEmpresa=="75"){ // Perlex
@@ -119,66 +119,66 @@ class PedidoOficial {
                      local_entrega, numero_pedido_vendedor,
                      numero, numero_cliente,
                      transportadora, vendedor, comissao, ";
-                     if ($p['codigo_pagamento']){
+                     if ($p[codigo_pagamento]){
                        $sql = $sql."codigo_pagamento, ";
                      }
-                     if ($p['codigo_pagamento1']){
+                     if ($p[codigo_pagamento1]){
                        $sql = $sql."codigo_pagamento1, ";
                      }
-                     if ($p['desconto_cliente']){
+                     if ($p[desconto_cliente]){
                        $sql = $sql."desconto_cliente,";
                      }
                      if (($CodigoEmpresa=="75") or ($CodigoEmpresa=="86")){
                        $sql .= "tem_especial, especificado, ";
                      }
-                     if ($p['fator1']){
+                     if ($p[fator1]){
                        $sql = $sql."fator1,";
                      }
-                     if ($p['fator2']){
+                     if ($p[fator2]){
                        $sql = $sql."fator2,";
                      }
       $sql = $sql ."
                      fob, cif, numero_internet,
                      data_importacao, aprovado, venda_efetivada
               ) VALUES (
-                     '$p[cgc]', '".left($p['cliente'], 50)."',
+                     '$p[cgc]', '".left($p[cliente], 50)."',
                      '$id_vendedor',
-                     '".left($p['contato'],20)."', '$data_hoje',
+                     '".left($p[contato],20)."', '$data_hoje',
                    ";
-                   if ($p['data_prevista_entrega']<>""){
+                   if ($p[data_prevista_entrega]<>""){
                      $sql .= " '$p[data_prevista_entrega]',  ";
                    }
                    if ($CodigoEmpresa=="75"){ // Perlex
-                     $sql .= ($_REQUEST['venda_casada']=="true")? " '1', " : " '0', ";
+                     $sql .= ($_REQUEST[venda_casada]=="true")? " '1', " : " '0', ";
                      $sql .= " '$_REQUEST[tipo_pedido]', ";
-                     $sql .= ($_REQUEST['termo']=="true")? " '1', " : " '0', ";
+                     $sql .= ($_REQUEST[termo]=="true")? " '1', " : " '0', ";
                    }
         $sql .= "   '$p[id_cliente]',
                      '$p[local_entrega]', '$p[numero_pedido_vendedor]',
                      '$max', '$p[numero_cliente]',
                      '$p[transportadora]', '$_SESSION[nome_vendedor]', '$Comissao',
                      ";
-                     if ($p['codigo_pagamento']){
+                     if ($p[codigo_pagamento]){
                        $sql = $sql."'$p[codigo_pagamento]', ";
                      }
-                     if ($p['codigo_pagamento1']){
+                     if ($p[codigo_pagamento1]){
                        $sql = $sql."'$p[codigo_pagamento1]', ";
                      }
-                     if ($p['desconto_cliente']){
+                     if ($p[desconto_cliente]){
                        $sql = $sql."$p[desconto_cliente], ";
                      }
                      if (($CodigoEmpresa=="75") or ($CodigoEmpresa=="86")){
-                       if ($p['desconto_cliente']>0){
+                       if ($p[desconto_cliente]>0){
                          $sql .= " '1', $p[especificado], ";
                        }else{
                          $sql .= " '0', $p[especificado], ";
                        }
                      }
 
-                     if ($p['fator1']){
+                     if ($p[fator1]){
                        $sql = $sql."'$p[fator1]', "; //Desconto do Item
                      }
-                     if ($p['fator2']){
+                     if ($p[fator2]){
                        $sql = $sql."'$p[fator2]', "; //Desconto do Item
                      }
                      /*
@@ -198,7 +198,7 @@ class PedidoOficial {
         pg_query ($db,$sql) or die ($MensagemDbError.$sql.pg_query ($db, "rollback"));
       }
       /////////////////////////////////////////////////////////
-      $SqlAlter = "Update pedidos set usuario_cadastrou='".left($_SESSION['usuario'], 10)."', data_alteracao='$data_hoje' where numero='$max'";
+      $SqlAlter = "Update pedidos set usuario_cadastrou='".left($_SESSION[usuario], 10)."', data_alteracao='$data_hoje' where numero='$max'";
       pg_query($db, $SqlAlter);
 
       $Sql = "Insert into alteracao_pedidos (
@@ -209,7 +209,7 @@ class PedidoOficial {
                                                  alteracao
                                               ) VALUES (
                                                  '$max',
-                                                 '".left($_SESSION['usuario'], 10)."',
+                                                 '".left($_SESSION[usuario], 10)."',
                                                  '$data_hoje',
                                                  '$_SERVER[REMOTE_ADDR]',
                                                  'CADASTROU NOVO PEDIDO VIA SITE'

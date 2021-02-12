@@ -1,8 +1,7 @@
-<?php
-include_once ("inc/common.php");
+<?
 include "inc/verifica.php";
 include "inc/config.php";
-$_SESSION['pagina'] = "listar_produtos.php";
+$_SESSION[pagina] = "listar_produtos.php";
 ?>
 <style>
   .cinza {
@@ -24,14 +23,14 @@ $_SESSION['pagina'] = "listar_produtos.php";
         <tr>
           <td class="texto1">
             <center>
-              <h3>Relatï¿½rio de produtos <i>ON-LINE</i></h3>
+              <h3>Relatório de produtos <i>ON-LINE</i></h3>
             </center>
             <div align="right" class="texto1">
-              <?php
+              <?
               setlocale(LC_TIME,'pt_BR','ptb');
               echo  ucfirst(strftime('%A, %d de %B de %Y',mktime(0,0,0,date('n'),date('d'),date('Y'))));
               ?><BR>
-              RepresentaÃ§Ã£o: <b><?php echo $_SESSION['usuario'];?></b>
+              Representação: <b><? echo $_SESSION[usuario];?></b>
             </div>
           </td>
         </tr>
@@ -45,17 +44,17 @@ $_SESSION['pagina'] = "listar_produtos.php";
     <td>
       <table width="100%" border="1" style="border: 1px dashed #CCCCCC;" cellspacing="0" cellpadding="4" class="texto1">
         <tr>
-          <td class="normal" width="60"><b>Cï¿½digo: </b></td>
-          <td class="normal" width="280"><b>Descriï¿½ï¿½o: </b></td>
+          <td class="normal" width="60"><b>Código: </b></td>
+          <td class="normal" width="280"><b>Descrição: </b></td>
           <td class="normal" width="180"><b>Marca: </b></td>
           <td class="normal" width="20"><b>Modelo: </b></td>
           <td class="normal" width="100"><b>Unidade: </b></td>
-          <td class="normal" width="60"><b>Preï¿½o venda: </b></td>
+          <td class="normal" width="60"><b>Preço venda: </b></td>
         </tr>
-        <?php
-        $pagina = $_REQUEST['pagina'];
-        if (!$_SESSION['id_vendedor']){
-          $_SESSION['id_vendedor'] = 1;
+        <?
+        $pagina = $_REQUEST[pagina];
+        if (!$_SESSION[id_vendedor]){
+          $_SESSION[id_vendedor] = 1;
         }
         $lista = "Select codigo, nome, marca, modelo, unidade, preco_venda from produtos where inativo=0 and produto_venda=1 order by nome ASC";
         $lista1 = pg_query($lista);
@@ -91,22 +90,22 @@ $_SESSION['pagina'] = "listar_produtos.php";
           }
           ?>
           <tr>
-            <td class="<?php echo $Cor;?>" width="60">
-              <a href="#" onclick="Acha('cadastrar_produtos.php','localizar_numero=<?php echo $r['codigo'];?>','Conteudo');">
-                <?php echo $r['codigo'];?>
+            <td class="<? echo $Cor;?>" width="60">
+              <a href="#" onclick="Acha('cadastrar_produtos.php','localizar_numero=<? echo $r[codigo];?>','Conteudo');">
+                <?=$r[codigo];?>
               </a>
             </td>
-            <td class="<?php echo $Cor;?>" width="280">
-              <a href="#" onclick="Acha('cadastrar_produtos.php','localizar_numero=<?php echo $r['codigo'];?>','Conteudo');">
-                &nbsp;<?php echo $r['nome'];?>
+            <td class="<? echo $Cor;?>" width="280">
+              <a href="#" onclick="Acha('cadastrar_produtos.php','localizar_numero=<? echo $r[codigo];?>','Conteudo');">
+                &nbsp;<? echo "$r[nome]";?>
               </a>
             </td>
-            <td class="<?php echo $Cor;?>" width="200">&nbsp;<?php echo $r['marca'];?></td>
-            <td class="<?php echo $Cor;?>" width="20">&nbsp;<?php echo $r['modelo'];?></td>
-            <td class="<?php echo $Cor;?>" width="100">&nbsp;<?php echo $r['unidade'];?></td>
-            <td class="<?php echo $Cor;?>" width="60" align="right">&nbsp;<?php echo $r['preco_venda'];?></td>
+            <td class="<? echo $Cor;?>" width="200">&nbsp;<? echo "$r[marca]";?></td>
+            <td class="<? echo $Cor;?>" width="20">&nbsp;<? echo "$r[modelo]";?></td>
+            <td class="<? echo $Cor;?>" width="100">&nbsp;<? echo "$r[unidade]";?></td>
+            <td class="<? echo $Cor;?>" width="60" align="right">&nbsp;<? echo "$r[preco_venda]";?></td>
           </tr>
-          <?php
+          <?
           if ($pagina){
             if (!$qtd_registros){
               $qtd_registros = $qtd_registros + $inicio + 1;
@@ -122,13 +121,13 @@ $_SESSION['pagina'] = "listar_produtos.php";
   <tr>
     <td align="center" colspan="7">
       <table width="100%" border="0" class="texto1">
-        <?php
+        <?
         if ($ccc<>""){
           ?>
           <tr>
             <td height="25" align="center">
              <hr>
-            <?php
+            <?
             $anterior = $pc -1;
             $proximo = $pc +1;
             $qtd_paginas = $ccc / $total_reg;
@@ -149,7 +148,7 @@ $_SESSION['pagina'] = "listar_produtos.php";
                 echo "<strong>";
               }
               if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-                echo $p."&nbsp;";
+                echo "$p&nbsp;";
               }else{
                 if (!$ret){
                   echo "...";
@@ -164,17 +163,17 @@ $_SESSION['pagina'] = "listar_produtos.php";
             $fim = $ccc / $total_reg;
             if ($pc<$fim) {
                 echo " | ";
-                echo " <a href='#' onclick=\"Acha('listar_produtos.php','pagina=$proximo&ordem=$_REQUEST[ordem]&pos$pos&data_inicial=$_REQUEST[data_inicial]&data_final=$_REQUEST[data_final]','Conteudo');\"> Prï¿½xima -> </a>";
+                echo " <a href='#' onclick=\"Acha('listar_produtos.php','pagina=$proximo&ordem=$_REQUEST[ordem]&pos$pos&data_inicial=$_REQUEST[data_inicial]&data_final=$_REQUEST[data_final]','Conteudo');\"> Próxima -> </a>";
             }else{
                 echo " | ";
-                echo " Prï¿½xima ->";
+                echo " Próxima ->";
             }
             ?>
             </td>
           </tr>
           <tr>
             <td height="25" align="center" valign="top"><div>
-              <?php
+              <?
               echo "<div>Mostrando registro <strong>";
               echo $inicio + 1;
               echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong></div>";
@@ -182,7 +181,7 @@ $_SESSION['pagina'] = "listar_produtos.php";
               </div>
             </td>
           </tr>
-          <?php
+          <?
         }
         ?>
      </table>

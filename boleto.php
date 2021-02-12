@@ -1,5 +1,4 @@
 <?php
-include_once ("inc/common.php");
 // +----------------------------------------------------------------------+
 // | BoletoPhp - Versão Beta                                              |
 // +----------------------------------------------------------------------+
@@ -33,7 +32,7 @@ include_once ("inc/common.php");
 
 include "inc/config.php";
 
-$Sql = pg_query("select * from pedidos where numero='".$_REQUEST['numero']."'");
+$Sql = pg_query("select * from pedidos where numero='$_REQUEST[numero]'");
 $p = pg_fetch_array($Sql);
 
 $Sql = pg_query("select * from referencia_empresa");

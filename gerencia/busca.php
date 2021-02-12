@@ -1,5 +1,4 @@
-<?php
-include ("include/common.php");
+<?
 session_start();
 if($_SESSION['LogaUser']){
 ?>
@@ -39,12 +38,12 @@ function ValidaCampos(){
           &nbsp;Base de Dados:   			
           <select name="busca" id="busca" style="width:150px;height:25px;" onchange="carregar()">
            <option value=""></option>
-           <?php
-            $SQL = pg_query($Nextweb, "SELECT id, base, descricao FROM dados WHERE codigo_empresa = '".$_SESSION['LogaEmpresa']."'");
+           <?
+            $SQL = pg_query($Nextweb, "SELECT id, base, descricao FROM dados WHERE codigo_empresa = '$_SESSION[LogaEmpresa]'");
             while($Lista = pg_fetch_array($SQL)){
            ?>
-             <option value="<?php echo $Lista['base'];?>"><?php echo $Lista['descricao'];?></option>    
-           <?php
+             <option value="<?= $Lista['base'];?>"><?= $Lista['descricao'];?></option>    
+           <?
             }
            ?>
           </select>
@@ -68,7 +67,7 @@ function ValidaCampos(){
 </table>
 </form>
 
-<?php
+<?
 echo str_repeat("<br>", 11);
 }else{
   include"include/login.php";

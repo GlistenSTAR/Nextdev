@@ -1,13 +1,12 @@
 <?php
-include_once ("inc/common.php");
 include "inc/config.php";
 include "inc/verifica.php";
 $Modulo_titulo = "Imagens";
 $Modulo_link = "imagens";
-$_SESSION['pagina'] = "listar_imagens.php";
-if (is_numeric($_REQUEST['localizar_numero'])){
+$_SESSION[pagina] = "listar_imagens.php";
+if (is_numeric($_REQUEST[localizar_numero])){
   include_once("inc/config.php");
-  $SqlCarregaCat = pg_query("Select * from imagens where id='".$_REQUEST['localizar_numero']."'");
+  $SqlCarregaCat = pg_query("Select * from imagens where id='$_REQUEST[localizar_numero]'");
   $ccc = pg_num_rows($SqlCarregaCat);
   if ($ccc<>""){
     $n = pg_fetch_array($SqlCarregaCat);
@@ -16,7 +15,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
 ?>
 <html>
 <head>
-<title><?php echo $Titulo_Admin;?></title>
+<title><? echo "$Titulo_Admin ";?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <link href="fonte.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" type="text/JavaScript">
@@ -33,7 +32,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
 <table border="0" cellspacing="1" cellpadding="1" class="adminform"  width="100%" height="350">
   <tr align="center">
       <?php
-      if ($_SESSION['usuario']){
+      if ($_SESSION[usuario]){
           ?>
           <td width="548" valign="top">
             <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="arial11">
@@ -50,13 +49,13 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                 <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
               </tr>
               <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/categorias.gif" border="0" align="left"><center><h3><?php echo $Modulo_titulo;?></h3></center><hr></hr></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;<img src="<? echo $site_url;?>icones/categorias.gif" border="0" align="left"><center><h3><? echo "$Modulo_titulo";?></h3></center><hr></hr></td>
               </tr>
               <tr>
                 <td valign="top" align="center" width="100%">
                   <div id="divAbaMeio">
-                  <?php
-                  if (!$_REQUEST['qtd_fotos']){
+                  <?
+                  if (!$_REQUEST[qtd_fotos]){
                      $SqlCarregaCat = pg_query("Select * from categorias order by nome");
                      $SelectCategoria = "
                        <tr>
@@ -68,7 +67,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                              <option></option>
                              ";
                               while ($c = pg_fetch_array($SqlCarregaCat)){
-                                $SelectCategoria = $SelectCategoria."<option value='".$c['id']."'>".$c['nome']."</option>";
+                                $SelectCategoria = $SelectCategoria."<option value='$c[id]'>$c[nome]</option>";
                               }
                               $SelectCategoria = $SelectCategoria."
                            </select>
@@ -81,7 +80,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                         <tr>
                           <td>
                             <table border="0" align="center" cellpadding="2" cellspacing="2" class="unnamed2">
-                              <?php
+                              <?
                               echo $SelectCategoria;
                               ?>
                               <tr>
@@ -98,18 +97,18 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                         </tr>
                       </table>
                     </form>
-                    <?php
+                    <?
                   }else{
                     ?>
                     <form name="cad" method="post" enctype="multipart/form-data">
-                    <input type=hidden name=qtd_fotos value=<?php echo $_REQUEST['qtd_fotos'];?>>
+                    <input type=hidden name=qtd_fotos value=<? echo "$_REQUEST[qtd_fotos]";?>>
                       <table  border="0" cellspacing="0" cellpadding="0" width="100%">
                         <tr>
                           <td>
                           <div id="cadastro_imagem">
                             <table border="0" align="center" cellpadding="2" cellspacing="2" class="texto1" width="100%">
                               <tr>
-                                <?php
+                                <?
                                 $SqlCarregaCat = pg_query("Select * from categorias order by nome");
                                 $SelectCategoria = "
                                   <tr>
@@ -117,12 +116,12 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                                       <select name=id_cat id=id_cat>
                                         ";
                                          while ($c = pg_fetch_array($SqlCarregaCat)){
-                                           if ($_REQUEST['id_cat']==$c['id']){
-                                             $SelectCategoria = $SelectCategoria."<option value='".$c['id']."'>".$c['nome']."</option>";
+                                           if ($_REQUEST[id_cat]==$c[id]){
+                                             $SelectCategoria = $SelectCategoria."<option value='$c[id]'>$c[nome]</option>";
                                            }else{
                                              $SelectCategoria = $SelectCategoria."<option value=''></option>";
                                            }
-                                           $SelectCategoria = $SelectCategoria."<option value='".$c['id']."'>".$c['nome']."</option>";
+                                           $SelectCategoria = $SelectCategoria."<option value='$c[id]'>$c[nome]</option>";
                                          }
                                          $SelectCategoria = $SelectCategoria."
                                       </select>
@@ -133,7 +132,7 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                                 $Width= 100 / $max;
                                 $qtd_fotos = $_REQUEST["qtd_fotos"];
                                 for ($x=1;$x<=$qtd_fotos;$x++){
-                                   echo "<td width='".$Width."%'>
+                                   echo "<td width='$Width%'>
                                            <fieldset>
                                              <legend>Foto $x: </legend>
                                              <table border=0 align=center cellpadding=2 cellspacing=2 class=texto1>
@@ -174,14 +173,14 @@ if (is_numeric($_REQUEST['localizar_numero'])){
                         </tr>
                       </table>
                     </form>
-                    <?php
+                    <?
                   }
                   ?>
                   </div>
               </tr>
             </table>
           </td>
-          <?php
+          <?
       }
       ?>
     </td>

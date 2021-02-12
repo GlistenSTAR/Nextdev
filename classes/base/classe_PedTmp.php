@@ -122,7 +122,7 @@ class PedidoTemporario {
     ######################################################
     $SqlCampo['cgc'] = $this->clientecnpj;
     $SqlCampo['cliente'] = $this->cliente_cc;
-    $SqlCampo['codigo_vendedor'] = $_SESSION['id_vendedor'];
+    $SqlCampo['codigo_vendedor'] = $_SESSION[id_vendedor];
     $SqlCampo['contato'] = left($this->contato_cc,20);
     $SqlCampo['data'] = $data_hoje;
     //echo "<BR><BR>$this->DataPrevistaEntrega<BR><BR>";
@@ -133,7 +133,7 @@ class PedidoTemporario {
     $SqlCampo['numero'] = $this->numero;
     $SqlCampo['numero_cliente'] = str_replace("'","",$this->numero_cliente);
     $SqlCampo['transportadora'] = $this->trans_cc;
-    $SqlCampo['vendedor'] = left($_SESSION['nome_vendedor'], 20);
+    $SqlCampo['vendedor'] = left($_SESSION[nome_vendedor], 20);
     $SqlCampo['tipo_pedido'] = $this->tipo_pedido;
     $SqlCampo['codigo_pagamento'] = ($this->condpag1_id)? "$this->condpag1_id":"0";
     $SqlCampo['codigo_pagamento1'] = ($this->condpag2_id)? "$this->condpag2_id":"0";
@@ -195,11 +195,12 @@ class PedidoTemporario {
         $SqlFim = ")";
       }
     }
+        
     $Grava = $SqlInicio."".substr($SqlExecutar, 0, -1)."".$SqlExecutar2."".substr($SqlExecutar3, 0, -1)."".$SqlFim;
     //echo $Grava;
 //    exit;
     if (!$_Err){
-     // pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_query ($db, "rollback"));
+      pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_query ($db, "rollback"));
     }
   }
 }

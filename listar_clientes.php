@@ -1,5 +1,4 @@
-<?php
-include_once ("inc/common.php");
+<?
  session_start();
  include "inc/verifica.php";
  include "inc/config.php";
@@ -64,35 +63,35 @@ include_once ("inc/common.php");
 
 <form name="listar">
   <div id="listar" align="left">    
-    <div id="Cabecalho" align="center">Listagem de Clientes<br><span style="color:#CCCCCC;"><?php echo str_repeat(' -',85);?></span></div>
+    <div id="Cabecalho" align="center">Listagem de Clientes<br><span style="color:#CCCCCC;"><?= str_repeat(' -',85);?></span></div>
     
     <!-- Monto os dados do cabeçalho da página -->
     <form name="menu" align="left" method="POST" accept-charset="ISO-8859-1">
-       <a href="imprimir_clientes.php?filtro=<?php echo $_REQUEST['filtro']?>" target="_blank"><img src="icones/imprimir1.gif" border="0">&nbsp;&nbsp;Versão Impressa</a>
+       <a href="imprimir_clientes.php?filtro=<?=$_REQUEST[filtro]?>" target="_blank"><img src="icones/imprimir1.gif" border="0">&nbsp;&nbsp;Versão Impressa</a>
        
        &nbsp;&nbsp;|&nbsp;&nbsp;
        
        Mostrar:
        <select id="filtro" name="filtro">
          <?php
-         if ($_REQUEST['filtro']=="INATIVOS"){
+         if ($_REQUEST[filtro]=="INATIVOS"){
            ?>
            <option value="INATIVOS">INATIVOS</option>
            <option value="TODOS">TODOS</option>
            <option value="ATIVOS">ATIVOS</option>
-           <?php
-         }elseif ($_REQUEST['filtro']=="ATIVOS"){
+           <?
+         }elseif ($_REQUEST[filtro]=="ATIVOS"){
            ?>
            <option value="ATIVOS">ATIVOS</option>
            <option value="TODOS">TODOS</option>
            <option value="INATIVOS">INATIVOS</option>
-           <?php
+           <?
          }else{
            ?>
            <option value="TODOS">TODOS</option>
            <option value="ATIVOS">ATIVOS</option>
            <option value="INATIVOS">INATIVOS</option>           
-           <?php
+           <?
          }
          ?>
        <select>
@@ -115,31 +114,31 @@ include_once ("inc/common.php");
       </table>      
       
     <table width="600px" border="0" cellpadding="0" cellspacing="1" class="resultado">      
-      <?php
-      if ($_REQUEST['filtro']){
-        if ($_REQUEST['filtro']=="ATIVOS"){
+      <?
+      if ($_REQUEST[filtro]){
+        if ($_REQUEST[filtro]=="ATIVOS"){
           $Filtro = " AND inativo='0'";
-        }elseif ($_REQUEST['filtro']=="INATIVOS"){
+        }elseif ($_REQUEST[filtro]=="INATIVOS"){
           $Filtro = " AND inativo='1'";
         }
       }
       
         //if ($_SESSION[nivel]=="2"){
-								if (($_SESSION['login']=="LAILA") AND ($_SESSION['nivel']=="2")){
+								if (($_SESSION[login]=="LAILA") AND ($_SESSION[nivel]=="2")){
           $lista = "Select nome, endereco, cidade, estado, telefone, cgc, cep from clientes WHERE inativo='0' $Filtro order by nome ASC";
         }else{     
-           if($_SESSION['id_vendedor']=="77"){ //Regra Groupack         
+           if($_SESSION[id_vendedor]=="77"){ //Regra Groupack         
              $lista = "Select nome, endereco, cidade, estado, ddd, telefone, cgc from clientes WHERE codigo_vendedor = '87' AND inativo='0' $Filtro order by nome ASC";          
            }else{
-             $lista = "Select nome, endereco, cidade, estado, ddd, telefone, cgc from clientes WHERE codigo_vendedor = '".$_SESSION['id_vendedor']."' AND inativo='0' $Filtro order by nome ASC";          
+             $lista = "Select nome, endereco, cidade, estado, ddd, telefone, cgc from clientes WHERE codigo_vendedor = '$_SESSION[id_vendedor]' AND inativo='0' $Filtro order by nome ASC";          
            }           
         }   
         
-        if($_SESSION['codigo_empresa']<> "2"){ //se não for groupack
-          if ($_SESSION['nivel']=="2"){
+        if($_SESSION[codigo_empresa]<> "2"){ //se não for groupack
+          if ($_SESSION[nivel]=="2"){
              $lista = "Select nome, endereco, cidade, estado, telefone, cgc, cep from clientes WHERE inativo='0' $Filtro order by nome ASC";
           }else{
-             $lista = "Select nome, endereco, cidade, estado, ddd, telefone, cgc from clientes WHERE codigo_vendedor = '".$_SESSION['id_vendedor']."' AND inativo='0' $Filtro order by nome ASC";          
+             $lista = "Select nome, endereco, cidade, estado, ddd, telefone, cgc from clientes WHERE codigo_vendedor = '$_SESSION[id_vendedor]' AND inativo='0' $Filtro order by nome ASC";          
           }
         }
           
@@ -148,7 +147,7 @@ include_once ("inc/common.php");
         $Linhas = pg_query($lista);
         $ccc = pg_num_rows($Linhas);
         $total_reg = "13";
-        $pagina = $_REQUEST['pagina'];
+        $pagina = $_REQUEST[pagina];
         if (!$pagina){
           $inicio = "0";
           $pc = "1";
@@ -178,13 +177,13 @@ include_once ("inc/common.php");
          $Cor="#EEEEEE";
        }
        ?>
-       <tr height="20px" bgcolor="<?php echo $Cor;?>" onMouseOver="this.bgColor='#dfe9f3';Tip('<b>Endereço: </b><?php echo $Resultado['endereco']?><br><b>Cidade: </b><?php echo $Resultado['cidade']." - ".$Resultado['estado']?><br><b>CEP: </b><?php echo $Resultado['cep']?>')" onMouseOut ="this.bgColor='<?php echo $Cor;?>';UnTip()">
-          <td width="20%" align="left">&nbsp;<?php echo $Resultado['cgc'];?></td>
-          <td width="60%" align="left">&nbsp;<?php echo $Resultado['nome'];?></td>
-          <td width="15%" align="left">&nbsp;<?php echo "(".$Resultado['ddd'].") ".$Resultado['telefone'];?></td>
+       <tr height="20px" bgcolor="<?= $Cor;?>" onMouseOver="this.bgColor='#dfe9f3';Tip('<b>Endereço: </b><?= $Resultado['endereco']?><br><b>Cidade: </b><?= $Resultado['cidade']." - ".$Resultado['estado']?><br><b>CEP: </b><?= $Resultado['cep']?>')" onMouseOut ="this.bgColor='<?= $Cor;?>';UnTip()">
+          <td width="20%" align="left">&nbsp;<?= $Resultado[cgc];?></td>
+          <td width="60%" align="left">&nbsp;<?= $Resultado[nome];?></td>
+          <td width="15%" align="left">&nbsp;<?= "(".$Resultado[ddd].") ".$Resultado[telefone];?></td>
           <!--<td width="5%"  align="center"><a href="#"><img src="icones/pesquisar.png" border="0"></a></td>-->
        </tr>       
-       <?php
+       <?
          if ($pagina){
            if (!$qtd_registros){
              $qtd_registros = $qtd_registros + $inicio + 1;
@@ -197,7 +196,7 @@ include_once ("inc/common.php");
     </table>
     <hr> 
     <div align="center">
-     <?php
+     <?
      if ($ccc<>""){
          $anterior = $pc -1;
          $proximo = $pc +1;
@@ -219,7 +218,7 @@ include_once ("inc/common.php");
              echo "<strong>";
            }
            if (($p>$primeira_pagina) and ($p<$ultima_pagina)){
-             echo $p."&nbsp;";
+             echo "$p&nbsp;";
            }else{
              if (!$ret){
                echo "...";
@@ -242,13 +241,13 @@ include_once ("inc/common.php");
          ?>
          
          <div>
-           <?php
+           <?
            echo "<div>Mostrando registro <strong>";
            echo $inicio + 1;
            echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong></div>";
            ?>
          </div>
-     <?php
+     <?
      }
      ?>     
     </div>  
@@ -256,7 +255,7 @@ include_once ("inc/common.php");
    </div>
   </div>
 </form>
-<?php
+<?
  //gero seção da pagina em questão
- $_SESSION['pagina'] = "listar_clientes.php";
+ $_SESSION[pagina] = "listar_clientes.php";
 ?>

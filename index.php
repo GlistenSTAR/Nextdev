@@ -1,16 +1,15 @@
-<?php
-include_once ("inc/common.php");
-  
-  if (!isset($_SESSION['usuario'])){
-    HEADER("Location: login/index.php");
-  }else{
-    if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler"); else ob_start();
-
-?>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
+<?
+session_start();
+if (!$_SESSION[usuario]){
+//  echo "haha";
+//  exit;
+  HEADER("Location: login/index.php");
+}else{
+  if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler"); else ob_start();
+  ?>
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+  <html>
+  <head>
   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
@@ -22,19 +21,17 @@ include_once ("inc/common.php");
   <META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jan 2009 11:12:01 GMT">
   <META NAME="ROBOTS" CONTENT="NONE">
   <META NAME="GOOGLEBOT" CONTENT="NOARCHIVE">
-  <?php
-    header( 'Expires: Mon, 22 Jan 2021 11:12:01 GMT' );
-    header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
-    header( 'Cache-Control: no-store, no-cache, must-revalidate' );
-    header( 'Cache-Control: post-check=0, pre-check=0', false );
-    header( 'Pragma: no-cache' );
+  <?
+  header( 'Expires: Mon, 22 Jan 2009 11:12:01 GMT' );
+  header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' );
+  header( 'Cache-Control: no-store, no-cache, must-revalidate' );
+  header( 'Cache-Control: post-check=0, pre-check=0', false );
+  header( 'Pragma: no-cache' );
   ?>
-  
   <link type="text/css" rel="stylesheet" href="inc/css.css" media="screen">
-</head>
-
-<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-  <?php include ("inc/cm.php"); ?>
+  </head>
+  <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+  <? include ("inc/cm.php"); ?>
   <table width="778" height="100" border="0" align="center" cellpadding="0" cellspacing="0">
     <tr>
       <td align="center">
@@ -45,7 +42,7 @@ include_once ("inc/common.php");
                 <tr>
                   <td width="7">&nbsp;</td>
                   <td width="148" valign="top" align="center">
-                    <?php include ("inc/es.php"); ?>
+                    <? include ("inc/es.php"); ?>
                     <div id="carregando" align="center" style="position: relative; display: none;" class="texto1">
                        <img src="images/carregando.gif" alitn="right">
                     </div>
@@ -61,16 +58,14 @@ include_once ("inc/common.php");
                       <tr>
                         <td>
                           <div id="Inicio">
-                            <?php
-							if(isset($_SESSION['pagina'])){
-								include($_SESSION['pagina']);
-							}else{
-								include "inicio.php";
+                            <?
+                            if (!@include($_SESSION[pagina])){
+                              include "inicio.php";
                               ?>
                               <span class="arial11" valign="bottom" align="center">
-                                <?php include "versao.php"; ?>
+                                <? include "versao.php"; ?>
                               </span>
-                              <?php
+                              <?
                             }
                             ?>
                           </div>
@@ -86,16 +81,16 @@ include_once ("inc/common.php");
       </td>
     </tr>
     <tr>
-      <td><?php include ("inc/bx.php"); ?></td>
+      <td><? include ("inc/bx.php"); ?></td>
     </tr>
   </table>
   </body>
-</html>
-<script language="JavaScript" src="inc/scripts/funcoes_0.2.0.js"></script>
-<script language="JavaScript" src="inc/scripts/calendario_0.0.2.js"></script>
-<script language="JavaScript" src="inc/scripts/ie_0.0.3.js"></script>
-<script language="JavaScript" src="inc/scripts/mascara_0.0.1.js"></script>
-<script type="text/javascript" src="inc/scripts/wz_tooltip.js"></script>
-<?php
-  }
+  </html>
+  <script language="JavaScript" src="inc/scripts/funcoes_0.2.0.js"></script>
+  <script language="JavaScript" src="inc/scripts/calendario_0.0.2.js"></script>
+  <script language="JavaScript" src="inc/scripts/ie_0.0.3.js"></script>
+  <script language="JavaScript" src="inc/scripts/mascara_0.0.1.js"></script>
+  <script type="text/javascript" src="inc/scripts/wz_tooltip.js"></script>
+  <?
+}
 ?>

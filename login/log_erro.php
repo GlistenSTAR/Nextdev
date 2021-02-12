@@ -1,5 +1,4 @@
-<?php
-include_once ("inc/common.php");
+<?
 //echo "<span class=erro><h2> - ATENÇÃO - <BR><BR>OS DADOS NÃO FORAM ARMAZENADOS, ENTRE EM CONTATO COM O SUPORTE.</h2></span>";
 //echo pg_last_error();
 $corpo = "URL: ".$_SERVER['HTTP_REFERER']."<BR><BR>";

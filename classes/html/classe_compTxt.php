@@ -16,7 +16,7 @@ class compTxt {
 
 /*Este Método é chamado de construtor, pois ele é executado quando se instancia esta classe, ou seja, podemos realizar várias ações quando a classe for instanciada, basta colocar os códigos aqui e pronto. */
 
-  public function __construct(){
+  public function compTxt(){
 
   }
 
@@ -60,7 +60,7 @@ class compTxt {
 /* Este método é que realmente cria o html que nós queremos, e é muito simples mesmo, notem que o texto será formatado na criação. */
 
   public function cria(){
-    echo "<font face='".$this->face."' size='".$this->size."' color='".$this->color."'>";
+    echo "<font face='$this->face' size='$this->size' color='$this->color'>";
     if ($this->negrito == "true" or $this->negrito == "True"){
      echo "<b>";
     }

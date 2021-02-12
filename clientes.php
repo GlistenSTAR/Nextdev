@@ -1,7 +1,6 @@
-<?php
-include_once ("inc/common.php");
+<?
 include "inc/verifica.php";
-$_SESSION['pagina'] = "clientes.php";
+$_SESSION[pagina] = "clientes.php";
 ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
 <table width="603" border="0" cellspacing="0" cellpadding="0" class="texto1">
@@ -19,16 +18,16 @@ $_SESSION['pagina'] = "clientes.php";
       <BR><BR><BR>
       <table align="center" width="80%" border="0" cellspacing="0" cellpadding="0" class="texto1">
         <tr>
-          <?php
+          <?
           //if ($_SESSION[nivel]=="2"){
-										if (($_SESSION['login']=="LAILA") AND ($_SESSION['nivel']=="2")){
+										if (($_SESSION[login]=="LAILA") AND ($_SESSION[nivel]=="2")){
             ?>
             <td valign="top" width="50%" align="center">
               <a href="#" onclick="Acha('cadastrar_clientes.php','','Conteudo');">
                 <img src="icones/cadastrar.gif" border="0"><BR><b>Cadastrar / Editar</b>
               </a>
             </td>
-            <?php
+            <?
           }
           ?>
           <td valign="top" width="50%" align="center">

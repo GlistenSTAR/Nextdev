@@ -1,13 +1,13 @@
-<?php include_once ("inc/common.php"); ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="7">&nbsp;</td>
     <td width="603" height="400">
-      <?php
-        include "inc/config.php";
-        include "alteracoes.php";
-      ?>
+      <?
+//      if (!$_SESSION[erro]){
+        include("inc/config.php");
+        ?>
+        <? include "alteracoes.php";?>
         <!--
         <table width="603" border="0" cellspacing="0" cellpadding="0">
           <tr>
@@ -17,7 +17,7 @@
             <td>
               <table border="0" cellspacing="2" cellpadding="2">
                 <tr>
-                  <?php
+                  <?
                   $SqlListaNoticia = pg_query("Select * from noticias order by id DESC limit 1 OFFSET 0");
                   while ($r = pg_fetch_array($SqlListaNoticia)){
                     ?>
@@ -25,9 +25,9 @@
 
                       <img src="imagens/noticia1.gif" width="150" height="120"  border="0" align="left">
 
-                      <a href="#" onclick="Acha('ver.php','id=<?php echo $r[id];?>','Conteudo');">
+                      <a href="#" onclick="Acha('ver.php','id=<? echo $r[id];?>','Conteudo');">
                         <span class="titulo1">
-                            <?php
+                            <?
                             $Titulo = $r[titulo];
                             if (strlen($Titulo)>60) {
                             $Titulo = substr($Titulo,0,60)."...";
@@ -37,7 +37,7 @@
                         </span>
                         <BR><BR>
                         <span class="texto1">
-                          <?php
+                          <?
                           $Texto = $r[texto];
                           if (strlen($Texto)>500) {
                           $Texto = substr($Texto,0,500)."...";
@@ -51,7 +51,7 @@
                         </div>
                       </a>
                     </td>
-                    <?php
+                    <?
                     $atual++;
                     if ($atual==$QtdColunas){
                       echo "</tr><tr>";
@@ -78,17 +78,17 @@
                       <tr>
                         <td colspan="3"><img src="images/spacer.gif" width="1" height="10"></td>
                       </tr>
-                        <?php
+                        <?
                         $SqlListaNoticia = pg_query("Select * from noticias order by id DESC limit 10 OFFSET 1");
                         while ($r = pg_fetch_array($SqlListaNoticia)){
                           ?>
                           <tr>
                             <td>&nbsp;</td>
                             <td width="100%" valgin="top">
-                              <a href="#" onclick="Acha('ver.php','id=<?php echo $r[id];?>','Conteudo');">
+                              <a href="#" onclick="Acha('ver.php','id=<? echo $r[id];?>','Conteudo');">
                                 <span class="titulo1">
                                   <strong>
-                                    <?php
+                                    <?
                                     $Titulo = $r[titulo];
                                     if (strlen($Titulo)>60) {
                                       $Titulo = substr($Titulo,0,60)."...";
@@ -99,7 +99,7 @@
                                 </span>
                                 <BR>
                                 <span class="texto1">
-                                  <?php
+                                  <?
                                   $Texto = $r[texto];
                                   if (strlen($Texto)>100) {
                                     $Texto = substr($Texto,0,100)."...";
@@ -120,7 +120,7 @@
                           <tr>
                             <td><img src="images/spacer.gif" width="1" height="10"></td>
                           </tr>
-                          <?php
+                          <?
                         }
                         ?>
                       <tr>
@@ -142,12 +142,12 @@
         -->
         <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
           <tr>
-            <td class="texto1" align="center"><BR><BR>&nbsp; O site Ã© melhor visualizado em <b>1024x768</b><BR><BR><BR></td>
+            <td class="texto1" align="center"><BR><BR>&nbsp; O site é melhor visualizado em <b>1024x768</b><BR><BR><BR></td>
           </tr>
         </table>
-        <?php
+        <?
 //      }else{
-//        echo $_SESSION['erro'];
+//        echo "$_SESSION[erro]";
 //        $_SESSION[erro] = "";
 //        //session_destroy();
 //      }

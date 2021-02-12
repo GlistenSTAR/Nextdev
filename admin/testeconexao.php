@@ -1,6 +1,6 @@
 <?php	
 	session_start();
-	$conn = "host=tnteste.c1etmptv6ioq.sa-east-1.rds.amazonaws.com dbname=cep port=13662 user=postgres password=tndanils";
+	$conn = "host=db3.backup dbname=db3 port=5432 user=user password=password";
 	
 	try {
 		pg_connect($conn);

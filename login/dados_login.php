@@ -1,5 +1,4 @@
-<?php
-include_once ("inc/common.php");
+<?
 session_start();
 ?>
 <table width="200" border="0" cellpadding="2" cellspacing="2" class="arial11" align="center">
@@ -13,10 +12,8 @@ session_start();
     <td width="100"><input tabindex="2" name="senha" id="senha" type="password" class="arial00" size="21" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){acerta_campos('login','login','login.php',true);}"></td>
   </tr>
 </table>
-<?php
-  if(isset($_SESSION['erro'])){
-    echo $_SESSION['erro'];
-    $_SESSION['erro'] = "";
-    session_destroy();
-  }
+<?
+  echo $_SESSION[erro];
+  $_SESSION[erro] = "";
+  session_destroy();
 ?>

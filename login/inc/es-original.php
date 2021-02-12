@@ -13,8 +13,8 @@
                         <tr id="titulo_frame">
                           <td>
                             <table border="0" cellspacing="0" cellpadding="1">
-                              <?php
-                              if ($_SESSION['codigo_empresa']<>"95"){
+                              <?
+                              if ($_SESSION[codigo_empresa]<>"95"){
                                 ?>
                                 <tr>
                                   <td valign="top">
@@ -40,7 +40,7 @@
                                     </div>
                                   </td>
                                 </tr>
-                                <?php
+                                <?
                               }else{
                                 ?>
                                 <tr>
@@ -69,7 +69,7 @@
                                     </div>
                                   </td>
                                 </tr>
-                                <?php
+                                <?
                               }
                               ?>
                               <tr>

@@ -1,4 +1,4 @@
-<?php
+<?
 function left($string, $count){
   return substr($string, 0, $count);
 }

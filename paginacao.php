@@ -1,5 +1,5 @@
 <?php
-include_once ("inc/common.php");
+
  session_start();
  include "inc/verifica.php";
  include "inc/config.php";
@@ -47,7 +47,7 @@ $fimpag = ($nReg*$pa)-1;
 <body>
 <table width=200>
 
-<?php
+<?
    $i = $iniciopag;
    while(($i<=$nrResult) and ($i<=$fimpag)){
    $nome = pg_result($EXEC,$i,"nome");
@@ -55,15 +55,15 @@ $fimpag = ($nReg*$pa)-1;
 ?>
 
 <tr>
-   <td width=100><?php echo $nome?></td>
-   <td width=100><?php echo $cidade?></td>
+   <td width=100><?=$nome?></td>
+   <td width=100><?=$cidade?></td>
 </tr>
 
-<?php $i+=1; } ?>
+<? $i+=1; } ?>
 
 <br>
 
-<?php
+<?
 //Agora vou mostra o " Paginas - 1 2 3 n "
 // $z - é um tipo de contador
 // $pagina - pagina atual... caso for mandar para uma outra pagina substitua pelo nome da pagina
@@ -76,7 +76,7 @@ while($z<=$pags){
 
 ?>
 
-<a href="<?php echo $pagina?>?pa=<?php echo $z?>">
-<?php echo $z." "?>
+<a href="<?=$pagina?>?pa=<?=$z?>">
+<?=$z." "?>
 </a>
-<?php $z+=1; }?>
+<? $z+=1; }?>

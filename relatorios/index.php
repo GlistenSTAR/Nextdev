@@ -1,8 +1,7 @@
-<?php
-include_once ("../inc/common.php");
+<?
 include "../inc/verifica.php";
 include "../inc/config.php";
-$_SESSION['pagina'] = "relatorios/index.php";
+$_SESSION[pagina] = "relatorios/index.php";
 ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
 <table width="603" border="0" cellspacing="0" cellpadding="0" class="texto1">

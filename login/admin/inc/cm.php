@@ -1,4 +1,4 @@
-<?php
+<?
 include "config.php";
 ?>
 <Head>
@@ -48,11 +48,11 @@ include "config.php";
        <tr>
          <th class="form-block cpanel" align="center">
            Administrador
-           <?php
-           if ($_SESSION['usuario']){
+           <?
+           if ($_SESSION[usuario]){
              ?>
-             &nbsp;&nbsp;&nbsp;&nbsp;Olá <b><?php echo $_SESSION['usuario'];?></b> <a href="inc/verifica.php?acao=SAIR">(sair)</a>
-             <?php
+             &nbsp;&nbsp;&nbsp;&nbsp;Olá <b><? echo $_SESSION[usuario];?></b> <a href="inc/verifica.php?acao=SAIR">(sair)</a>
+             <?
            }
            ?>
          </th>
@@ -61,8 +61,8 @@ include "config.php";
    </div>
 	</div>
 </div>
-<?php
-if ($_SESSION['usuario']){
+<?
+if ($_SESSION[usuario]){
   ?>
   <table class="adminheading" border="0">
   		<tbody>
@@ -73,7 +73,7 @@ if ($_SESSION['usuario']){
       </tr>
     </tbody>
   </table>
-<?php
+<?
 }
 ?>
 <!--

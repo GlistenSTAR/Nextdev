@@ -13,7 +13,7 @@
                 <td width="138">
                   <table width="138" border="0" cellpadding="0" cellspacing="0" class="arial11">
                     <tr>
-                      <td width="120" height="18"><strong><a href="#" onclick="Acha('inicio.php','','Conteudo');"><img src="images/icone.gif" width="10" height="8" border="0">&nbsp;PÃ¡gina Principal</a></strong></td>
+                      <td width="120" height="18"><strong><a href="#" onclick="Acha('inicio.php','','Conteudo');"><img src="images/icone.gif" width="10" height="8" border="0">&nbsp;Página Principal</a></strong></td>
                     </tr>
                   </table>
                 </td>
@@ -64,7 +64,7 @@
                 <td width="138">
                   <table width="138" border="0" cellpadding="0" cellspacing="0" class="arial11">
                     <tr>
-                      <td width="120" height="18"><strong><a href="#" onclick="Acha('credito.php','','Conteudo');"><img src="images/icone.gif" width="10" height="8" border="0">&nbsp;Consulta crÃ©dito</a></strong></td>
+                      <td width="120" height="18"><strong><a href="#" onclick="Acha('credito.php','','Conteudo');"><img src="images/icone.gif" width="10" height="8" border="0">&nbsp;Consulta crédito</a></strong></td>
                     </tr>
                   </table>
                 </td>
@@ -93,10 +93,10 @@
                 <td><img src="images/spacer.gif" width="1" height="5"></td>
               </tr>
             </table>
-            <?php
+            <?
             if ($CodigoEmpresa=="86"){ //Perfil
-              //Retirado por indicaï¿½ï¿½o do Sï¿½rgio
-              // Nï¿½o vï¿½o liberar esse tipo de opï¿½ï¿½o, foi uma idï¿½ia da Edjane para suprir uma necessidade simples
+              //Retirado por indicação do Sérgio
+              // Não vão liberar esse tipo de opção, foi uma idéia da Edjane para suprir uma necessidade simples
               ?>
               <!--
               <table width="138" border="0" cellspacing="0" cellpadding="0">
@@ -105,19 +105,19 @@
                     <table width="138" border="0" cellpadding="0" cellspacing="0" class="arial11">
                       <tr>
                         <td width="120" height="18"><strong>
-                          <?php
+                          <?
                           if ($_SESSION[usuario]){
                             ?>
                             <a href="img/" target="_blank">
                               <img src="images/icone.gif" width="10" height="8" border="0">&nbsp;Imagens
                             </a>
-                            <?php
+                            <?
                           }else{
                             ?>
                             <a href="#" onclick="Acha('credito.php','','Conteudo');">
                               <img src="images/icone.gif" width="10" height="8" border="0">&nbsp;Imagens
                             </a>
-                            <?php
+                            <?
                           }
                           ?>
 
@@ -134,7 +134,7 @@
                 </tr>
               </table>
               -->
-              <?php
+              <?
             }
             ?>
             <table width="138" border="0" cellspacing="0" cellpadding="0">
@@ -144,7 +144,7 @@
                     <tr>
                       <td width="120" height="18"><strong>
                         <a href="#" onclick="Acha('relatorios/index.php','','Conteudo');">
-                          <img src="images/icone.gif" width="10" height="8" border="0">&nbsp;RelatÃ³rios
+                          <img src="images/icone.gif" width="10" height="8" border="0">&nbsp;Relatórios
                         </a>
                       </strong></td>
                     </tr>
