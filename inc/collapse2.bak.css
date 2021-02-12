@@ -1,0 +1,8 @@
+ul.treelist,ul.treelist ul{margin:0;padding:0;}
+ul.treelist li{background-image:url(../images/pagina.gif);background-position:10px 1px;background-repeat:no-repeat;font-family:arial;line-height:20px;list-style-type:none;margin:0;padding:0 0 0 30px;}
+ul.treelist li.fechado{background-image:url(images/fechado.gif);}
+ul.treelist li.aberto{background-image:url(../../images/aberto.gif);}
+ul.treelist li a{color:#009;}
+ul.treelist li a:hover{color:red;}
+ul.treelist li.aberto ul{display:block;}
+ul.treelist li.fechado ul{display:none;}

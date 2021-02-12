@@ -1,0 +1,7 @@
+ul.treelist,ul.treelist ul{margin:0;padding:0;}
+ul.treelist li{font-family:arial;line-height:20px;list-style-type:none;margin:0;padding:0 0 0 30px;}
+ul.treelist li.fechado,ul.treelist li.aberto{list-style-type:circle;margin:0 0 0 30px;padding:0;}
+ul.treelist li a{color:#00F;font-weight:400;}
+ul.treelist li a:hover{color:red;}
+ul.treelist li.aberto ul{display:block;}
+ul.treelist li.fechado ul{display:none;}

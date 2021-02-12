@@ -1,0 +1,28 @@
+BODY {
+	FONT-SIZE: 8pt; FONT-FAMILY: Tahoma, Verdana
+}
+TD {
+	FONT-SIZE: 8pt; FONT-FAMILY: Tahoma, Verdana
+}
+.s1 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1px;
+    color:#999999;
+    align:center
+}
+P {
+	FONT-SIZE: 8pt; FONT-FAMILY: Tahoma, Verdana
+}
+INPUT {
+	FONT-SIZE: 8pt; FONT-FAMILY: Tahoma, Verdana
+}
+OPTION {
+	FONT-SIZE: 8pt; FONT-FAMILY: Tahoma, Verdana
+}
+SELECT {
+	FONT-SIZE: 8pt; FONT-FAMILY: Tahoma, Verdana
+}
+TEXTAREA {
+	FONT-SIZE: 8pt; FONT-FAMILY: Tahoma, Verdana
+}
+

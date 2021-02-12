@@ -1,0 +1,88 @@
+html,body{height:auto;margin:0;padding:0;}
+hr{height:1px;}
+#preloader{position:absolute;filter:alpha(opacity=80);-moz-opacity:0.8px;-khtml-opacity:0.8px;opacity:0.8px;display:none;z-index:13000;border:0 dashed #999;left:0px;top:0px;width:98%;height:98%;background-color:#FFF;}
+#preloadIMG{position:absolute;}
+#titulo_frame{text-align:center;border-spacing:0;border-collapse:separate;color:#00A;border-color:#ccc;border-width:0;padding:0;}
+#dhtmltooltip{position:absolute;width:200px;border:1px solid #000;background-color:#06C;visibility:hidden;z-index:100;color:#fff;font-family:arial;font-size:12px;line-height:14px;letter-spacing:0;-moz-opacity:0.9px;filter:Alpha(opacity=95, FinishOpacity=90, style=1, startx=1, starty=1, finishx=150);padding:2px 4px;}
+.some-banner #banner{display:none;}
+BODY{scrollbar-face-color:#838383;scrollbar-shadow-color:grey;scrollbar-highlight-color:#FFF;scrollbar-3dlight-color:grey;scrollbar-darkshadow-color:#FFF;scrollbar-track-color:#fff;scrollbar-arrow-color:#Fff;background-image:url(../images/fundo.png);background-repeat:repeat;background-attachment:fixed;}
+.arial00{font-family:arial;font-size:10px;color:#000;}
+.arial11{font-family:arial;font-size:11px;color:#000;}
+.arialg{font-family:arial;font-size:28px;color:#ED1C24;}
+.titulo1{font-family:Tahoma;font-size:13px;font-weight:700;color:#000;}
+.texto1{font-family:Tahoma;font-size:11px;color:#000;}
+.item{border:1px solid #CCC;}
+a:active{color:#CCC;text-decoration:none;}
+#calendarDiv{position:absolute;width:205px;border:1px solid #ccc;background-color:#fff;font-family:arial;font-size:10px;visibility:hidden;padding:1px 1px 20px;}
+#calendarDiv td{font-size:10px;text-align:right;cursor:pointer;margin:0;padding:3px;}
+#calendarDiv .selectBox{border:1px solid #ccc;color:#666;position:relative;}
+#calendarDiv .selectBoxOver{border:1px solid #666;background-color:#F7F7F7;color:#000;position:relative;}
+#calendarDiv .selectBoxTime{border:1px solid #999;color:#666;position:relative;}
+#calendarDiv .selectBoxTimeOver{border:1px solid #666;color:#ccc;position:relative;}
+#calendarDiv .topBar{height:16px;background-color:#E2EBED;padding:2px;}
+#calendarDiv .activeDay{color:red;}
+#calendarDiv .todaysDate{height:17px;line-height:17px;background-color:#E2EBED;text-align:center;position:absolute;bottom:0;width:201px;padding:2px;}
+#calendarDiv .timeBar{height:17px;line-height:17px;background-color:#f7f7f7;width:72px;color:#666;position:absolute;right:0;}
+#calendarDiv .monthYearPicker{background-color:#E2EBED;border:1px solid #ccc;position:absolute;color:#317082;left:0;top:15px;z-index:1000;display:none;}
+#calendarDiv #monthSelect{width:70px;}
+#calendarDiv .monthYearPicker div{float:none;clear:both;cursor:pointer;margin:1px;padding:1px;}
+#calendarDiv .monthYearActive{background-color:#DODODO;color:#E2EBED;}
+#calendarDiv .topBar img{cursor:pointer;}
+#divAbaGeral{position:relative;width:605px;height:100px;margin-right:auto;margin-left:auto;background-color:#FFF;float:right;padding-top:5px;margin-top:5px;}
+#divAbaGeral h1{font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#171717;text-transform:uppercase;margin-top:9px;margin-bottom:15px;}
+#divAbaGeral h1 .cvc03{float:right;display:block;color:#000;font-size:12px;bottom:10px;position:relative;}
+#divAbaGeral h1 .cvc03 a{color:#000;}
+#divAbaTopo{position:relative;height:19px;width:590px;background-image:url(../images/aba_topo_bg.gif);padding-top:0;}
+.divAbaAtiva,.divAbaInativa{position:relative;float:left;font-family:Arial, Helvetica, sans-serif;font-size:10px;color:#666;letter-spacing:1px;height:19px;padding-top:4px;padding-left:7px;background:url(../images/aba_ativa.gif) no-repeat;}
+.divAbaAtivaFim,.divAbaInativaFim{position:relative;float:left;height:19px;width:19px;background:url(../images/aba_ativa_fim.gif) no-repeat;}
+.divAbaInativa{height:19px;background-image:url(../images/aba_inativa.gif);}
+.divAbaInativaFim{height:19px;background-image:url(../images/aba_inativa_fim.gif);}
+.divAbaAtiva a{color:#333;cursor:POINTER;text-decoration:none;}
+.divAbaInativa a{color:#898989;cursor:POINTER;text-decoration:none;}
+input,select,textarea{font-size:11px;font-family:Arial, Verdana, Helvetica;background-color:#FFF;border:1px solid #aba8a8;margin:0;}
+input[type=button]{background-color:#FFF;width:80px;}
+label{color:#333;font-size:11px;font-weight:400;font-family:Arial, Verdana, Helvetica;}
+#msgsContainer { background-color: #FFF;overflow:auto;min-height:50;width:400px;}
+.lista a{font-family:Arial, Helvetica, padding: 8 8 8 8; sans-serif;font-size:11px;color:#666;position:absolute;z-index:1;}
+.lista a:hover {background-color: #EEE; color: 000;}
+.TA{scrollbar-3dlight-color:#ccc;scrollbar-arrow-color:#ccc;scrollbar-base-color:#ccc;scrollbar-darkshadow-color:#ccc;scrollbar-face-color:#ccc;scrollbar-highlight-color:#ccc;scrollbar-shadow-color:#ccc;border:1px solid #ccc;width:570px;height:185px;font-size:14px;border-spacing:1px;border-collapse:separate;background-color:#fff;position:relative;border-color:#ccc;border-width:1px;}
+.TOTAL{border:1px solid #000;width:570px;height:100px;font-size:14px;border-spacing:1px;background-color:#fff;position:absolute;border-color:#ccc;border-width:1px;}
+.TA1{border:1px solid #ccc;width:590px;height:250px;position:absolute;overflow:auto;}
+#cpanel{text-align:center;vertical-align:middle;}
+#cpanel div.icon{margin:3px;}
+#cpanel div.icon a{display:block;float:left;height:17px !important;width:18px !important;vertical-align:middle;text-decoration:none;border:1px solid #DDD;padding:2px 5px 1px;}
+#cpanel div.icon a:hover{color:#333;background-color:#f1e8e6;border:1px solid #c24733;padding:3px 4px 0 6px;}
+#cpanel div.icon img{margin-top:1px;}
+#cpanel div.icon span{display:block;padding-top:3px;}
+.verdana12,.tahoma2,table.texto1,.textoTabela bordas{font-family:Tahoma;font-size:11px;color:#666;}
+.bordas,table.bordas{border:1px solid #DBDBDB;}
+a:link,a:visited{color:#000;text-decoration:none;}
+#calendarDiv span,#calendarDiv img,#calendarDiv .todaysDate div{float:left;}
+#calendarDiv .selectBox,#calendarDiv .selectBoxOver,#calendarDiv .selectBoxTime,#calendarDiv .selectBoxTimeOver{line-height:12px;cursor:pointer;padding:1px 1px 1px 2px;}
+#calendarDiv .timeBar div,#calendarDiv .topBar div{float:left;margin-right:1px;}
+#cpanel div.icon a:link,#cpanel div.icon a:active,#cpanel div.icon a:visited{color:gray;}
+#marcado,.marcado{border:1px solid red;}
+#pedido{height: 100px;}
+#Erro{position: relative; top: 280px; margin: 0px; color: red;}
+ul.treelist,ul.treelist ul{margin:0;padding:0;}
+ul.treelist li{font-family:arial;line-height:20px;list-style-type:none;margin:0;padding:0 0 0 30px;}
+ul.treelist li.fechado,ul.treelist li.aberto{list-style-type:circle;margin:0 0 0 30px;padding:0;}
+ul.treelist li a{color:#00F;font-weight:400;}
+ul.treelist li a:hover{color:red;}
+ul.treelist li.aberto ul{display:block;}
+ul.treelist li.fechado ul{display:none;}
+/*
+ul.treelist,ul.treelist ul{margin:0;padding:0;}
+ul.treelist li{background-image:url(../images/pagina.gif);background-position:10px 1px;background-repeat:no-repeat;font-family:arial;line-height:20px;list-style-type:none;margin:0;padding:0 0 0 30px;}
+ul.treelist li.fechado{background-image:url(images/fechado.gif);}
+ul.treelist li.aberto{background-image:url(../../images/aberto.gif);}
+ul.treelist li a{color:#009;}
+ul.treelist li a:hover{color:red;}
+ul.treelist li.aberto ul{display:block;}
+ul.treelist li.fechado ul{display:none;}
+*/
+a:hover{color:#999;text-decoration:none;}
+
+#obs{width:500px; height:250px; border:2px solid #999999; position:absolute; margin-top:7em; margin-left:-15em; background:#EEEEEE;box-shadow: 0px 0px 0px #CCC; border-radius:5px; display:none;}
+#fechaobs{width:24px; height:28px; border:0px solid; float:right; background: URL(../images/bt_fecha.png) no-repeat right; margin:4px; position:relative; border-radius:5px; cursor:pointer;}
+#campoobs{width:487px; height:200px; border:0px solid #999999; float:left; margin:5px; position:relative; font-family:Arial, Verdana; font-size:12px; background:#FFFFFF; border-radius:5px;}

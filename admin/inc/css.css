@@ -1,0 +1,405 @@
+html, body { height:100%; margin:0px; padding:0px;}
+#preloader {
+  position:absolute;
+  background-color:white;
+  height:100%;
+  width:100%;
+ 	filter:alpha(opacity=80);
+  -moz-opacity: 0.8;
+  -khtml-opacity: 0.8;
+ 	opacity: 0.8;
+ 	display:none;
+ 	z-index: 10000;
+}
+#preloadIMG {
+  position:absolute;
+  left:50%;
+  width:20px;
+  height:20px;
+  top:150px;
+}
+#dhtmltooltip{
+  position: absolute;
+  width: 200px;
+  border: 1px solid #000000;
+  padding: 2px 4px 2px 4px;
+  background-color: #CCCCCC;
+  visibility: hidden;
+  z-index: 100;
+  color:#ffffff;
+  font-family: arial;
+  font-size : 12px;
+  line-height : 14px;
+  letter-spacing : 0px;
+  -moz-opacity:0.9;
+  filter:Alpha(opacity=95, FinishOpacity=90, style=1, startx=1, starty=1, finishx=150);
+}
+#imagem{
+  position: absolute;
+  border: 1px solid #000000;
+  padding: 2px 4px 2px 4px;
+  background-color: #CCCCCC;
+}
+.some-banner #banner {
+  display: none;
+}
+BODY {
+ 	scrollbar-face-color: #838383; scrollbar-shadow-color: grey; scrollbar-highlight-color: white; scrollbar-3dlight-color: grey; scrollbar-darkshadow-color: white;scrollbar-track-color: #ffffff; scrollbar-arrow-color: #FFffff;
+ 	background-image:url(images/fundo.png);
+ 	background-repeat:repeat;
+ 	background-attachment:fixed;
+}
+.arial00 {
+	font-family: arial;
+	font-size: 10px;
+	color: #000000;
+}
+
+.arial11 {
+	font-family: arial;
+	font-size: 11px;
+	color: #000000;
+}
+.arialg {
+	font-family: arial;
+	font-size: 28px;
+	color: #ED1C24;
+}
+.verdana12 {
+	font-family: Tahoma;
+	font-size: 11px;
+	color: #666666;
+}
+.tahoma2 {
+	font-family: Tahoma;
+	font-size: 11px;
+	color: #666666;
+}
+.bordas {
+	border: 1px solid #DBDBDB;
+}
+table.bordas {
+	border: 1px solid #DBDBDB;
+}
+.titulo1 {
+	font-family: Tahoma;
+	font-size: 13px;
+	color: #666666;
+}
+.texto1 {
+ 	font-family: Tahoma;
+	 font-size: 11px;
+ 	color: #666666;
+}
+table.texto1 {
+ 	font-family: Tahoma;
+	 font-size: 11px;
+ 	color: #666666;
+}
+.textoTabela bordas {
+ 	font-family: Tahoma;
+	 font-size: 11px;
+ 	color: #666666;
+}
+.item {
+  border: 1px solid #CCCCCC;
+}
+.erro {
+ 	font-family: Tahoma;
+	 font-size: 11px;
+ 	color: red;
+ 	MARGIN-LEFT: 25px;
+}
+a:link {
+  color:#000000;
+  text-decoration:none;
+}
+a:visited {
+  color:#000000;
+  text-decoration:none;
+}
+a:hover {
+  color:#999999;
+  text-decoration:underline;
+}
+a:active {
+  color:#000000;
+  text-decoration:underline;
+}
+#calendarDiv{
+	position:absolute;
+	width:205px;
+	border:1px solid #cccccc;
+	padding:1px;
+	background-color: #ffffff;
+	font-family:arial;
+	font-size:10px;
+	padding-bottom:20px;
+	visibility:hidden;
+}
+#calendarDiv span,#calendarDiv img{
+	float:left;
+}
+#calendarDiv .selectBox,#calendarDiv .selectBoxOver{
+
+	line-height:12px;
+	padding:1px;
+	cursor:pointer;
+	padding-left:2px;
+}
+
+#calendarDiv .selectBoxTime,#calendarDiv .selectBoxTimeOver{
+	line-height:12px;
+	padding:1px;
+	cursor:pointer;
+	padding-left:2px;
+}
+
+#calendarDiv td{
+	padding:3px;
+	margin:0px;
+	font-size:10px;
+}
+
+
+
+#calendarDiv .selectBox{
+	border:1px solid #cccccc;
+	color: #666666;
+	position:relative;
+}
+#calendarDiv .selectBoxOver{
+	border:1px solid #666666;
+	background-color: #F7F7F7;
+	color: #000000;
+	position:relative;
+}
+#calendarDiv .selectBoxTime{
+	border:1px solid #999999;
+	color: #666666;
+	position:relative;
+}
+#calendarDiv .selectBoxTimeOver{
+	border:1px solid #666666;
+	color: #cccccc;
+	position:relative;
+}
+
+#calendarDiv .topBar{
+	height:16px;
+	padding:2px;
+	background-color: #E2EBED;
+
+
+}
+#calendarDiv .activeDay{	/* Active day in the calendar */
+	color:#FF0000;
+}
+#calendarDiv .todaysDate{
+	height:17px;
+	line-height:17px;
+	padding:2px;
+	background-color: #E2EBED;
+	text-align:center;
+	position:absolute;
+	bottom:0px;
+	width:201px;
+}
+#calendarDiv .todaysDate div{
+	float:left;
+}
+
+#calendarDiv .timeBar{
+	height:17px;
+	line-height:17px;
+	background-color: #f7f7f7;
+	width:72px;
+	color:#666;
+	position:absolute;
+	right:0px;
+}
+
+#calendarDiv .timeBar div{
+	float:left;
+	margin-right:1px;
+}
+
+
+#calendarDiv .monthYearPicker{
+	background-color: #E2EBED;
+	border:1px solid #cccccc;
+	position:absolute;
+	color: #317082;
+	left:0px;
+	top:15px;
+	z-index:1000;
+	display:none;
+
+}
+#calendarDiv #monthSelect{
+	width:70px;
+}
+#calendarDiv .monthYearPicker div{
+	float:none;
+	clear:both;
+	padding:1px;
+	margin:1px;
+	cursor:pointer;
+}
+#calendarDiv .monthYearActive{
+	background-color:#DODODO;
+	color: #E2EBED;
+}
+
+#calendarDiv td{
+	text-align:right;
+	cursor:pointer;
+}
+
+#calendarDiv .topBar img{
+	cursor:pointer;
+}
+#calendarDiv .topBar div{
+	float:left;
+	margin-right:1px;
+}
+#divAbaGeral {
+	POSITION: relative;
+	WIDTH: 605px;
+	height: 400px;
+	MARGIN-RIGHT: auto;
+	MARGIN-LEFT: auto;
+	BACKGROUND-COLOR: #FFFFFF;
+	FLOAT: right;
+	PADDING-TOP: 5px;
+	MARGIN-TOP: 5px;
+		}
+		#divAbaGeral h1{
+			FONT-FAMILY: Arial, Helvetica, sans-serif;
+			FONT-SIZE: 14px;
+			COLOR: #171717;
+			TEXT-TRANSFORM: uppercase;
+			MARGIN-TOP: 9px;
+			MARGIN-BOTTOM: 15px;
+		}
+		#divAbaGeral h1 .cvc03{
+		float: right;
+		display: block;
+		color: #000000;
+		FONT-SIZE: 12px;
+		BOTTOM: 10px;
+		position: relative;
+		}
+		#divAbaGeral h1 .cvc03 a{color: #000000;}
+		#divAbaTopo {
+			POSITION: relative;
+			HEIGHT: 20px;
+			WIDTH: 590px;
+			#BACKGROUND-IMAGE: url(../images/aba_topo_bg.gif);
+			PADDING-TOP: 3px;
+		}
+	.divAbaAtiva, .divAbaInativa {
+		POSITION: relative;
+		FLOAT: left;
+		FONT-FAMILY: Arial, Helvetica, sans-serif;
+		FONT-SIZE: 10px;
+		COLOR: #666666;
+		LETTER-SPACING: 1px;
+		HEIGHT: 16px;
+		PADDING-TOP: 4px;
+		PADDING-LEFT: 7px;
+		BACKGROUND: url(../images/aba_ativa.gif) no-repeat;
+		}
+		.divAbaAtivaFim, .divAbaInativaFim {
+			POSITION: relative;
+			FLOAT:left;
+			HEIGHT: 20px;
+			WIDTH: 19px;
+			BACKGROUND: url(../images/aba_ativa_fim.gif) no-repeat;
+		}
+		.divAbaInativa {
+			HEIGHT: 15px;
+			BACKGROUND-IMAGE: url(../images/aba_inativa.gif);
+		}
+		.divAbaInativaFim {
+			HEIGHT: 19px;
+			BACKGROUND-IMAGE: url(../images/aba_inativa_fim.gif);
+		}
+		.divAbaAtiva a{COLOR: #333333; CURSOR: POINTER; TEXT-DECORATION: none;}
+		.divAbaInativa a{COLOR: #898989; CURSOR: POINTER; TEXT-DECORATION: none;}
+input, select, textarea {
+ 	margin: 0px 0px 0px 0px;
+ 	font-size: 11px;
+ 	font-family: Arial, Verdana, Helvetica;
+ 	background-color: #FFFFFF;
+ 	border: 1px solid #aba8a8;
+}
+input[type=button] {
+ 	background-color: #DDDDDD;
+ 	width: 80px;
+}
+label {
+ 	color:#333333;
+ 	font-size:11px;
+ 	font-weight:normal;
+ 	font-family:Arial, Verdana, Helvetica;
+}
+.lista {
+		FONT-FAMILY: Arial, Helvetica, sans-serif;
+		FONT-SIZE: 10px;
+  color: #666666;
+  position:absolute;
+  z-index:1;
+}
+.TA {
+  scrollbar-3dlight-color:#cccccc;
+  scrollbar-arrow-color:#cccccc;
+  scrollbar-base-color:#cccccc;
+  scrollbar-darkshadow-color:#cccccc;
+  scrollbar-face-color:#cccccc;
+  scrollbar-highlight-color:#cccccc;
+  scrollbar-shadow-color:#cccccc;
+  border: 1px solid #cccccc; width: 570px ; height:220px;
+  font-size: 14px
+ 	border-width: 1px 1px 1px 1px;
+ 	border-spacing: 1px;
+ 	border-color: #cccccc #cccccc #cccccc #cccccc;
+ 	border-collapse: separate;
+ 	background-color: #ffffff;
+ 	position: relative;
+}
+.TA1 {
+  border: 1px solid #cccccc; width: 590px ; height:240px;
+	 position: absolute;
+  overflow: scroll;
+}
+
+/* mod_quickicon */
+
+#cpanel {  text-align: center;  vertical-align: middle; }
+
+#cpanel div.icon   { margin: 3px; }
+#cpanel div.icon a {
+	display: block; float: left;
+	height: 97px !important;
+	height: 100px;
+	width: 108px !important;
+	width: 110px;
+	vertical-align: middle;
+	text-decoration : none;
+	border: 1px solid #DDD;
+	padding: 2px 5px 1px 5px;
+}
+
+#cpanel div.icon a:link    {  color : #808080;  }
+#cpanel div.icon a:hover   {
+	color : #333;
+	background-color: #f1e8e6;
+	border: 1px solid #c24733;
+	padding: 3px 4px 0px 6px;
+}
+#cpanel div.icon a:active  {  color : #808080;  }
+#cpanel div.icon a:visited {  color : #808080;  }
+
+#cpanel div.icon img { margin-top: 13px; }
+#cpanel div.icon span { display: block; padding-top: 3px;}
