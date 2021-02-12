@@ -15,12 +15,12 @@
             <form action="?pg=busca" method="POST">
               <select name="id_categoria" size="1">
                 <option value="">Todas</option>
-                <?
-                $Lista = mysql_query("Select id, nome from $tb_categorias order by nome");
-                while ($cat = mysql_fetch_array($Lista)){
+                <?php
+                $Lista = pg_query("Select id, nome from $tb_categorias order by nome");
+                while ($cat = pg_fetch_array($Lista)){
                   ?>
-                  <option value="<? echo $cat[id];?>"><? echo "$cat[nome]";?></option>
-                  <?
+                  <option value="<?php echo $cat['id'];?>"><?pg_fetch_array echo "$cat[nome]";?></option>
+                  <?php
                 }
                 ?>
               </select>
@@ -38,4 +38,4 @@
       </table></td>
   </tr>
 </table>
-<? include ("es.php"); ?>
+<?php include ("es.php"); ?>

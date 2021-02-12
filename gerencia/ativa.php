@@ -1,4 +1,5 @@
 <?php
+include ("include/common.php");
 session_start();
 if($_SESSION['LogaUser']){
 

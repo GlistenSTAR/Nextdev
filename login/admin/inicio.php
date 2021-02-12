@@ -1,14 +1,15 @@
-<?
+<?php
+include ("inc/common.php");
 include ("inc/verifica.php");
 ?>
 <table class="adminform" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
   <tr>
     <td align="center">
-      <?
-      setlocale(LC_TIME,'pt_BR','ptb');
+      <?php
+      setphplocale(LC_TIME,'pt_BR','ptb');
       ?>
-      Até agora <? echo ucfirst(strftime('%A, %d de %B de %Y',mktime(0,0,0,date('n'),date('d'),date('Y')))); ?> foram lançados
-      <?
+      Até agora <?php echo ucfirst(strftime('%A, %d de %B de %Y',mktime(0,0,0,date('n'),date('d'),date('Y')))); ?> foram lançados
+      <?php
       include_once("inc/config.php");
       $sql = "Select count(numero) as quantos from pedidos where data>'2007-01-01' and numero_internet <> 0";
       //$sql = "Select count(numero) as quantos from pedidos where data>'".date("Y-m-d")."' and numero_internet <> null";
@@ -26,7 +27,7 @@ include ("inc/verifica.php");
           <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
         </tr>
         <tr>
-          <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;<img src="<? echo $site_url;?>icones/vendas.gif" border="0" align="left">
+          <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/vendas.gif" border="0" align="left">
             <center><h3>Últimos pedidos lançados</h3></center><hr></hr>
           </td>
         </tr>
@@ -38,18 +39,18 @@ include ("inc/verifica.php");
   </tr>
   <tr>
     <td>
-      <?
-      if ($_REQUEST[acao]=="Excluir"){
+      <?php
+      if ($_REQUEST['acao']=="Excluir"){
         ?>
-        <?
+        <?php
       }
-      if ($_REQUEST[data_inicial]){
-        $DataInicial = $_REQUEST[data_inicial];
+      if ($_REQUEST['data_inicial']){
+        $DataInicial = $_REQUEST['data_inicial'];
       }else{
         $DataInicial = date("d/m/Y", mktime(0,0,0, date("m")-1, date("d"), date("Y"))); //Mês + 1
       }
-      if ($_REQUEST[data_final]){
-        $DataFinal = $_REQUEST[data_final];
+      if ($_REQUEST['data_final']){
+        $DataFinal = $_REQUEST['data_final'];
       }else{
         $DataFinal = date("d/m/Y", mktime(0,0,0, date("m")+1, date("d"), date("Y"))); //Mês + 1
       }
@@ -74,9 +75,9 @@ include ("inc/verifica.php");
                 <table border="1" cellspacing="1" cellpadding="1" class="adminform texto1" valign="top" width="100%">
                   <tr>
                     <td>Data Inicial:</td>
-                    <td><input name="data_inicial" id="data_inicial"  type="text" size="20" maxlength="20" value="<? echo $DataInicial;?>" onclick="MostraCalendario(document.listar.data_inicial,'dd/mm/yyyy',this)"></td>
+                    <td><input name="data_inicial" id="data_inicial"  type="text" size="20" maxlength="20" value="<?php echo $DataInicial;?>" onclick="MostraCalendario(document.listar.data_inicial,'dd/mm/yyyy',this)"></td>
                     <td>Data Final:</td>
-                    <td><input name="data_final" id="data_final"  type="text" size="20" maxlength="20" value="<? echo $DataFinal;?>" onclick="MostraCalendario(document.listar.data_final,'dd/mm/yyyy',this)"></td>
+                    <td><input name="data_final" id="data_final"  type="text" size="20" maxlength="20" value="<?php echo $DataFinal;?>" onclick="MostraCalendario(document.listar.data_final,'dd/mm/yyyy',this)"></td>
                     <td align="center" rowspan="2">
                       <img align="center" src="icones/filtrar.png" onclick="if (document.listar.data_inicial.value){ Acha('inicio.php','pagina=$pagina&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'&cliente_id='+document.listar.cliente_id.value+'&cliente_cc='+document.listar.cliente_cc.value+'','Conteudo');}" name="Incluir" value="Incluir" style="border: 0pt none ; cursor: pointer;" title="Clique para Gravar esse ítem"><BR>
                       Todos
@@ -89,8 +90,8 @@ include ("inc/verifica.php");
                   <tr>
                     <td>Cliente:</td>
                     <td colspan="3">
-                      <input type="hidden" name="cliente_id" id="cliente_id" value="<? echo "$_REQUEST[cliente_id]";?>">
-                      <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<? echo "$_REQUEST[cliente_cc]";?>" onfocus="this.select()" onkeyup="Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');">
+                      <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo "$_REQUEST[cliente_id]";?>">
+                      <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<?php echo "$_REQUEST[cliente_cc]";?>" onfocus="this.select()" onkeyup="Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');">
                       <BR>
                       <div id="listar_cliente" style="position:absolute;"></div>
                     </td>
@@ -98,8 +99,8 @@ include ("inc/verifica.php");
                 </table>
               </td>
             </tr>
-            <?
-            if (($_REQUEST[data_inicial]) and ($_REQUEST[data_final])){
+            <?php
+            if (($_REQUEST['data_inicial']) and ($_REQUEST['data_final'])){
               $di = explode("/", $DataInicial);
               $df = explode("/", $DataFinal);
               $FiltroData = " data>='".$di[2]."-".$di[1]."-".$di[0]."' and data<='".$df[2]."-".$df[1]."-".$df[0]."'";
@@ -109,17 +110,17 @@ include ("inc/verifica.php");
               $FiltroData = " data>='".$di[2]."-".$di[1]."-".$di[0]."' and data<='".$df[2]."-".$df[1]."-".$df[0]."'";
             }
             if ($FiltroData){
-              if ($_REQUEST[enviados]){
+              if ($_REQUEST['enviados']){
                 $Filtro = $Filtro." and enviado=1";
               }
-              if (($_REQUEST[cliente_id]) and ($_REQUEST[cliente_cc])){
+              if (($_REQUEST['cliente_id']) and ($_REQUEST['cliente_cc'])){
                 $Filtro = $Filtro." and id_cliente='$_REQUEST[cliente_id]'";
               }
               $lista = "Select numero, cgc, cliente, data, enviado from pedidos_internet_novo where $FiltroData $Filtro $Ordem";
               $lista1 = pg_query("Select numero, cgc, cliente, data, enviado from pedidos_internet_novo where $FiltroData $Filtro $Ordem");
               $ccc = pg_num_rows($lista1);
               $total_reg = "10";
-              $pagina = $_REQUEST[pagina];
+              $pagina = $_REQUEST['pagina'];
               if (!$pagina){
                 $inicio = "0";
                 $pc = "1";
@@ -142,13 +143,13 @@ include ("inc/verifica.php");
               $not1  = pg_query($sql);
               ?>
               <tr>
-                <td width="70"><a href='#' onclick="Acha('inicio.php','pagina=<? echo $pagina;?>&ordem=numero&pos=<? if ($_REQUEST[ordem]=="numero"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>Numero</b><img src="../icones/<? if ($_REQUEST[ordem]=="numero"){ echo $pos;}else{echo $pos1;}?>.png" border="0" width="10" height="10"></a></td>
-                <td width="70"><a href='#' onclick="Acha('inicio.php','pagina=<? echo $pagina;?>&ordem=cgc&pos=<? if ($_REQUEST[ordem]=="cgc"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>CNPJ / CPF</b><img src="../icones/<? if ($_REQUEST[ordem]=="cgc"){ echo $pos;}else{echo $pos1;};?>.png" border="0" width="10" height="10"></a></td>
-                <td width="350"><a href='#' onclick="Acha('inicio.php','pagina=<? echo $pagina;?>&ordem=cliente&pos=<? if ($_REQUEST[ordem]=="cliente"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>Cliente</b><img src="../icones/<? if ($_REQUEST[ordem]=="cliente"){ echo $pos;}else{echo $pos1;}?>.png" border="0" width="10" height="10"></a></td>
-                <td width="40"><a href='#' onclick="Acha('inicio.php','pagina=<? echo $pagina;?>&ordem=data&pos=<? if ($_REQUEST[ordem]=="data"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>Data</b><img src="../icones/<? if ($_REQUEST[ordem]=="data"){ echo $pos;}else{echo $pos1;}?>.png" border="0" width="10" height="10"></a></td>
+                <td width="70"><a href='#' onclick="Acha('inicio.php','pagina=<?php echo $pagina;?>&ordem=numero&pos=<?php if ($_REQUEST['ordem']=="numero"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>Numero</b><img src="../icones/<?php if ($_REQUEST['ordem']=="numero"){ echo $pos;}else{echo $pos1;}?>.png" border="0" width="10" height="10"></a></td>
+                <td width="70"><a href='#' onclick="Acha('inicio.php','pagina=<?php echo $pagina;?>&ordem=cgc&pos=<?php if ($_REQUEST['ordem']=="cgc"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>CNPJ / CPF</b><img src="../icones/<?php if ($_REQUEST['ordem']=="cgc"){ echo $pos;}else{echo $pos1;};?>.png" border="0" width="10" height="10"></a></td>
+                <td width="350"><a href='#' onclick="Acha('inicio.php','pagina=<?php echo $pagina;?>&ordem=cliente&pos=<?php if ($_REQUEST['ordem']=="cliente"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>Cliente</b><img src="../icones/<?php if ($_REQUEST['ordem']=="cliente"){ echo $pos;}else{echo $pos1;}?>.png" border="0" width="10" height="10"></a></td>
+                <td width="40"><a href='#' onclick="Acha('inicio.php','pagina=<?php echo $pagina;?>&ordem=data&pos=<?php if ($_REQUEST['ordem']=="data"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>Data</b><img src="../icones/<?php if ($_REQUEST['ordem']=="data"){ echo $pos;}else{echo $pos1;}?>.png" border="0" width="10" height="10"></a></td>
                 <td width="30"><b>Status</b></td>
               </tr>
-              <?
+              <?php
               while ($r = pg_fetch_array($not1)){
 
                 if ($Cor=="#EEEEEE"){
@@ -163,28 +164,28 @@ include ("inc/verifica.php");
                   $Status = "<img src='../icones/duvida.png' width='13' height='13' align='center' title='Pedido somente gravado (Rascunho do vendedor)'>";
                 }
                 ?>
-                <tr bgcolor="<? echo "$Cor";?>">
+                <tr bgcolor="<?php echo "$Cor";?>">
                   <td valign="top">
-                    <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<? echo $r[numero];?>','Conteudo'); <? echo $Desativa;?>"><? echo "$r[numero]";?></a>
+                    <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<?php echo $r['numero'];?>','Conteudo'); <?php echo $Desativa;?>"><?php echo "$r[numero]";?></a>
                   </td>
                   <td valign="top">
-                    <? echo "$r[cgc]";?>
+                    <?php echo "$r[cgc]";?>
                   </td>
                   <td valign="top">
-                    <? echo "$r[cliente]";?>
+                    <?php echo "$r[cliente]";?>
                   </td>
                   <td valign="top">
-                    <?
-                    $da = $r[data];
+                    <?php
+                    $da = $r['data'];
                     $d = explode("-", $da);
                     echo "".$d[2]."/".$d[1]."/".$d[0]."";
                     ?>
                   </td>
                   <td align="center">
-                    <? echo $Status;?>
+                    <?php echo $Status;?>
                   </td>
                 </tr>
-                <?
+                <?php
                 if ($pagina){
                   if (!$qtd_registros){
                     $qtd_registros = $qtd_registros + $inicio + 1;
@@ -203,12 +204,12 @@ include ("inc/verifica.php");
             <tr>
               <td align="center" colspan="5"> <hr>
                 <table width="100%" border="0" class="texto1">
-                  <?
+                  <?php
                   if ($ccc<>""){
                     ?>
                     <tr>
                       <td height="25" align="center">
-                      <?
+                      <?php
                       $anterior = $pc -1;
                       $proximo = $pc +1;
                       $qtd_paginas = $ccc / $total_reg;
@@ -254,7 +255,7 @@ include ("inc/verifica.php");
                     </tr>
                     <tr>
                       <td height="25" align="center" valign="top"><div>
-                        <?
+                        <?php
                         echo "<div>Mostrando registro <strong>";
                         echo $inicio + 1;
                         echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong></div>";
@@ -262,7 +263,7 @@ include ("inc/verifica.php");
                         </div>
                       </td>
                     </tr>
-                    <?
+                    <?php
                   }
                   ?>
                </table>
@@ -271,7 +272,7 @@ include ("inc/verifica.php");
             <!--
               <tr>
                 <td colspan="5" valign="top" height="100%" align="right">
-                  <?
+                  <?php
                   //Aqui envia os dados para a gravação, estou criando a classe dos pedidos.
                   ?>
 
@@ -283,8 +284,8 @@ include ("inc/verifica.php");
           </table>
         </div>
       </form>
-      <?
-      $_SESSION[pagina] = "inicio.php";
+      <?php
+      $_SESSION['pagina'] = "inicio.php";
       ?>
     </td>
   </tr>

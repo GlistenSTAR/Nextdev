@@ -1,4 +1,5 @@
-<?
+<?php
+include ("inc/common.php");
 $str_conexao2= "host=db4.backup dbname=db4 port=5432 user=user password=password"; // CEP
 if(!($db2=pg_connect($str_conexao2))) {
   echo "Não foi possível estabelecer uma conexão com o banco de dados";
@@ -6,7 +7,7 @@ if(!($db2=pg_connect($str_conexao2))) {
 }
 $Tirar = array("-",".");
 
-$Cep = str_replace($Tirar, "", $_REQUEST[cep_cobranca]);
+$Cep = str_replace($Tirar, "", $_REQUEST['cep_cobranca']);
 
 $Sql = "SELECT LOG_LOGRADOURO.LOC_NU_SEQUENCIAL, LOG_LOGRADOURO.LOG_NOME AS LOGRADOURO, LOG_LOGRADOURO.CEP, LOG_LOGRADOURO.UFE_SG,
 LOG_LOGRADOURO.LOG_NU_SEQUENCIAL, LOG_LOGRADOURO.LOG_STATUS_TIPO_LOG, LOG_BAIRRO.BAI_NO AS INICIAL, LOG_LOCALIDADE.LOC_NO,
@@ -45,25 +46,25 @@ if ($ccc>0){
 
 }
 ?>
-<input type="hidden" name="cep_oculto_cobranca" id="cep_oculto_cobranca" value="<? echo $Cep;?>">
+<input type="hidden" name="cep_oculto_cobranca" id="cep_oculto_cobranca" value="<php? echo $Cep;?>">
 <table border="0" cellspacing="2" cellpadding="2" class="texto1" align="center">
   <tr>
     <td>Endereço:</td>
-    <td><input name="endereco_cobranca" id="endereco_cobranca" value="<? echo strtoupper($cep[logradouro]);?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cidade_cobranca.focus();}"></td>
+    <td><input name="endereco_cobranca" id="endereco_cobranca" value="<?php echo strtoupper($cep['logradouro']);?>" type="text" size="60" maxlength="50" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.cidade_cobranca.focus();}"></td>
   </tr>
   <tr>
     <td>Cidade:</td>
-    <td><input name="cidade_cobranca" id="cidade_cobranca" value="<? echo strtoupper($cep[loc_no]);?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.bairro_cobranca.focus();}"></td>
+    <td><input name="cidade_cobranca" id="cidade_cobranca" value="<?php echo strtoupper($cep['loc_no']);?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.bairro_cobranca.focus();}"></td>
   </tr>
   <tr>
     <td>Bairro:</td>
-    <td><input name="bairro_cobranca" id="bairro_cobranca" value="<? echo strtoupper($cep[inicial]);?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.estado_cobranca.focus();}"></td>
+    <td><input name="bairro_cobranca" id="bairro_cobranca" value="<?php echo strtoupper($cep['inicial']);?>" type="text" size="60" maxlength="30" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.estado_cobranca.focus();}"></td>
   </tr>
   <tr>
     <td>Estado:</td>
     <td>
       <select name="estado_cobranca" size="1" id="estado_cobranca" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.cad.telefone_cobranca.focus();}">
-        <option value="<? echo strtoupper($cep[ufe_sg]);?>"><? echo strtoupper($cep[ufe_sg]);?></option>
+        <option value="<?php echo strtoupper($cep['ufe_sg']);?>"><?php echo strtoupper($cep['ufe_sg']);?></option>
       		<option value="AC">Acre </option>
       		<option value="AL">Alagoas</option>
       		<option value="AM">Amazonas</option>
@@ -96,6 +97,6 @@ if ($ccc>0){
     </td>
   </tr>
   </table>
-<?
+<?php
 pg_close($db2);
 ?>

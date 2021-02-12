@@ -1,17 +1,18 @@
-<?
+<?php
+include ("../inc/common.php");
 include "../inc/verifica.php";
 include "../inc/config.php";
 ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
-<?
-if ($_REQUEST[data_inicial]){
-  $DataInicial = $_REQUEST[data_inicial];
+<?php
+if ($_REQUEST['data_inicial']){
+  $DataInicial = $_REQUEST['data_inicial'];
 }else{
   //$DataInicial = date("d/m/Y");
   $DataInicial = date("d/m/Y", mktime(0,0,0, date("m")-1, date("d"), date("Y"))); //Mês + 1
 }
-if ($_REQUEST[data_final]){
-  $DataFinal = $_REQUEST[data_final];
+if ($_REQUEST['data_final']){
+  $DataFinal = $_REQUEST['data_final'];
 }else{
   $DataFinal = date("d/m/Y", mktime(0,0,0, date("m")+1, date("d"), date("Y"))); //Mês + 1
 }
@@ -22,7 +23,7 @@ if ($pos=="ASC"){
   $pos1 = "DESC";
   $pos = "ASC";
 }
-if ($_REQUEST[ordem]){
+if ($_REQUEST['ordem']){
   $Ordem = "order by $_REQUEST[ordem] $pos";
 }else{
   $Ordem = "order by numero $pos";
@@ -60,19 +61,19 @@ if ($_REQUEST[ordem]){
                               <tr>
                                 <td>Cliente:</td>
                                 <td>
-                                  <input type="hidden" name="pedidos_clientes_id" id="pedidos_clientes_id" value="<? echo "$_REQUEST[pedidos_clientes_id]";?>">
-                                  <input type="text" title="Digite o nome do cliente que deseja procurar." size="40" name="pedidos_clientes_cc" id="pedidos_clientes_cc" value="<? echo "$_REQUEST[pedidos_clientes_cc]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;} if(tecla==13){Acha1('previsao_pedido.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (tecla == '38'){ getPrevNode('1');}else if (tecla == '40'){ getProxNode('1');}else { if (this.value.length>3){Acha1('listar.php','tipo=pedidos_clientes&valor='+this.value+'','listar_pedidos_clientes');}}}">
+                                  <input type="hidden" name="pedidos_clientes_id" id="pedidos_clientes_id" value="<?php echo "$_REQUEST[pedidos_clientes_id]";?>">
+                                  <input type="text" title="Digite o nome do cliente que deseja procurar." size="40" name="pedidos_clientes_cc" id="pedidos_clientes_cc" value="<?php echo "$_REQUEST[pedidos_clientes_cc]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;} if(tecla==13){Acha1('previsao_pedido.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (tecla == '38'){ getPrevNode('1');}else if (tecla == '40'){ getProxNode('1');}else { if (this.value.length>3){Acha1('listar.php','tipo=pedidos_clientes&valor='+this.value+'','listar_pedidos_clientes');}}}">
                                   <BR>
                                   <div id="listar_pedidos_clientes" style="position:absolute; z-index: 7000;"></div>
                                 </td>
                                 <td valign="top" nowrap>Data Inicial:</td>
-                                <td valign="top"><input name="data_inicial" id="data_inicial"  type="button" size="12" maxlength="20" value="<? echo $DataInicial;?>" onclick="MostraCalendario(document.listar.data_inicial,'dd/mm/yyyy',this)"></td>
+                                <td valign="top"><input name="data_inicial" id="data_inicial"  type="button" size="12" maxlength="20" value="<?php echo $DataInicial;?>" onclick="MostraCalendario(document.listar.data_inicial,'dd/mm/yyyy',this)"></td>
                               </tr>
                               <tr>
                                 <td valign="top">Número:</td>
-                                <td valign="top"><input name="numero_pedido" id="numero_pedido"  type="text" size="15" maxlength="20" value="<? echo $_REQUEST[numero_pedido];?>"></td>
+                                <td valign="top"><input name="numero_pedido" id="numero_pedido"  type="text" size="15" maxlength="20" value="<?php echo $_REQUEST['numero_pedido'];?>"></td>
                                 <td valign="top" nowrap>Data Final:</td>
-                                <td valign="top"><input name="data_final" id="data_final"  type="button" size="12" maxlength="20" value="<? echo $DataFinal;?>" onclick="MostraCalendario(document.listar.data_final,'dd/mm/yyyy',this)"></td>
+                                <td valign="top"><input name="data_final" id="data_final"  type="button" size="12" maxlength="20" value="<?php echo $DataFinal;?>" onclick="MostraCalendario(document.listar.data_final,'dd/mm/yyyy',this)"></td>
                                 <td valign="top">
                                   <div id="cpanel">
                                     <div style="float: left;">
@@ -89,29 +90,29 @@ if ($_REQUEST[ordem]){
                         <tr>
                           <td colspan="7"><hr></hr></td>
                         </tr>
-                        <?
-                        if (($_REQUEST[data_inicial]) and ($_REQUEST[data_final])){
+                        <?php
+                        if (($_REQUEST['data_inicial']) and ($_REQUEST['data_final'])){
                           $di = explode("/", $DataInicial);
                           $df = explode("/", $DataFinal);
                           $Filtro = " and data>='".$di[2]."-".$di[1]."-".$di[0]."' and data<='".$df[2]."-".$df[1]."-".$df[0]."'";
                         }
-                        if ($_REQUEST[numero_pedido]){
+                        if ($_REQUEST['numero_pedido']){
                           $NumeroPedido = " and numero='$_REQUEST[numero_pedido]' ";
                         }
-                        if ($_REQUEST[pedidos_clientes_id]){
+                        if ($_REQUEST['pedidos_clientes_id']){
                           $Filtro .= " and id_cliente='$_REQUEST[pedidos_clientes_id]'";
                         }
                         if ($Filtro){
-                          if ($_SESSION[nivel]=="2"){
+                          if ($_SESSION['nivel']=="2"){
                             $lista = "Select numero, previsao from pedidos where previsao > '01-01-2000' $Filtro $NumeroPedido $Ordem";
                           }else{
-                            $lista = "Select numero, previsao from pedidos where previsao > '01-01-2000' and codigo_vendedor = '$_SESSION[id_vendedor]' $Filtro $NumeroPedido $Ordem";
+                            $lista = "Select numero, previsao from pedidos where previsao > '01-01-2000' and codigo_vendedor = '".$_SESSION['id_vendedor']."' $Filtro $NumeroPedido $Ordem";
                           }
                           $lista1 = pg_query($lista);
                           //echo $lista;
                           $ccc = pg_num_rows($lista1);
                           $total_reg = "15";
-                          $pagina = $_REQUEST[pagina];
+                          $pagina = $_REQUEST['pagina'];
                           if (!$pagina){
                             $inicio = "0";
                             $pc = "1";
@@ -134,14 +135,14 @@ if ($_REQUEST[ordem]){
                           $not1  = pg_query($sql);
                           ?>
                           <tr>
-                            <td width="60"><a href='#' onclick="Acha('relatorios/previsao_pedido.php','pagina=<? echo $pagina;?>&pedidos_clientes_id=<?=$_REQUEST[pedidos_clientes_id]?>&pedidos_clientes_cc=<?=$_REQUEST[pedidos_clientes_cc]?>&ordem=numero&pos=<? if ($_REQUEST[ordem]=="numero"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>Numero</b><img src="icones/<? if ($_REQUEST[ordem]=="numero"){ echo $pos;}else{echo $pos1;}?>.gif" border="0" width="10" height="10"></a></td>
+                            <td width="60"><a href='#' onclick="Acha('relatorios/previsao_pedido.php','pagina=<?php echo $pagina;?>&pedidos_clientes_id=<?php echo $_REQUEST['pedidos_clientes_id']?>&pedidos_clientes_cc=<?php echo $_REQUEST['pedidos_clientes_cc']?>&ordem=numero&pos=<?php if ($_REQUEST['ordem']=="numero"){ echo $pos;}else{echo $pos1;}?>&data_inicial='+document.listar.data_inicial.value+'&data_final='+document.listar.data_final.value+'','Conteudo');"><b>Numero</b><img src="icones/<?php if ($_REQUEST['ordem']=="numero"){ echo $pos;}else{echo $pos1;}?>.gif" border="0" width="10" height="10"></a></td>
                             <td width="30"><b>Previsão</b></td>
                             <td width="25"><b>Consultar</b></td>
                           </tr>
                           <tr>
                             <td colspan="3"><hr></hr></td>
                           </tr>
-                          <?
+                          <?php
                           while ($r = pg_fetch_array($not1)){
 
                             if ($Cor=="#EEEEEE"){
@@ -175,17 +176,17 @@ if ($_REQUEST[ordem]){
                                $Status = "Cancelado";
                             }
                             ?>
-                            <tr bgcolor="<? echo "$Cor";?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<? echo "$Cor";?>'">
+                            <tr bgcolor="<?php echo "$Cor";?>" onMouseOver="this.bgColor = '#C0C0C0'" onMouseOut ="this.bgColor = '<?php echo "$Cor";?>'">
                               <td valign="top">
-                                <? if ($_REQUEST[tipo]=="rascunhos"){?>
-                                <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<? echo $r[numero];?>','Conteudo'); <? echo $Desativa;?>" title="Clique para alterar o rascunho"><? echo "$r[numero]";?></a>
-                                <? }else{
+                                <?php if ($_REQUEST['tipo']=="rascunhos"){?>
+                                <a href="#" onclick="Acha('cadastrar_pedidos.php','localizar_numero=<?php echo $r['numero'];?>','Conteudo'); <?php echo $Desativa;?>" title="Clique para alterar o rascunho"><?php echo "$r[numero]";?></a>
+                                <?php }else{
                                      echo "$r[numero]";
                                    }?>
                               </td>
                               <td valign="top">
-                                <?
-                                if ($r[previsao]){
+                                <?php
+                                if ($r['previsao']){
                                   $DataPrevisao = explode("-", "$r[previsao]");
                                   echo $DataPrevisao[2]."/".$DataPrevisao[1]."/".$DataPrevisao[0];
                                 }else{
@@ -195,21 +196,21 @@ if ($_REQUEST[ordem]){
                               </td>
                               </td>
                               <td valign="top" align="center" width="13">
-                                <img src="icones/pesquisar.gif" border="0" title="Impressão 1" onclick="window.open('impressao.php?numero=<? echo "$r[numero]";?>&t=1','_blank')" style="border: 0pt none ; cursor: pointer;">
-                                <?
-                                if ($r[desconto_cliente]>0){
+                                <img src="icones/pesquisar.gif" border="0" title="Impressão 1" onclick="window.open('impressao.php?numero=<?php echo "$r[numero]";?>&t=1','_blank')" style="border: 0pt none ; cursor: pointer;">
+                                <?php
+                                if ($r['desconto_cliente']>0){
                                   ?>
-                                  <img src="icones/pesquisar.gif" border="0" title="Impressão 2" onclick="window.open('impressao.php?numero=<? echo "$r[numero]";?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">
-                                  <?
+                                  <img src="icones/pesquisar.gif" border="0" title="Impressão 2" onclick="window.open('impressao.php?numero=<?php echo "$r[numero]";?>&t=0','_blank')" style="border: 0pt none ; cursor: pointer;">
+                                  <?php
                                 }else{
                                   ?>
                                   &nbsp;
-                                  <?
+                                  <?php
                                 }
                                 ?>
                               </td>
                             </tr>
-                            <?
+                            <?php
                             if ($pagina){
                               if (!$qtd_registros){
                                 $qtd_registros = $qtd_registros + $inicio + 1;
@@ -228,13 +229,13 @@ if ($_REQUEST[ordem]){
                         <tr>
                           <td align="center" colspan="7">
                             <table width="100%" border="0" class="texto1">
-                              <?
+                              <?php
                               if ($ccc<>""){
                                 ?>
                                 <tr>
                                   <td height="25" align="center">
                                    <hr>
-                                  <?
+                                  <?php
                                   $anterior = $pc -1;
                                   $proximo = $pc +1;
                                   $qtd_paginas = $ccc / $total_reg;
@@ -280,7 +281,7 @@ if ($_REQUEST[ordem]){
                                 </tr>
                                 <tr>
                                   <td height="25" align="center" valign="top"><div>
-                                    <?
+                                    <?php
                                     echo "<div>Mostrando registro <strong>";
                                     echo $inicio + 1;
                                     echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong></div>";
@@ -288,7 +289,7 @@ if ($_REQUEST[ordem]){
                                     </div>
                                   </td>
                                 </tr>
-                                <?
+                                <?php
                               }
                               ?>
                            </table>
@@ -314,6 +315,6 @@ if ($_REQUEST[ordem]){
     </table>
   </div>
 </form>
-<?
-$_SESSION[pagina] = "relatorios/index.php";
+<?php
+$_SESSION['pagina'] = "relatorios/index.php";
 ?>

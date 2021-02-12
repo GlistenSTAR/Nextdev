@@ -26,7 +26,10 @@ a:active{color:#CCC;text-decoration:none;}
 #calendarDiv .monthYearPicker{background-color:#E2EBED;border:1px solid #ccc;position:absolute;color:#317082;left:0;top:15px;z-index:1000;display:none;}
 #calendarDiv #monthSelect{width:70px;}
 #calendarDiv .monthYearPicker div{float:none;clear:both;cursor:pointer;margin:1px;padding:1px;}
-#calendarDiv .monthYearActive{background-color:#DODODO;color:#E2EBED;}
+#calendarDiv .monthYearActive{
+  background-color:#d0d0d0;
+  color:#E2EBED;
+}
 #calendarDiv .topBar img{cursor:pointer;}
 #divAbaGeral{position:relative;width:605px;height:100px;margin-right:auto;margin-left:auto;background-color:#FFF;float:right;padding-top:5px;margin-top:5px;}
 #divAbaGeral h1{font-family:Arial, Helvetica, sans-serif;font-size:14px;color:#171717;text-transform:uppercase;margin-top:9px;margin-bottom:15px;}
@@ -43,7 +46,8 @@ input,select,textarea{font-size:11px;font-family:Arial, Verdana, Helvetica;backg
 input[type=button]{background-color:#FFF;width:80px;}
 label{color:#333;font-size:11px;font-weight:400;font-family:Arial, Verdana, Helvetica;}
 #msgsContainer { background-color: #FFF;overflow:auto;min-height:50;width:400px;}
-.lista a{font-family:Arial, Helvetica, padding: 8 8 8 8; sans-serif;font-size:11px;color:#666;position:absolute;z-index:1;}
+.lista a{
+  font-family:Arial, Helvetica sans-serif; padding: 8 8 8 8;font-size:11px;color:#666;position:absolute;z-index:1;}
 .lista a:hover {background-color: #EEE; color: 000;}
 .TA{scrollbar-3dlight-color:#ccc;scrollbar-arrow-color:#ccc;scrollbar-base-color:#ccc;scrollbar-darkshadow-color:#ccc;scrollbar-face-color:#ccc;scrollbar-highlight-color:#ccc;scrollbar-shadow-color:#ccc;border:1px solid #ccc;width:570px;height:185px;font-size:14px;border-spacing:1px;border-collapse:separate;background-color:#fff;position:relative;border-color:#ccc;border-width:1px;}
 .TOTAL{border:1px solid #000;width:570px;height:100px;font-size:14px;border-spacing:1px;background-color:#fff;position:absolute;border-color:#ccc;border-width:1px;}

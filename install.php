@@ -1,4 +1,5 @@
-<?
+<?php
+include ("inc/common.php");
 include_once "inc/config.php";
 function ConfereCampos($Tabela,$Campo,$Tipo){
   $Sql = pg_query("SELECT column_name FROM information_schema.columns WHERE table_name ='$Tabela' and column_name='$Campo'");

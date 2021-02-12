@@ -1,4 +1,4 @@
-<?
+<?php
 include "config.php";
 ?>
 <Head>
@@ -48,10 +48,10 @@ include "config.php";
        <tr>
          <th class="form-block cpanel" align="center">
            Administrador
-           <?
-           if ($_SESSION[usuario]){
+           <?php
+           if ($_SESSION['usuario']){
              ?>
-             &nbsp;&nbsp;&nbsp;&nbsp;Olá <b><? echo $_SESSION[usuario];?></b> <a href="inc/verifica.php?acao=SAIR">(sair)</a>
+             &nbsp;&nbsp;&nbsp;&nbsp;Olá <b><?php echo $_SESSION['usuario'];?></b> <a href="inc/verifica.php?acao=SAIR">(sair)</a>
              <div align="right">
                Selecione a base de dados:
                <select id="id_base" name="id_base" onchange="return SelecionaBase();">
@@ -61,7 +61,7 @@ include "config.php";
                  <option value="4">RSA</option>
                </select>
              </div>
-             <?
+             <?php
            }
            ?>
          </th>
@@ -70,8 +70,8 @@ include "config.php";
    </div>
 	</div>
 </div>
-<?
-if ($_SESSION[usuario]){
+<?php
+if ($_SESSION['usuario']){
   ?>
   <table class="adminheading" border="0">
   		<tbody>
@@ -82,6 +82,6 @@ if ($_SESSION[usuario]){
       </tr>
     </tbody>
   </table>
-<?
+<?php
 }
 ?>

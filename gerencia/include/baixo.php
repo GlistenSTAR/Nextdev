@@ -9,7 +9,7 @@
 							<td width="74%" class="font-1-b">&nbsp;</td>
 					</tr>
 					<tr>
-							<td class="texto">&nbsp;&nbsp;Vers&atilde;o 1.0 - <span class="font-1-d"><b><?= $_SESSION['LogaUser']; ?></b></span></td>
+							<td class="texto">&nbsp;&nbsp;Vers&atilde;o 1.0 - <span class="font-1-d"><b><?php echo $_SESSION['LogaUser']; ?></b></span></td>
 					</tr>
 				</table>
 			</td>
@@ -18,7 +18,7 @@
 			<td height="29" valign="top">
 					<table  width="98%" border="0" align="center" cellpadding="2" cellspacing="5" class="font-1">
 							<tr>
-									<td width="74%" class="texto"><strong>TN Sistemas / 1996 - <?= date('Y');?> </strong> -  Todos os direitos reservados </td>
+									<td width="74%" class="texto"><strong>TN Sistemas / 1996 - <?php echo date('Y');?> </strong> -  Todos os direitos reservados </td>
 									<td width="74%" align="right" class="font-1-b"></td>
 							</tr>
 					</table>

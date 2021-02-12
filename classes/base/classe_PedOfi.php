@@ -10,7 +10,7 @@ class PedidoOficial {
   //Atributos
   private $numero_internet;
   //Construtor
-  public function PedidoOficial(){                                                                                                     }
+  public function __construct(){                                                                                                     }
   //Setando acesso e pegando atributos
   public function set_numero_internet($numero_internet){                $this->numero_internet = $numero_internet;                     }
   public function get_numero_internet(){                         return $this->numero_internet;                                        }
@@ -112,9 +112,9 @@ class PedidoOficial {
             $ACHEI = 1;
           }
         }
-        $_SESSION[NumeroPedidoGravado] = $max;
+        $_SESSION['NumeroPedidoGravado'] = $max;
       }else{
-        $_SESSION[NumeroPedidoGravado] = $original;
+        $_SESSION['NumeroPedidoGravado'] = $original;
       }
       ######################################################
       # Fim Rotina de carregamento
@@ -142,22 +142,22 @@ class PedidoOficial {
       }else{
         $SqlCampo['data_prevista_entrega'] = $p[data_prevista_entrega];
       }
-      $SqlCampo['id_cliente'] = $p[id_cliente];
-      $SqlCampo['local_entrega'] = $p[local_entrega];
-      $SqlCampo['numero_pedido_vendedor'] = $p[numero_pedido_vendedor];
+      $SqlCampo['id_cliente'] = $p['id_cliente'];
+      $SqlCampo['local_entrega'] = $p['local_entrega'];
+      $SqlCampo['numero_pedido_vendedor'] = $p['numero_pedido_vendedor'];
       $SqlCampo['numero'] = $max;
-      $SqlCampo['numero_cliente'] = $p[numero_cliente];
-      $SqlCampo['transportadora'] = $p[transportadora];
-      $SqlCampo['vendedor'] = $_SESSION[nome_vendedor];
+      $SqlCampo['numero_cliente'] = $p['numero_cliente'];
+      $SqlCampo['transportadora'] = $p['transportadora'];
+      $SqlCampo['vendedor'] = $_SESSION['nome_vendedor'];
       $SqlCampo['comissao'] = $Comissao;
-      $SqlCampo['transportadora'] = $p[transportadora];
-      $SqlCampo['codigo_pagamento'] = ($p[codigo_pagamento])? "$p[codigo_pagamento]":"0";
-      $SqlCampo['codigo_pagamento1'] = ($p[codigo_pagamento1])? "$p[codigo_pagamento1]":"0";
-      //$SqlCampo['desconto_cliente'] = ($p[desconto_cliente])? "$p[desconto_cliente]":"0";        
-      $SqlCampo['fator1'] = ($p[fator1])? "$p[fator1]":"0";
-      $SqlCampo['fator2'] = ($p[fator2])? "$p[fator2]":"0";
-      $SqlCampo['fob'] = $p[fob];
-      $SqlCampo['cif'] = $p[cif];
+      $SqlCampo['transportadora'] = $p['transportadora'];
+      $SqlCampo['codigo_pagamento'] = ($p['codigo_pagamento'])? "$p[codigo_pagamento]":"0";
+      $SqlCampo['codigo_pagamento1'] = ($p['codigo_pagamento1'])? "$p[codigo_pagamento1]":"0";
+      //$SqlCampo['desconto_cliente'] = ($p['desconto_cliente'])? "$p[desconto_cliente]":"0";        
+      $SqlCampo['fator1'] = ($p['fator1'])? "$p[fator1]":"0";
+      $SqlCampo['fator2'] = ($p['fator2'])? "$p[fator2]":"0";
+      $SqlCampo['fob'] = $p['fob'];
+      $SqlCampo['cif'] = $p['cif'];
       $SqlCampo['numero_internet'] = $this->numero_internet;
       $SqlCampo['data_importacao'] = $data_hoje;
       $SqlCampo['aprovado'] = "-1";
@@ -210,19 +210,19 @@ class PedidoOficial {
        unset($Grava);
        //exit;
       /////////////////////////////////////////////////////////
-      $SqlAlter = "Update pedidos set usuario_cadastrou='".left($_SESSION[usuario], 10)."', data_alteracao='$data_hoje' where numero='$max'";
+      $SqlAlter = "Update pedidos set usuario_cadastrou='".left($_SESSION['usuario'], 10)."', data_alteracao='$data_hoje' where numero='$max'";
       pg_query($db, $SqlAlter);
 
       //Cria uma sequencia para o campo ID
-      $uid = strtoupper($_REQUEST[id]+1);
+      $uid = strtoupper($_REQUEST['id']+1);
       $ultimoid="SELECT MAX(id)+1 as ultimoid FROM alteracao_pedidos";
       $ultimoid = pg_query($ultimoid);
       $row = pg_fetch_array($ultimoid);
       //echo $row[ultimoid];
 
-      $SqlCampo['id'] = $row[ultimoid];
+      $SqlCampo['id'] = $row['ultimoid'];
       $SqlCampo['numero_pedido'] = $max;
-      $SqlCampo['usuario_alterou'] = left($_SESSION[login], 10);
+      $SqlCampo['usuario_alterou'] = left($_SESSION['login'], 10);
       $SqlCampo['data_alteracao'] = $data_hoje;
       $SqlCampo['ip'] = $_SERVER[REMOTE_ADDR];
       $SqlCampo['alteracao'] = "CADASTROU NOVO PEDIDO VIA SITE";

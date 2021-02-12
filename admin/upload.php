@@ -1,7 +1,7 @@
 <hr></hr>
 <table border="0" align="center" cellpadding="2" cellspacing="2" class="texto1" width="100%">
   <tr>
-    <?
+    <?php
     include_once("inc/config.php");
     $qtd_fotos = $_POST["qtd_fotos"];
     $uploaddir = "../imagens/";

@@ -1,7 +1,8 @@
-<?
+<?php
+include ("../inc/common.php");
 include "../inc/verifica.php";
 include_once "../inc/config.php";
-if (!$_REQUEST[descricao_pesquisa_id]){
+if (!$_REQUEST['descricao_pesquisa_id']){
   ?>
   <div id="produtos">
     <table width="580" height="300" border="0" cellspacing="0" cellpadding="0" class="texto1">
@@ -29,7 +30,7 @@ if (!$_REQUEST[descricao_pesquisa_id]){
                         <tr>
                           <td width="20%">Código:</td>
                           <td width="80%">
-                            <input type="text" size="20" name="codigo_pesquisa_cc" maxlength="18" id="codigo_pesquisa_cc" value="<? echo "$_REQUEST[codigo_pesquisa]";?>" onfocus="this.select()" onkeyup="if (this.value.length>2){Acha1('listar.php','tipo=descricao_pesquisa&valor='+this.value+'&pesquisa=codigo','listar_codigo_pesquisa');}">
+                            <input type="text" size="20" name="codigo_pesquisa_cc" maxlength="18" id="codigo_pesquisa_cc" value="<?php echo "$_REQUEST[codigo_pesquisa]";?>" onfocus="this.select()" onkeyup="if (this.value.length>2){Acha1('listar.php','tipo=descricao_pesquisa&valor='+this.value+'&pesquisa=codigo','listar_codigo_pesquisa');}">
                             <BR>
                             <div id="listar_codigo_pesquisa" style="position:absolute; z-index: 7000;"></div>
                           </td>
@@ -66,7 +67,7 @@ if (!$_REQUEST[descricao_pesquisa_id]){
       </tr>
     </table>
   </div>
-  <?
+  <?php
 }else{
   $AchaProduto = pg_query("SELECT p.codigo, p.nome, p.preco_venda, p.ipi, p.classificacao_fiscal, p.peso_liquido, p.ncm ,e.estocada, e.reservado FROM produtos AS p INNER JOIN estoques AS e ON e.codigo = p.codigo WHERE p.codigo='$_REQUEST[descricao_pesquisa_id]'");
 		$p = pg_fetch_array($AchaProduto);
@@ -88,28 +89,28 @@ if (!$_REQUEST[descricao_pesquisa_id]){
                   <td>
                     <table width="100%" class="texto1">
                       <tr>
-                        <td align=center><h4>Código:<i></td><td> <b><? echo $p[codigo];?></b></i></h4></td>
+                        <td align=center><h4>Código:<i></td><td> <b><?php echo $p['codigo'];?></b></i></h4></td>
                       </tr>
                       <tr>
-                        <td align=center><b>Produto:</b></td><td>  <? echo $p[nome];?></td>
+                        <td align=center><b>Produto:</b></td><td>  <?php echo $p['nome'];?></td>
                       </tr>
                       <tr>
-                        <td align=center><b>Valor Unit.:</b></td><td>  <? echo $p[preco_venda];?></td>
+                        <td align=center><b>Valor Unit.:</b></td><td>  <?php echo $p['preco_venda'];?></td>
                       </tr>
                       <tr>
-                        <td align=center><b>IPI:</b></td><td>  <? echo $p[ipi];?></td>
+                        <td align=center><b>IPI:</b></td><td>  <?php echo $p['ipi'];?></td>
                       </tr>
                       <tr>
-                        <td align=center><b>NCM:</b></td><td>  <? echo $p[ncm];?></td>
+                        <td align=center><b>NCM:</b></td><td>  <?php echo $p['ncm'];?></td>
                       </tr>
                       <tr>
-                        <td align=center><b>Peso líquido:</b></td><td>  <? echo $p[peso_liquido];?></td>
+                        <td align=center><b>Peso líquido:</b></td><td>  <?php echo $p['peso_liquido'];?></td>
                       </tr>
                       <tr>
-                        <td align=center><b>Class. Fiscal:</b></td><td>  <? echo $p[classificacao_fiscal];?></td>
+                        <td align=center><b>Class. Fiscal:</b></td><td>  <?php echo $p['classificacao_fiscal'];?></td>
                       </tr>
                       <tr>
-                        <td align=center><b>Qtd. Estoque:</b></td><td>  <? echo $p[estocada] - $p[reservado];?></td>
+                        <td align=center><b>Qtd. Estoque:</b></td><td>  <?php echo $p['estocada'] - $p['reservado'];?></td>
                       </tr>																						
                     </table>
                   </td>
@@ -127,6 +128,6 @@ if (!$_REQUEST[descricao_pesquisa_id]){
       <td><img src="images/l1_r4_c1.gif" width="603" height="4"><BR></td>
     </tr>
   </table>
-  <?
+  <?php
 }
 ?>

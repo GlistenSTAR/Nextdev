@@ -1,4 +1,5 @@
-<?
+<?php
+include ("include/common.php");
 session_start();
 if($_SESSION['LogaUser']){
 include "include/config.php";
@@ -10,8 +11,8 @@ include "include/config.php";
      echo str_repeat("<br>", 8);     
      if(isset($_POST)){
      
-        $User   = trim(strtoupper($_REQUEST[usuario]));
-        $Senha  = trim(strtoupper($_REQUEST[senha])); 
+        $User   = trim(strtoupper($_REQUEST['usuario']));
+        $Senha  = trim(strtoupper($_REQUEST['senha'])); 
       
         //gravo dados na tabela vendedores
         $UpVendedor = "UPDATE vendedores SET 

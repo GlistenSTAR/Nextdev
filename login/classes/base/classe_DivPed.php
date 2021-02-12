@@ -15,7 +15,7 @@ class DivPed {
   private $;
 
   //Construtor
-  public function DivPed(){
+  public function __construct(){
 
   }
 

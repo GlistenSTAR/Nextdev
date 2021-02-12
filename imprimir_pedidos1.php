@@ -1,4 +1,5 @@
-<?
+<?php
+include ("inc/common.php");
 //include "inc/verifica.php";
 include "inc/config.php";
 ?>
@@ -60,11 +61,11 @@ margin: 1;}
               </span>
             </center>
             <div align="right" class="texto_print">
-              <?
+              <?php
               setlocale(LC_TIME,'pt_BR','ptb');
               echo  ucfirst(strftime('%A, %d de %B de %Y',mktime(0,0,0,date('n'),date('d'),date('Y'))));
               ?><BR>
-              Vendedor: <b><? echo $_SESSION[usuario];?></b>
+              Vendedor: <b><?php echo $_SESSION['usuario'];?></b>
             </div>
           </td>
         </tr>
@@ -84,16 +85,16 @@ margin: 1;}
           <td width="200"><b>CNPJ</b></td>
           <td width="100"><b>Valor Total</b></td>
         </tr>
-        <?
-        $pagina = $_REQUEST[pagina];
-        $lista = "Select numero, data, cliente, cgc, total_sem_desconto from pedidos where codigo_vendedor = '$_SESSION[id_vendedor]' order by data DESC";
-        $lista1 = pg_query("Select numero, data, cliente, cgc, total_sem_desconto from pedidos where codigo_vendedor = '$_SESSION[id_vendedor]' order by data DESC");
+        <?php
+        $pagina = $_REQUEST['pagina'];
+        $lista = "Select numero, data, cliente, cgc, total_sem_desconto from pedidos where codigo_vendedor = '".$_SESSION['id_vendedor']."' order by data DESC";
+        $lista1 = pg_query("Select numero, data, cliente, cgc, total_sem_desconto from pedidos where codigo_vendedor = '".$_SESSION['id_vendedor']."' order by data DESC");
         $ccc = pg_num_rows($lista1);
-        $offset = $_REQUEST[offset];
-        if ($_REQUEST[total_reg]){
-          if (is_numeric($_REQUEST[total_reg])){
-            $total_reg = $_REQUEST[total_reg];
-          }elseif ($_REQUEST[total_reg]=="TODOS"){
+        $offset = $_REQUEST['offset'];
+        if ($_REQUEST['total_reg']){
+          if (is_numeric($_REQUEST['total_reg'])){
+            $total_reg = $_REQUEST['total_reg'];
+          }elseif ($_REQUEST['total_reg']=="TODOS"){
             $total_reg = $ccc;
             $pagina = "1";
             $offset = "0";
@@ -133,27 +134,27 @@ margin: 1;}
           }
           ?>
           <tr>
-            <td class="<? echo $Cor;?>"><? echo "$r[numero]";?></td>
-            <td class="<? echo $Cor;?>">
-              <?
-              $da = $r[data];
+            <td class="<?php echo $Cor;?>"><?php echo "$r[numero]";?></td>
+            <td class="<?php echo $Cor;?>">
+              <?php
+              $da = $r['data'];
               $d = explode("-", $da);
               echo "".$d[2]."/".$d[1]."/".$d[0]."";
               ?>
             </td>
-            <td class="<? echo $Cor;?>">
-              <?
-              $Nome = $r[cliente];
+            <td class="<?php echo $Cor;?>">
+              <?php
+              $Nome = $r['cliente'];
               //if (strlen($Nome)>100) {
               //  $Nome = substr($Nome,0,100)."";
               //}
               echo $Nome;
               ?>
             </td>
-            <td class="<? echo $Cor;?>"><? echo "$r[cgc]";?></td>
-            <td class="<? echo $Cor;?>" align="right"><? echo number_format($r[total_sem_desconto], 2, ",", ".");?></td>
+            <td class="<?php echo $Cor;?>"><?php echo "$r[cgc]";?></td>
+            <td class="<?php echo $Cor;?>" align="right"><?php echo number_format($r['total_sem_desconto'], 2, ",", ".");?></td>
           </tr>
-          <?
+          <?php
           if ($pagina){
             if (!$qtd_registros){
               $qtd_registros = $qtd_registros + $inicio + 1;
@@ -161,15 +162,15 @@ margin: 1;}
               $qtd_registros = $qtd_registros +  1;
             }
           }
-          $Total = $Total + $r[total_sem_desconto];
+          $Total = $Total + $r['total_sem_desconto'];
         }
         ?>
         <tr>
-          <td class="<? echo $Cor;?>"></td>
-          <td class="<? echo $Cor;?>"></td>
-          <td class="<? echo $Cor;?>"></td>
-          <td class="<? echo $Cor;?>" align="right"><BR>Total </td>
-          <td class="<? echo $Cor;?>" align="right"><hr></hr><? echo number_format($Total, 2, ",", ".");?></td>
+          <td class="<?php echo $Cor;?>"></td>
+          <td class="<?php echo $Cor;?>"></td>
+          <td class="<?php echo $Cor;?>"></td>
+          <td class="<?php echo $Cor;?>" align="right"><BR>Total </td>
+          <td class="<?php echo $Cor;?>" align="right"><hr></hr><?php echo number_format($Total, 2, ",", ".");?></td>
         </tr>
       </table>
       <hr></hr>
@@ -183,12 +184,12 @@ margin: 1;}
             <td align="center">
               <div id="listagem_clientes">
                 <table width="100%" border="0" class="texto_print">
-                  <?
+                  <?php
                   if ($ccc<>""){
                     ?>
                     <tr>
                       <td height="25" align="center">
-                      <?
+                      <?php
                       $anterior = $pc -1;
                       $proximo = $pc +1;
                       $qtd_paginas = $ccc / $total_reg;
@@ -240,7 +241,7 @@ margin: 1;}
                     <div id="paginacao" class="texto_print">
                       <tr>
                         <td height="25" align="center" valign="top"><div>
-                          <?
+                          <?php
                           echo "<div>Mostrando registro <strong>";
                           echo $inicio + 1;
                           echo "</strong> a <strong>$qtd_registros</strong> de <strong>$ccc</strong> - Página: <b>$pagina</b></div>";
@@ -249,7 +250,7 @@ margin: 1;}
                         </td>
                       </tr>
                     </div>
-                    <?
+                    <?php
                   }
                   ?>
                 </table>
@@ -257,8 +258,8 @@ margin: 1;}
             </td>
           </tr>
           <form method="POST" name="limitador">
-            <input type="hidden" name="pagina" value="<? echo $pagina;?>">
-            <input type="hidden" name="offset" value="<? echo $inicio;?>">
+            <input type="hidden" name="pagina" value="<?php echo $pagina;?>">
+            <input type="hidden" name="offset" value="<?php echo $inicio;?>">
             <tr>
               <td align="center" valign="top">
                 <input type="button" value="Imprimir" id="botao" name="TESTE" onclick="imprimir(); return false;" STYLE="font-size: 10pt; color:#ffffff ; background:#182463; border-width: 2; border-color: #ffffff">

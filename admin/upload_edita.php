@@ -1,7 +1,7 @@
 <hr></hr>
 <table border="0" align="center" cellpadding="2" cellspacing="2" class="texto1" width="100%">
   <tr>
-    <?
+    <?php
     include_once("inc/config.php");
     $uploaddir = "../imagens/";
     $foton = $_FILES[foto_nova]['name'];
@@ -15,8 +15,8 @@
         $Foto2 = md5(time()).$Foto;
         $Foto = "imagem='$Foto2', ";
         rename($uploaddir."/".$foton, $uploaddir."/".$Foto2);
-        if ($_REQUEST[excluir_antiga]){
-          @unlink($uploaddir."/".$_REQUEST[imagem_antiga]);
+        if ($_REQUEST['excluir_antiga']){
+          @unlink($uploaddir."/".$_REQUEST['imagem_antiga']);
         }
       }else{
         echo "Erro ao enviar foto $_FILES[foto_nova]['name']<br>";

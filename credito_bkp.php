@@ -1,7 +1,8 @@
-<?
+<?php
+include ("inc/common.php");
 include "inc/verifica.php";
 include_once "inc/config.php";
-if (!$_REQUEST[cliente_id]){
+if (!$_REQUEST['cliente_id']){
   ?>
   <script language="JavaScript" src="inc/scripts/isdate.js"></script>
   <script language="JavaScript">
@@ -52,7 +53,7 @@ if (!$_REQUEST[cliente_id]){
                         <tr>
                           <td width="20%">CNPJ/CPF:</td>
                           <td width="80%">
-                            <input type="text" size="20" name="clientecnpj_cc" maxlength="18" id="clientecnpj_cc" value="<? echo "$p[cgc]";?>" onfocus="this.select()" onkeyup="if (this.value.length>3){Acha1('listar.php','tipo=clientecnpj&valor='+this.value+'','listar_clientecnpj');}">
+                            <input type="text" size="20" name="clientecnpj_cc" maxlength="18" id="clientecnpj_cc" value="<?php echo "$p[cgc]";?>" onfocus="this.select()" onkeyup="if (this.value.length>3){Acha1('listar.php','tipo=clientecnpj&valor='+this.value+'','listar_clientecnpj');}">
                             <BR>
                             <div id="listar_clientecnpj" style="position:absolute; z-index: 7000;"></div>
                           </td>
@@ -89,7 +90,7 @@ if (!$_REQUEST[cliente_id]){
       </tr>
     </table>
   </div>
-  <?
+  <?php
 }else{
   $cod_cliente = $_REQUEST['cliente_id'];
   $acha_cli_vendedor = pg_query("Select nome from clientes where codigo='$cod_cliente'");
@@ -113,11 +114,11 @@ if (!$_REQUEST[cliente_id]){
                   <td>
                     <table align=center width="100%" class="texto1">
                       <tr>
-                        <td align=center><h4>Cliente:<i> <b><? echo $c[nome];?></b></i></h4></td>
+                        <td align=center><h4>Cliente:<i> <b><?php echo $c['nome'];?></b></i></h4></td>
                       </tr>
                     </table>
                     <table border = "0" style="border: 1px #cccccc;" width="100%" class="texto1" cellspacing="2" cellpadding="2">
-                      <?
+                      <?php
                       $data_hoje = date("m/d/Y");
                       if (($CodigoEmpresa=="75") or ($CodigoEmpresa=="86")){
                         $FiltroExtra = " and (cancelada=0) ";
@@ -133,7 +134,7 @@ if (!$_REQUEST[cliente_id]){
                           <td align="center"><b>Emissão:</b></td>
                           <td align="center"><b>Vencimento:</b></td>
                         </tr>
-                        <?
+                        <?php
                         while ($linha = pg_fetch_array($resultado)) {
                           if ($cor=="#EEEEEE"){ //COR 1
                               $cor = "#FFFFFF"; //COR 2
@@ -142,21 +143,21 @@ if (!$_REQUEST[cliente_id]){
                           }
                           $contador++;
                           ?>
-                          <tr bgcolor="<? echo "$cor";?>">
-                            <td align="center"><? echo $linha['numero'];?></td>
-                            <td align="right"><? echo number_format($linha['valor'], 2, ",", "."); ?></td>
-                            <td align="center"><? $Ano = substr($linha['emissao'], 0, 4); $Mes = substr($linha['emissao'], 5, 2); $Dia =substr($linha['emissao'], 8, 2); echo $Dia."/".$Mes."/".$Ano; ?></td>
-                            <td align="center"><? $Ano = substr($linha['vencimento'], 0, 4); $Mes = substr($linha['vencimento'], 5, 2); $Dia =substr($linha['vencimento'], 8, 2); echo $Dia."/".$Mes."/".$Ano; ?></td>
+                          <tr bgcolor="<?php echo "$cor";?>">
+                            <td align="center"><?php echo $linha['numero'];?></td>
+                            <td align="right"><?php echo number_format($linha['valor'], 2, ",", "."); ?></td>
+                            <td align="center"><?php $Ano = substr($linha['emissao'], 0, 4); $Mes = substr($linha['emissao'], 5, 2); $Dia =substr($linha['emissao'], 8, 2); echo $Dia."/".$Mes."/".$Ano; ?></td>
+                            <td align="center"><?php $Ano = substr($linha['vencimento'], 0, 4); $Mes = substr($linha['vencimento'], 5, 2); $Dia =substr($linha['vencimento'], 8, 2); echo $Dia."/".$Mes."/".$Ano; ?></td>
                           </tr>
-                          <?
+                          <?php
                         }
                         ?>
-                        <tr><td colspan="4" align="center">Foram encontradas <b><? echo "$contador";?></b> duplicatas em atraso.</td></tr>
-                        <?
+                        <tr><td colspan="4" align="center">Foram encontradas <b><?php echo "$contador";?></b> duplicatas em atraso.</td></tr>
+                        <?php
                       }else{
                         ?>
                         <tr><td colspan="4" align="center"><BR><BR><b>Nenhuma duplicata encontrada.!</b><BR><BR><BR><BR></td></tr>
-                        <?
+                        <?php
                       }
                       ?>
                     </table>
@@ -175,6 +176,6 @@ if (!$_REQUEST[cliente_id]){
       <td><img src="images/l1_r4_c1.gif" width="603" height="4"><BR></td>
     </tr>
   </table>
-  <?
+  <?php
 }
 ?>

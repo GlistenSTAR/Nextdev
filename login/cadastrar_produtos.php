@@ -1,38 +1,39 @@
-<?
+<?php
+include ("inc/common.php");
 include "inc/verifica.php";
-$_SESSION[pagina] = "cadastrar_produtos.php";
+$_SESSION['pagina'] = "cadastrar_produtos.php";
 $Ativa = "display: none;";
 $DesativaForm = " onclick=\"setTimeout('DisableEnableForm(document.cad,false);',0);\"";
 $Tirar = array(".","-","/",","," ");
-$_REQUEST[localizar_numero] = str_replace($Tirar, "", $_REQUEST[localizar_numero]);
+$_REQUEST['localizar_numero'] = str_replace($Tirar, "", $_REQUEST['localizar_numero']);
 if (is_numeric($_REQUEST[localizar_numero])){
   include_once("inc/config.php");
-  $SqlCarregaPedido = pg_query("Select * from produtos where codigo='$_REQUEST[localizar_numero]'");
+  $SqlCarregaPedido = pg_query("Select * from produtos where codigo='$_REQUEST['localizar_numero']'");
   $pcc = pg_num_rows($SqlCarregaPedido);
   if ($pcc<>""){
     $p = pg_fetch_array($SqlCarregaPedido);
     if ($p[codigo]){
       if ($_SESSION['config']['cadastros']['VendedorCliente']){
-        if ($p[codigo_vendedor]!=$_SESSION[id_vendedor]){
+        if ($p['codigo_vendedor']!=$_SESSION['id_vendedor']){
           $Ativa = "display: block;";
           $p = "";
           $Icones = "";
         }else{
           $Ativa = "display: none;";
         }
-        $pgc = $p[codigo];
+        $pgc = $p['codigo'];
       }else{
         $Ativa = "display: none;";
       }
-      $pgc = $p[codigo];
+      $pgc = $p['codigo'];
     }
   }else{
-    $pgc = $_REQUEST[localizar_numero];
+    $pgc = $_REQUEST['localizar_numero'];
   }
 }
-if (!$_REQUEST[acao]){
+if (!$_REQUEST['acao']){
   ?>
-  <body <? echo $DesativaForm;?>>
+  <body <?php echo $DesativaForm;?>>
     <table width="400" border="0" cellspacing="0" cellpadding="0" class="texto1" align="left">
       <tr>
         <td valign="top" width="400">
@@ -51,16 +52,16 @@ if (!$_REQUEST[acao]){
                    <table width="100%" height="200" border="0" align="center" cellpadding="0" cellspacing="0">
                      <tr>
                        <td width="100%" colspan="3" valign="top">
-                         <form action="" name="cad" METHOD="POST" <? echo $DesativaForm;?>>
-                           <?
-                           if ($p[cgc]){
+                         <form action="" name="cad" METHOD="POST" <?php echo $DesativaForm;?>>
+                           <?php
+                           if ($p['cgc']){
                              ?>
                              <input type="hidden" name="acao" value="Editar" id="acao">
-                             <?
+                             <?php
                            }else{
                              ?>
                              <input type="hidden" name="acao" value="Cadastrar" id="acao">
-                             <?
+                             <?php
                            }
                            ?>
                            <input type="hidden" name="pg" value="cadastrar_produtos" id="pg">
@@ -68,28 +69,28 @@ if (!$_REQUEST[acao]){
                               <table width="100%" border="0" cellspacing="2" cellpadding="2" class="texto1" align="center">
                                 <tr>
                                   <td width="100">Código</td>
-                                  <td><? echo "$pgc";?></td>
+                                  <td><?php echo "$pgc";?></td>
                                 </tr>
-                                <div id="disable" style="position: absolute; background: none; <? echo $Ativa;?> width: 590; z-index: 7000; color: red; font-weight: bold;" align="center">&nbsp;<div align="right">Esse cliente pertence a outro vendedor</div></div>
+                                <div id="disable" style="position: absolute; background: none; <?php echo $Ativa;?> width: 590; z-index: 7000; color: red; font-weight: bold;" align="center">&nbsp;<div align="right">Esse cliente pertence a outro vendedor</div></div>
                                 <tr>
                                   <td width="100">Descrição:</td>
-                                  <td><? echo "$p[nome]";?></td>
+                                  <td><?php echo "$p[nome]";?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Unidade:</td>
-                                  <td><? echo "$p[unidade]";?></td>
+                                  <td><?php echo "$p[unidade]";?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Peso Bruto:</td>
-                                  <td><? echo "$p[peso_bruto]";?></td>
+                                  <td><?php echo "$p[peso_bruto]";?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Peso Liquido:</td>
-                                  <td><? echo "$p[peso_liquido]";?></td>
+                                  <td><?php echo "$p[peso_liquido]";?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">IPI:</td>
-                                  <td><? echo "$p[ipi]";?></td>
+                                  <td><?php echo "$p[ipi]";?></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2"><hr></hr></td>
@@ -99,38 +100,38 @@ if (!$_REQUEST[acao]){
                                 </tr>
                                 <tr>
                                   <td width="100">à vista:</td>
-                                  <td><?=number_format($p[preco_venda], 2, ",", ".");?></td>
+                                  <td><?php echo number_format($p['preco_venda'], 2, ",", ".");?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Faturado:</td>
-                                  <td><?=number_format($p[preco_venda_b], 2, ",", ".");?></td>
+                                  <td><?php echo number_format($p['preco_venda_b'], 2, ",", ".");?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Revenda:</td>
-                                  <td><?=number_format($p[preco_venda_c], 2, ",", ".");?></td>
+                                  <td><?php echo number_format($p['preco_venda_c'], 2, ",", ".");?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Distribuição:</td>
-                                  <td><?=number_format($p[preco_venda_d], 2, ",", ".");?></td>
+                                  <td><?php echo number_format($p['preco_venda_d'], 2, ",", ".");?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Manutenção:</td>
-                                  <td><?=number_format($p[preco_venda_e], 2, ",", ".");?></td>
+                                  <td><?php echo number_format($p['preco_venda_e'], 2, ",", ".");?></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2"><hr></hr></td>
                                 </td>
                                 <tr>
                                   <td width="100">Marca:</td>
-                                  <td><? echo "$p[marca]";?></td>
+                                  <td><?php echo "$p[marca]";?></td>
                                 </tr>
                                  <tr>
                                   <td width="100">Modelo:</td>
-                                  <td><? echo "$p[modelo]";?></td>
+                                  <td><?php echo "$p[modelo]";?></td>
                                 </tr>
                                 <tr>
                                   <td width="100">Descrição Tecnica:</td>
-                                  <td><? echo "$p[descricao_tecnica]";?></td>
+                                  <td><?php echo "$p[descricao_tecnica]";?></td>
                                 </tr>
                                 <tr>
                                   <td colspan="2"><hr></hr></td>
@@ -148,16 +149,16 @@ if (!$_REQUEST[acao]){
                </tr>
                <tr>
                  <td align="center">
-                   <?
-                   if ($_SESSION[codigo_empresa]<>"95"){
-                     if ($_REQUEST[cnpj_valido]==1){
+                   <?php
+                   if ($_SESSION['codigo_empresa']<>"95"){
+                     if ($_REQUEST['cnpj_valido']==1){
                        ?>
                        <input type="button" onclick="if (checa(document.cad.cnpj.value,'document.cad.cnpj')){ acerta_campos('divAbaMeio','Inicio','cadastrar_produtos.php',true)}" name="Gravar" value="Gravar">
-                       <?
+                       <?php
                      }
                      ?>
                      <input type="button" onclick="Acha('inicio.php','','Conteudo');" name="Cancelar" id="Cancelar" value="Cancelar">
-                     <?
+                     <?php
                    }
                    ?>
                  </td>
@@ -171,6 +172,6 @@ if (!$_REQUEST[acao]){
       </td>
     </tr>
   </table>
-  <?
+  <?php
 }
 ?>

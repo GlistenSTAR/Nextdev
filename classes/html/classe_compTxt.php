@@ -16,7 +16,7 @@ class compTxt {
 
 /*Este Método é chamado de construtor, pois ele é executado quando se instancia esta classe, ou seja, podemos realizar várias ações quando a classe for instanciada, basta colocar os códigos aqui e pronto. */
 
-  public function compTxt(){
+  public function __construct(){
 
   }
 

@@ -1,4 +1,5 @@
-<?
+<?php
+include ("inc/common.php");
 //echo "<br><br><br>DESCONTO_CORES: $_REQUEST[descontocores2]<br><br><br><br>";
 //exit;
 ##############################################################################################################################
@@ -6,9 +7,9 @@
 #                         NORMAL - 
 #
 ##############################################################################################################################
-$Desconto = $_REQUEST[descontocores2] / 100;
+$Desconto = $_REQUEST['descontocores2'] / 100;
 include "inc/config.php";
-$SQL = "UPDATE pedidos_internet_novo SET especificado = 1 WHERE numero = ".$_REQUEST[numero_cores];
+$SQL = "UPDATE pedidos_internet_novo SET especificado = 1 WHERE numero = ".$_REQUEST['numero_cores'];
 pg_query($db,$SQL);
   $consulta = "UPDATE itens_do_pedido_internet set ";
   if ($_REQUEST["preto"] <> "") {
@@ -64,15 +65,15 @@ pg_query($db,$SQL);
     $divisor = ",";
   }
   $consulta = $consulta.",especificado=1 ";
-  $consulta = $consulta." WHERE numero_pedido=".$_REQUEST[numero_cores]." AND codigo='".$_REQUEST[codigo_cores]."' and especial='1';";
+  $consulta = $consulta." WHERE numero_pedido=".$_REQUEST['numero_cores']." AND codigo='".$_REQUEST['codigo_cores']."' and especial='1';";
   //echo "<br><br><br><br><br><br>SQL : $consulta<br><br><br><br><br><br><br><br><br>";
-  $_SESSION[sql_cores] = $consulta;
+  $_SESSION['sql_cores'] = $consulta;
 ##############################################################################################################################
 #
 #                         ESPECIAL - 
 #
 ##############################################################################################################################
-$Desconto = 1 - ($_REQUEST[descontocores2] / 100);
+$Desconto = 1 - ($_REQUEST['descontocores2'] / 100);
 $divisor = "";
   $consulta = "UPDATE itens_do_pedido_internet set ";
   if ($_REQUEST["preto"] <> "") {
@@ -128,10 +129,10 @@ $divisor = "";
     $divisor = ",";
   }
   $consulta = $consulta.",especificado=1 ";
-  $consulta = $consulta." WHERE numero_pedido=".$_REQUEST[numero_cores]." AND codigo='".$_REQUEST[codigo_cores]."' and especial='0';";
+  $consulta = $consulta." WHERE numero_pedido=".$_REQUEST['numero_cores']." AND codigo='".$_REQUEST['codigo_cores']."' and especial='0';";
 //  echo "<br><br>SQL : $consulta<br><br><hr>";
 
-  $_SESSION[sql_cores] = $_SESSION[sql_cores].$consulta;  
+  $_SESSION['sql_cores'] = $_SESSION['sql_cores'].$consulta;  
 //  echo "<br><br>SQL * : $_SESSION[sql_cores]<br><br>";
 //  exit;
   //pg_query ($db,$consulta);

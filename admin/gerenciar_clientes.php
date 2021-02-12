@@ -1,7 +1,7 @@
-<?
+<?php
 include ("inc/verifica.php");
 include_once("inc/config.php");
-if ($_REQUEST[cliente_id]){
+if ($_REQUEST['cliente_id']){
 
   $SqlID = pg_query($db,"SELECT id FROM usuarios where cgc='$_REQUEST[cgc_cc]'");
   $ccc = pg_num_rows($SqlID);
@@ -36,7 +36,7 @@ if ($_REQUEST[cliente_id]){
             <td align="center"><img src="images/spacer.gif" width="1" height="3"></td>
           </tr>
           <tr>
-            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;<img src="<? echo $site_url;?>icones/usuarios.png" border="0" align="left">
+            <td colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;<img src="<?php echo $site_url;?>icones/usuarios.png" border="0" align="left">
               <center><h3>Gerenciamento de clientes</h3></center><hr></hr>
             </td>
           </tr>
@@ -59,7 +59,7 @@ if ($_REQUEST[cliente_id]){
                       <td colspan="3">
                         <input type="hidden" name="cliente_id" id="cliente_id">
                         <input type="hidden" name="cgc_cc" id="cgc_cc">
-                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<? echo "$_REQUEST[cliente_cc]";?>" onfocus="this.select()" onkeyup="Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');">
+                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<?php echo "$_REQUEST[cliente_cc]";?>" onfocus="this.select()" onkeyup="Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');">
                         <input type="button" name="Enviar" value="Habilitar" onclick="if(document.getElementById('cliente_id').value){acerta_campos('listar','msg_cliente','gerenciar_clientes.php',false);}else{alert('Selecione um cliente para ativar o acesso online')}">
                         <BR>
                         <div id="listar_cliente" style="position:absolute;"></div>
@@ -72,8 +72,8 @@ if ($_REQUEST[cliente_id]){
             <div id="msg_cliente"></div>
           </div>
         </form>
-        <?
-        $_SESSION[pagina] = "inicio.php";
+        <?php
+        $_SESSION['pagina'] = "inicio.php";
         ?>
       </td>
     </tr>

@@ -17,7 +17,7 @@ class PedidoOficial {
   private $numero_internet;
 
   //Construtor
-  public function PedidoOficial(){
+  public function __construct(){
 
   }
 
@@ -84,7 +84,7 @@ class PedidoOficial {
           $ACHEI = 1;
         }
       }
-      $_SESSION[NumeroPedidoGravado] = $max;
+      $_SESSION['NumeroPedidoGravado'] = $max;
       #########################################################################
       # Carrega os dados do pedido da internet para gravar no pedidos oficial
       #########################################################################
@@ -104,13 +104,13 @@ class PedidoOficial {
                      local_entrega,
                      numero, numero_cliente,
                      transportadora, vendedor, comissao, ";
-                     if ($p[codigo_pagamento]){
+                     if ($p['codigo_pagamento']){
                        $sql = $sql."codigo_pagamento, ";
                      }
-                     if ($p[codigo_pagamento1]){
+                     if ($p['codigo_pagamento1']){
                        $sql = $sql."codigo_pagamento1, ";
                      }
-                     if ($p[desconto]){
+                     if ($p['desconto']){
                        $sql = $sql."desconto_cliente, ";
                      }
       $sql = $sql ."
@@ -119,22 +119,22 @@ class PedidoOficial {
               ) VALUES (
                      '$p[cgc]', '$p[cliente]',
                      '$p[codigo_vendedor]',
-                     '".left($p[contato],20)."', '$data_hoje', '$Emissao',
+                     '".left($p['contato'],20)."', '$data_hoje', '$Emissao',
                      '$p[data_prevista_entrega]', '$p[id_cliente]',
                      '',
                      '$max', '$p[numero_cliente]',
                      '$p[transportadora]', '$_SESSION[usuario]', '2', 
                      ";
-                     if ($p[codigo_pagamento]){
+                     if ($p['codigo_pagamento']){
                        $sql = $sql."'$p[codigo_pagamento]', ";
                      }
-                     if ($p[codigo_pagamento1]){
+                     if ($p['codigo_pagamento1']){
                        $sql = $sql."'$p[codigo_pagamento1]', ";
                      }
-                     if ($p[desconto]){
+                     if ($p['desconto']){
                        $sql = $sql."$p[desconto], ";
                      }
-                     if ($p[fob]=="CIF") {
+                     if ($p['fob']=="CIF") {
                        $fob = 0;
                      }else {
                        $fob = 1;
@@ -159,10 +159,10 @@ class PedidoOficial {
                                    '$i[ipi]', '$i[nome_do_produto]',
                                    '$i[preco_alterado]', '$i[peso_bruto]', '$i[peso_liquido]'
                              )";
-        $Total = $Total + $i[valor_total];
+        $Total = $Total + $i['valor_total'];
         pg_query ($db,$consulta) or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
-        $PesoBruto = $PesoBruto + $i[peso_bruto];
-        $PesoLiquido = $PesoLiquido + $i[peso_liquido];
+        $PesoBruto = $PesoBruto + $i['peso_bruto'];
+        $PesoLiquido = $PesoLiquido + $i['peso_liquido'];
       }
       $TotalComissao = $Total * (2 / 100);
       pg_query("update pedidos set total_com_desconto='$Total', total_comissao='$TotalComissao', peso_bruto='$PesoBruto', peso_liquido='$PesoLiquido' where numero='$max'");
@@ -173,8 +173,8 @@ class PedidoOficial {
       # Editando dados do pedido Envio Oficial!
       ######################################################
       $PedidoOficial = pg_fetch_array($SqlPedidoGravado);
-      $_SESSION[NumeroPedidoGravado] = $PedidoOficial[numero];
-      $max = $PedidoOficial[numero];
+      $_SESSION['NumeroPedidoGravado'] = $PedidoOficial['numero'];
+      $max = $PedidoOficial['numero'];
       #########################################################################
       # Carrega os dados do pedido da internet para gravar no pedidos oficial
       #########################################################################
@@ -190,7 +190,7 @@ class PedidoOficial {
                      cgc='$p[cgc]',
                      cliente='$p[cliente]',
                      codigo_vendedor='$p[codigo_vendedor]',
-                     contato='".left($p[contato],20)."',
+                     contato='".left($p['contato'],20)."',
                      data='$data_hoje',
                      data_prevista_entrega='$p[data_prevista_entrega]',
                      id_cliente='$p[id_cliente]',
@@ -200,7 +200,7 @@ class PedidoOficial {
                      vendedor='$_SESSION[usuario]',
                      usuario_cadastrou='$_SESSION[usuario]',
                      comissao='0', ";
-                     if ($p[codigo_pagamento]){
+                     if ($p['codigo_pagamento']){
                        $sql = $sql."codigo_pagamento='$p[codigo_pagamento]', ";
                      }
                      if ($p[fob]=="CIF") {
@@ -252,11 +252,11 @@ class PedidoOficial {
                             '$i[peso_bruto]', '$i[peso_liquido]'
                        )";
         }
-        $Total = $Total + $i[valor_total];
-        $TotalGeral = $TotalGeral + $i[valor_total] + $i[valor_ipi];
+        $Total = $Total + $i['valor_total'];
+        $TotalGeral = $TotalGeral + $i['valor_total'] + $i['valor_ipi'];
         pg_query ($db,$consulta) or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
-        $PesoBruto = $PesoBruto + $i[peso_bruto];
-        $PesoLiquido = $PesoLiquido + $i[peso_liquido];
+        $PesoBruto = $PesoBruto + $i['peso_bruto'];
+        $PesoLiquido = $PesoLiquido + $i['peso_liquido'];
       }
       $TotalComissao = $Total * (2 / 100);
       $Sql = "update pedidos set total_com_desconto='$Total', total_sem_desconto='$TotalGeral', total_comissao='$TotalComissao', peso_bruto='$PesoBruto', peso_liquido='$PesoLiquido' where numero='$max'";

@@ -1,9 +1,10 @@
+<?php include ("inc/common.php"); ?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="7">&nbsp;</td>
     <td width="603">
-      <?
+      <?php
       include_once("inc/config.php");
       ?>
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -22,7 +23,7 @@
                     <tr>
                       <td colspan="3"><img src="images/spacer.gif" width="1" height="5"></td>
                     </tr>
-                    <?
+                    <?php
                     $SqlListaNoticia = pg_query("Select * from noticias where id='$_REQUEST[id]'");
                     $r = pg_fetch_array($SqlListaNoticia);
                     ?>
@@ -31,16 +32,16 @@
                       <td width="100%" valgin="top">
                          <span class="titulo1">
                            <strong>
-                             <?
-                             $Titulo = $r[titulo];
+                             <?php
+                             $Titulo = $r['titulo'];
                              echo $Titulo;
                              ?>
                            </strong>
                          </span>
                          <BR><br><br>
                          <span class="texto1">
-                           <?
-                           $Texto = $r[texto];
+                           <?php
+                           $Texto = $r['texto'];
                            echo $Texto;
                            ?>
                          </span>

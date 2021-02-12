@@ -1,4 +1,5 @@
 <?php
+include ("inc/common.php");
 session_start();
 ?>
 <html>
@@ -47,9 +48,9 @@ include "inc/config.php";
 ###################################
 # Variavel numero pedido no next (ja gravado)
 ###################################
-$num = explode("%", $_REQUEST[numero]); //Retiro o final do numero se tiver espaço ou qualquer outro caracter
+$num = explode("%", $_REQUEST['numero']); //Retiro o final do numero se tiver espaço ou qualquer outro caracter
 $numero = $num[0];
-if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
+if (($numero == "") or ($_REQUEST['t']>1) or ($_REQUEST['t']<0)){
    //include "pedido_invalido2.php";
 }else{
   $consulta = "select * from pedidos_internet_novo where numero = ".$numero;
@@ -60,12 +61,12 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
     //include "pedido_invalido.php";
   }else{
     $row = pg_fetch_object($resultado, 0);
-    if ($row->codigo_vendedor!=$_SESSION[id_vendedor]) {
-      if ($_SESSION[nivel]<2){
+    if ($row->codigo_vendedor!=$_SESSION['id_vendedor']) {
+      if ($_SESSION['nivel']<2){
         exit;
       }
     }
-    $TbVendedor = "SELECT nome FROM vendedores WHERE codigo = ".$row->codigo_vendedor;
+    $TbVendedor = "SELECT nome FROM vendedores WHERE codigo = '".$row->codigo_vendedor."'";
     $TbVendedor = pg_query($db, $TbVendedor) or die("Erro na consulta : ".$TbVendedor.pg_last.error($db));
     $Vend = pg_fetch_object($TbVendedor, 0);
     $Vendedor = $Vend->nome;
@@ -111,7 +112,7 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
     if ($row->nota == 1) {
       if ($row->numero_nota or $row->numero_nota != '') {
         $Nota = $row->numero_nota;
-        $NOTASFISCAIS = "select entregue, data_emissao, data_saida from notas1 where numero_nota = ".$row->numero_nota;
+        $NOTASFISCAIS = "select entregue, data_emissao, data_saida from notas1 where numero_nota = '".$row->numero_nota."'";
         $notas1 = pg_query($db, $NOTASFISCAIS) or die("Erro na consulta : ".$NOTASFISCAIS.pg_last.error($db));
         $NF = pg_fetch_object($notas1, 0);
         if ($NF->entregue != 0)  {
@@ -134,18 +135,18 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
           <table border="0" cellspacing="0" cellpadding="0">
             <tr>
               <td align="left" valign="top" width="200">
-                 <img src="images/<?=$CONF['logotipo_empresa']?>">
+                 <img src="images/<?php echo $CONF['logotipo_empresa']?>">
               </td>
               <td align="center" width="100%" class="titulo">
                 <h3><b>ORÇAMENTO DE VENDAS <i>ON-LINE</i></h3>
               </td>
               <td>
                 <td width="350" align="right" width="175">
-                  <?
+                  <?php
                     if ($CONF['logotipo_report']){
                   ?>
-                    <img src="images/<?=$CONF['logotipo_report']?>">
-                  <?
+                    <img src="images/<?php echo $CONF['logotipo_report']?>">
+                  <?php
                 }
                 ?>
               </td>
@@ -159,27 +160,27 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
                   <table border="0" class="texto1">
                     <tr>
                       <td width="100" class="titulo">Cliente :</td>
-                      <td width="370"><? echo $row->cliente; ?><?=($CodigoEmpresa=="75")?" - $Cliente->codigo":""; ?></td>
+                      <td width="370"><?php echo $row->cliente; ?><?php echo ($CodigoEmpresa=="75")?" - $Cliente->codigo":""; ?></td>
                       <td width="100" class="titulo">CNPJ/CPF :</td>
-                      <td width="100"><? echo $row->cgc; ?></font></td>
+                      <td width="100"><?php echo $row->cgc; ?></font></td>
                     </tr>
                     <tr>
                       <td class="titulo">Endereço : </td>
-                      <td><? echo $Cliente_Endereco; ?></td>
+                      <td><?php echo $Cliente_Endereco; ?></td>
                       <td class="titulo">CEP :</td>
-                      <td><? echo $Cliente_CEP; ?></td>
+                      <td><?php echo $Cliente_CEP; ?></td>
                     </tr>
                     <tr>
                       <td class="titulo">Cidade : </td>
-                      <td><? echo $Cliente_Cidade; ?></td>
+                      <td><?php echo $Cliente_Cidade; ?></td>
                       <td class="titulo">Telefone :</td>
-                      <td><? echo $Cliente_Telefone; ?></td>
+                      <td><?php echo $Cliente_Telefone; ?></td>
                     </tr>
                     <tr>
                       <td class="titulo">Bairro : </td>
-                      <td><? echo $Cliente_Bairro; ?></td>
+                      <td><?php echo $Cliente_Bairro; ?></td>
                       <td class="titulo">Apelido :</td>
-                      <td><? echo $Cliente_Apelido; ?></td>
+                      <td><?php echo $Cliente_Apelido; ?></td>
                     </tr>
                   </table>
                 </fieldset>
@@ -194,21 +195,21 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
                   <table border="0" class="texto1">
                     <tr>
                       <td width="60" class="titulo">Número : </td>
-                      <td width="100"><? echo $row->numero; ?></td>
+                      <td width="100"><?php echo $row->numero; ?></td>
                       <td width="60" class="titulo">Vendedor :</td>
-                      <td width="200"><? echo $Vendedor; ?></td>
+                      <td width="200"><?php echo $Vendedor; ?></td>
                       <td width="60" class="titulo">Desconto :</td>
-                      <td width="100" align="right"><? echo number_format($row->desconto_pedido, 2, ",", "."); ?></td>
+                      <td width="100" align="right"><?php echo number_format($row->desconto_pedido, 2, ",", "."); ?></td>
                     </tr>
                     <tr>
                       <td class="titulo">Data :</td>
-                      <td><? echo $Dia."/".$Mes."/".$Ano; ?></td>
+                      <td><?php echo $Dia."/".$Mes."/".$Ano; ?></td>
                       <td class="titulo">Cond Pag. :</td>
-                      <?
+                      <?php
                       #############################################################
                       # Coloca condicao de pagamento referente ao codigo do pagamento
                       #############################################################
-                      if ($_REQUEST[t]=="0"){
+                      if ($_REQUEST['t']=="0"){
                         $COND="SELECT descricao FROM condicao_pagamento WHERE codigo = ".$row->codigo_pagamento1;
                         $condpag = pg_query($db, $COND) or die("Erro na consulta : ".$COND.pg_last.error($db));
                         $cp = @pg_fetch_object($condpag, 0);
@@ -219,39 +220,39 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
                       }
                       #############################################################
                       ?>
-                      <td width="100"><? echo $cp->descricao; ?></td>
+                      <td width="100"><?php echo $cp->descricao; ?></td>
                       <td width="100" class="titulo">Data Entrega :</td>
-                      <td width="100"><? echo $DiaEntr."/".$MesEntr."/".$AnoEntr; ?></td>
+                      <td width="100"><?php echo $DiaEntr."/".$MesEntr."/".$AnoEntr; ?></td>
                     </tr>
                     <tr>
                       <td class="titulo">Transport. :</td>
-                      <td colspan="3"><? echo $row->transportadora; ?></td>
+                      <td colspan="3"><?php echo $row->transportadora; ?></td>
                       <td class="titulo">Status :</td>
-                      <td><? echo $Status;?></td>
+                      <td><?php echo $Status;?></td>
                     </tr>
                   </table>
                 </fieldset>
               </td>
             </tr>
           </table>
-          <?
+          <?php
           # if ($Status != "Pendente" and $Status != "Aprovado") {
           if ($Status != "Pendente")  {
              ?>
              <table border = "0" class="texto1" width="630" align="center">
                <tr>
-                 <td width="210" colspan="2"><span class="titulo">Nota :</span> <? echo $row->numero_nota;?>
-                 <?
+                 <td width="210" colspan="2"><span class="titulo">Nota :</span> <?php echo $row->numero_nota;?>
+                 <?php
                  if ($Status != "Aprovado") {
                     ?>
-                    <td width="210"><span class="titulo">Data Saida :</span> <? echo $DiaSaida."/".$MesSaida."/".$AnoSaida; ?>
-                    <td width="230"><span class="titulo">Data Emissao :</span> <? echo $DiaEmissao."/".$MesEmissao."/".$AnoEmissao; ?>
-                    <?
+                    <td width="210"><span class="titulo">Data Saida :</span> <?php echo $DiaSaida."/".$MesSaida."/".$AnoSaida; ?>
+                    <td width="230"><span class="titulo">Data Emissao :</span> <?php echo $DiaEmissao."/".$MesEmissao."/".$AnoEmissao; ?>
+                    <?php
                  }
                  ?>
                </tr>
              </table>
-             <?
+             <?php
           }
           #####################################################################
           # Consulta de itens do pedido
@@ -268,14 +269,14 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
                         <table border = "0" class="texto1" cellspacing="3" cellpadding="3">
                           <tr>
                             <td width="60" class="titulo">Codigo  </td>
-                            <td width="370" class="titulo"<?if ($_REQUEST[t]=="0"){echo " colspan='2' ";}?>> Nome  </td>
+                            <td width="370" class="titulo"<?php if ($_REQUEST['t']=="0"){echo " colspan='2' ";}?>> Nome  </td>
                             <td width="65" align="right" class="titulo">QTD  </td>
                             <td width="40" align="right" class="titulo"> Unit. </td>
-                            <?
-                            if ($_REQUEST[t]=="1"){
+                            <?php
+                            if ($_REQUEST['t']=="1"){
                               ?>
                               <td width="30" align="right" class="titulo"> Ipi </td>
-                              <?
+                              <?php
                             }
                             ?>
                             <td width="60" align="right" class="titulo"> Total </td>
@@ -296,27 +297,27 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
                               $Classe = "1";
                             }
                             ?>
-                            <tr class="texto<? echo $Classe;?>">
-                              <td style="border: 1px solid #cccccc;"><? echo $linha['codigo']; ?></td>
-                              <td style="border: 1px solid #cccccc;"<?if ($_REQUEST[t]=="0"){echo " colspan='2' ";}?>><? echo $linha['nome_do_produto']; ?></td>
-                              <td align="right" style="border: 1px solid #cccccc;"><? echo $linha['qtd']; ?></td>
-                              <td align="right" style="border: 1px solid #cccccc;"><? echo number_format($linha['valor_unitario'], 2, ",", ".") ; ?></td>
-                              <?
-                              if ($_REQUEST[t]=="1"){
+                            <tr class="texto<?php echo $Classe;?>">
+                              <td style="border: 1px solid #cccccc;"><?php echo $linha['codigo']; ?></td>
+                              <td style="border: 1px solid #cccccc;"<?php if ($_REQUEST['t']=="0"){echo " colspan='2' ";}?>><?php echo $linha['nome_do_produto']; ?></td>
+                              <td align="right" style="border: 1px solid #cccccc;"><?php echo $linha['qtd']; ?></td>
+                              <td align="right" style="border: 1px solid #cccccc;"><?php echo number_format($linha['valor_unitario'], 2, ",", ".") ; ?></td>
+                              <?php
+                              if ($_REQUEST['t']=="1"){
                                 ?>
-                                <td align="right" style="border: 1px solid #cccccc;"><? echo number_format($linha['valor_ipi'], 2, ",", ".") ; ?></td>
-                                <?
+                                <td align="right" style="border: 1px solid #cccccc;"><?php echo number_format($linha['valor_ipi'], 2, ",", ".") ; ?></td>
+                                <?php
                               }
                               ?>
-                              <td align="right" style="border: 1px solid #cccccc;"><? echo number_format($linha['valor_total'], 2, ",", ".") ; ?></td>
+                              <td align="right" style="border: 1px solid #cccccc;"><?php echo number_format($linha['valor_total'], 2, ",", ".") ; ?></td>
                             </tr>
-                            <?
+                            <?php
                             ############################################################
                             #Calculo do Total se considerar o pedido com parte especial
                             ############################################################
                             $totalprodutos = $totalprodutos + ($linha['qtd'] * $linha['valor_unitario']);
 
-                            if ($_REQUEST[t]=="1"){
+                            if ($_REQUEST['t']=="1"){
                               $totalipi = $totalipi + $linha['valor_ipi'];
                               $totalgeral = $totalgeral + ($linha['valor_ipi'] + ($linha['qtd'] * $linha['valor_unitario']));
                             }else{
@@ -348,24 +349,24 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
                           <tr>
                             <td align=left colspan="3">
                             <span class="titulo">Peso bruto :</span>
-                              <? echo number_format($PesoBruto, 2, ",", "."); ?>
+                              <?php echo number_format($PesoBruto, 2, ",", "."); ?>
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              <span class="titulo">Peso líquido :</span> <? echo number_format($PesoLiquido, 2, ",", "."); ?>
+                              <span class="titulo">Peso líquido :</span> <?php echo number_format($PesoLiquido, 2, ",", "."); ?>
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               <span class="titulo">IPI (A):</span>
-                              <? echo number_format($totalipi, 2, ",", "."); ?>
+                              <?php echo number_format($totalipi, 2, ",", "."); ?>
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               <span class="titulo">Produtos (B):</span>
-                              <? echo number_format($totalprodutos, 2, ",", "."); ?>
+                              <?php echo number_format($totalprodutos, 2, ",", "."); ?>
                             </td>
                             <td align=right class="titulo" colspan="2">Total (A + B):</td>
-                            <td align=right><? echo number_format($totalgeral, 2, ",", "."); ?> </td>
+                            <td align=right><?php echo number_format($totalgeral, 2, ",", "."); ?> </td>
                           </tr>
                         </table>
                       </td>
                     </tr>
                   </table>
-                  <?
+                  <?php
                   // Se tiver CORES
                   //echo "tem cores: $row->especificado";
                   if ($row->especificado<>"0"){
@@ -378,44 +379,44 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
                             <table border="0" class="texto1">
                               <tr class="texto1">
                                 <td width="100" class="titulo"> Preto: </td>
-                                <td width="100"><? echo $SomaPreto; ?></td>
+                                <td width="100"><?php echo $SomaPreto; ?></td>
                                 <td width="100" class="titulo"> Branco:</td>
-                                <td width="200"><? echo $SomaBranco; ?></td>
+                                <td width="200"><?php echo $SomaBranco; ?></td>
                                 <td width="100" class="titulo"> Azul:</td>
-                                <td width="100"><? echo $SomaAzul ?></td>
+                                <td width="100"><?php echo $SomaAzul ?></td>
                                 <td class="titulo"> Verde:</td>
-                                <td><? echo $SomaVerde; ?></td>
+                                <td><?php echo $SomaVerde; ?></td>
                               </tr>
                               <tr class="texto2">
                                 <td class="titulo">Vermelho :</td>
-                                <td width="100"><? echo $SomaVermelho; ?></td>
+                                <td width="100"><?php echo $SomaVermelho; ?></td>
                                 <td width="100" class="titulo"> Amarelo:</td>
-                                <td width="100"><? echo $SomaAmarelo; ?></td>
+                                <td width="100"><?php echo $SomaAmarelo; ?></td>
                                 <td class="titulo"> Cinza:</td>
-                                <td><? echo $SomaCinza; ?></td>
+                                <td><?php echo $SomaCinza; ?></td>
                                 <td class="titulo">Laranja :</td>
-                                <td width="100"><? echo $SomaLaranja; ?></td>
+                                <td width="100"><?php echo $SomaLaranja; ?></td>
                               </tr>
                               <tr class="texto1">
                                 <td width="100" class="titulo"> Rosa:</td>
-                                <td width="100"><? echo $SomaRosa; ?></td>
+                                <td width="100"><?php echo $SomaRosa; ?></td>
                                 <td class="titulo"> Violeta:</td>
-                                <td><? echo $SomaVioleta; ?></td>
+                                <td><?php echo $SomaVioleta; ?></td>
                                 <td class="titulo">Bege :</td>
-                                <td width="100"><? echo $SomaBege; ?></td>
+                                <td width="100"><?php echo $SomaBege; ?></td>
                                 <td width="100" class="titulo"> Marrom:</td>
-                                <td width="100"><? echo $SomaMarrom; ?></td>
+                                <td width="100"><?php echo $SomaMarrom; ?></td>
                               </tr>
                               <tr class="texto2">
                                 <td width="100" class="titulo"> Outra:</td>
-                                <td width="100"><? echo $SomaOutra; ?></td>
+                                <td width="100"><?php echo $SomaOutra; ?></td>
                               </tr>
                             </table>
                           </fieldset>
                         </td>
                       </tr>
                     </table>
-                    <?
+                    <?php
                   }
                   ?>
                 </fieldset>
@@ -427,7 +428,7 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
                   <tr>
                     <td width="100" class="titulo">Observação:</td>
                     <td colspan=4 width="250">
-                    <?
+                    <?php
                     $obss = "select * from observacao_do_pedido where numero_pedido = ".trim($numero);
                     $oba = pg_query($db,$obss) or die("Erro na consulta : $obss. " .pg_last_error($db));
                     $obs = pg_fetch_array($oba);
@@ -451,15 +452,15 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="button" value="Voltar" name="voltar" id="voltar" onclick="window.close();" STYLE="font-size: 10pt; color:#ffffff ; background:#182463; border-width: 2; border-color: #ffffff">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <?
-            if (($row->desconto_cliente) and ($_REQUEST[t]>0)){
+            <?php
+            if (($row->desconto_cliente) and ($_REQUEST['t']>0)){
               ?>
-              <input type="button" value="Impressão 2" name="imprimir2" id="imprimir2"  onclick="window.open('impressao2.php?numero=<? echo "$row->numero";?>&t=0','_blank')" STYLE="font-size: 10pt; color:#ffffff ; background:#182463; border-width: 2; border-color: #ffffff">
-              <?
+              <input type="button" value="Impressão 2" name="imprimir2" id="imprimir2"  onclick="window.open('impressao2.php?numero=<?php echo "$row->numero";?>&t=0','_blank')" STYLE="font-size: 10pt; color:#ffffff ; background:#182463; border-width: 2; border-color: #ffffff">
+              <?php
             }else{
               ?>
               &nbsp;
-              <?
+              <?php
             }
             ?>
           </td>
@@ -474,7 +475,7 @@ if (($numero == "") or ($_REQUEST[t]>1) or ($_REQUEST[t]<0)){
         ** Essa observação não sairá na impressão se o botão Imprimir for clicado.
       </span>
     </div>
-   <?
+   <?php
   }
 }
 ?>

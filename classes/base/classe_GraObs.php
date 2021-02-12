@@ -18,7 +18,7 @@ class Observacao {
   private $observacao;
 
   //Construtor
-  public function Observacao(){
+  public function __construct(){
 
   }
 

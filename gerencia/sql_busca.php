@@ -1,4 +1,5 @@
 <?php
+include ("include/common.php");
 session_start();
 include "include/config.php";
 
@@ -9,23 +10,23 @@ $Linhas = pg_num_rows($query);
  ?>
  &nbsp;Vendedor:
  <select id="vendedores" name="vendedores" style="width:250px; height:25px;">
-   <?
+   <?php
     if($Linhas >"0"){
    ?>
    <option value="">- Selecione o vendedor -</option>
-   <?
+   <?php
    }else{
    ?>
    <option value="">- Nenhum vendedor encontrado -</option>
-   <?
+   <?php
    }
    ?>
    <option></option>
- <?
+ <?php
  while($row = pg_fetch_object($query)) {
  ?>            
-   <option value="<?= $row->id;?>"><?= $row->nome;?></option>
-<?    
+   <option value="<?php echo $row->id;?>"><?php echo $row->nome;?></option>
+<?php  
  }
 ?>
 </select>

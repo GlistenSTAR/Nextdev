@@ -1,13 +1,14 @@
-<?
+<?php
+include ("inc/common.php");
 include "inc/verifica.php";
-$_SESSION[bloqueio_pedido]="";
-$_SESSION[pagina] = "inicio.php";
+$_SESSION['bloqueio_pedido']="";
+$_SESSION['pagina'] = "inicio.php";
 $PedidoLiberado = false;
 //echo "numero internet: $_REQUEST[localizar_numero]";
 $Tirar = array(".","-","/",","," ");
-$_REQUEST[localizar_numero] = str_replace($Tirar, "", $_REQUEST[localizar_numero]);
-$_REQUEST[CgcCliente] = str_replace($Tirar, "", $_REQUEST[CgcCliente]);
-if (is_numeric($_REQUEST[localizar_numero])){
+$_REQUEST['localizar_numero'] = str_replace($Tirar, "", $_REQUEST['localizar_numero']);
+$_REQUEST['CgcCliente'] = str_replace($Tirar, "", $_REQUEST['CgcCliente']);
+if (is_numeric($_REQUEST['localizar_numero'])){
   include_once("inc/config.php");
   $Sql = "Select * from pedidos_internet_novo where numero='$_REQUEST[localizar_numero]'";
 //  echo $Sql;
@@ -43,34 +44,34 @@ if (is_numeric($_REQUEST[localizar_numero])){
         $c = pg_fetch_array($SqlProcuracliente);
         $PedidoLiberado = true;
       }
-      if ($p[venda_efetivada]){
+      if ($p['venda_efetivada']){
         $Ativa = " display: block; ";
         $DesativaForm = " onfocus=\"setTimeout('DisableEnableForm(document.ped,true);',0);\" onblur=\"setTimeout('DisableEnableForm(document.ped,true);',0);\" onclick=\"setTimeout('DisableEnableForm(document.ped,true);',0);\"";
-        $_SESSION[enviado] = 1;
+        $_SESSION['enviado'] = 1;
       }else{
         $Ativa = "display: none;";
         $DesativaForm = " onclick=\"setTimeout('DisableEnableForm(document.ped,false);',0);\"";
-        $_SESSION[enviado] = "";
+        $_SESSION['enviado'] = "";
         //$SalvarRascunho = "document.getElementById('salvo').innerHTML = 'Rascunho salvo automaticamente dia <b>'+detbut();+'</b>!!'; acerta_campos('pedido','GrdProdutos','incluir_itens.php',false);";
       }
     }else{
       $SqlConfereEfetivacao = pg_query("Select venda_efetivada from pedidos where numero_internet='$_REQUEST[localizar_numero]'");
       $ConferePedidoEfetivado = pg_fetch_array($SqlConfereEfetivacao);
       //echo "<BR><BR><BR><BR><BR><BR><BR><BR><BR>venda efetiv. $ConferePedidoEfetivado[venda_efetivada]<BR><BR><BR><BR><BR><BR><BR><BR><BR>";
-      if ($ConferePedidoEfetivado[venda_efetivada]){
+      if ($ConferePedidoEfetivado['venda_efetivada']){
         $Ativa = " display: block; ";
         $DesativaForm = " onfocus=\"setTimeout('DisableEnableForm(document.ped,true);',0);\" onblur=\"setTimeout('DisableEnableForm(document.ped,true);',0);\" onclick=\"setTimeout('DisableEnableForm(document.ped,true);',0);\"";
-        $_SESSION[enviado] = 1;
+        $_SESSION['enviado'] = 1;
       }else{
         $Ativa = "display: none;";
         $DesativaForm = " onclick=\"setTimeout('DisableEnableForm(document.ped,false);',0);\"";
-        $_SESSION[enviado] = "";
+        $_SESSION['enviado'] = "";
         //$SalvarRascunho = "document.getElementById('salvo').innerHTML = 'Rascunho salvo automaticamente dia <b>'+detbut();+'</b>!!'; acerta_campos('pedido','GrdProdutos','incluir_itens.php',false);";
       }
       $Loc = true;
     }
   }
-}elseif ($_REQUEST[CgcCliente]){
+}elseif ($_REQUEST['CgcCliente']){
   include_once("inc/config.php");
   $sql = "Select id, cgc, apelido,obs_cobranca_pedido, mostrar_observacao,obs_dupl, contato, codigo, nome, inscricao, codigo_vendedor, endereco, cidade, bairro, estado, cep, telefone, codigo_transportadora, observacao, codigo_pagto, bloqueio_cliente from clientes where cgc='$_REQUEST[CgcCliente]'";
   //echo $sql;
@@ -81,11 +82,11 @@ if (is_numeric($_REQUEST[localizar_numero])){
     if ($c[cgc]){
       //echo "Valida: ".$_SESSION[config][ConfereVendedorCliente]."<BR><BR>";
       if ($_SESSION['config']['vendas']['VendedorCliente']){
-        if ($c[codigo_vendedor]!=$_SESSION[id_vendedor]){
+        if ($c['codigo_vendedor']!=$_SESSION['id_vendedor']){
           $PedidoLiberado = false;
           $p = "";
           $Icones = "Esse cliente pertence a outro vendedor";
-          $p[cgc] = $_REQUEST[CgcCliente];
+          $p['cgc'] = $_REQUEST['CgcCliente'];
         }else{
           $PedidoLiberado = true;
         }
@@ -96,50 +97,50 @@ if (is_numeric($_REQUEST[localizar_numero])){
         $PedidoLiberado = false;
         $p = "";
         $Icones = "Cliente não cadastrado";
-        $p[cgc] = $_REQUEST[CgcCliente];
+        $p[cgc] = $_REQUEST['CgcCliente'];
     }
   }else{
     $PedidoLiberado = false;
     $p = "";
     $Icones = "Cliente não cadastrado";
-    $p[cgc] = $_REQUEST[CgcCliente];
+    $p[cgc] = $_REQUEST['CgcCliente'];
   }
-  if ($_REQUEST[numero_pedido]){
-    $p[numero] = $_REQUEST[numero_pedido];
+  if ($_REQUEST['numero_pedido']){
+    $p['numero'] = $_REQUEST['numero_pedido'];
   }
-  if (intval($c[mostrar_observacao])=="1"){
-    $o[observacao] = "".$c[mostrar_observacao].$c[observacao]."";
+  if (intval($c['mostrar_observacao'])=="1"){
+    $o['observacao'] = "".$c['mostrar_observacao'].$c['observacao']."";
   }
-  if (intval($c[obs_cobranca_pedido])=="1"){
-    $o[observacao] = $o[observacao]."-".$c[obs_dupl];
+  if (intval($c['obs_cobranca_pedido'])=="1"){
+    $o['observacao'] = $o['observacao']."-".$c['obs_dupl'];
   }
 }else{
   $PedidoLiberado = false;
 }
-if ($c[bloqueio_cliente]=="1"){
+if ($c['bloqueio_cliente']=="1"){
   $PedidoLiberado = false;
   $p = "";
   $Icones = "Cliente bloqueado.";
-  $p[cgc] = $_REQUEST[CgcCliente];
+  $p[cgc] = $_REQUEST['CgcCliente'];
 }
 if ($PedidoLiberado){
-  $p[cgc] = $c[cgc];
-  $p[id_cliente] = $c[id];
-  $p[cliente] = $c[nome];
-  if (!$p[contato]){
-    $p[contato] = $c[contato];
+  $p['cgc'] = $c['cgc'];
+  $p['id_cliente'] = $c['id'];
+  $p['cliente'] = $c['nome'];
+  if (!$p['contato']){
+    $p['contato'] = $c['contato'];
   }
-  $p[inscricao] = $c[inscricao];
-  if (!$p[codigo_pagamento]){
-    $p[codigo_pagamento] = $c[codigo_pagto];
+  $p['inscricao'] = $c['inscricao'];
+  if (!$p['codigo_pagamento']){
+    $p['codigo_pagamento'] = $c['codigo_pagto'];
   }
-  if (!$p[transportadora]){
+  if (!$p['transportadora']){
     $SqlTransp = pg_query("Select nome from transportadoras where id='$c[codigo_transportadora]'");
     $trans = pg_fetch_array($SqlTransp);
-    $p[transportadora] = $trans[nome];
+    $p['transportadora'] = $trans['nome'];
   }
   $Icones = "<img src='icones/gravado.png' title='CPF / CNPJ Válido'>";
-  if ($p[codigo_pagamento]){
+  if ($p['codigo_pagamento']){
     $SqlCondicao = pg_query("Select codigo, descricao from condicao_pagamento where codigo='$p[codigo_pagamento]'");
     $c1 = pg_fetch_array($SqlCondicao);
   }
@@ -150,14 +151,14 @@ if ($PedidoLiberado){
   if (!$Ativa){
     $Ativa = "display: none;";
     $DesativaForm = " onclick=\"setTimeout('DisableEnableForm(document.ped,false);',0);\"";
-    $_SESSION[enviado] = "";
+    $_SESSION['enviado'] = "";
     //$SalvarRascunho = "document.getElementById('salvo').innerHTML = 'Rascunho salvo automaticamente dia <b>'+detbut();+'</b>!!'; acerta_campos('pedido','GrdProdutos','incluir_itens.php',false);";
   }
 }
-if (!$_REQUEST[acao]){
+if (!$_REQUEST['acao']){
   ?>
-  <body <? echo $DesativaForm;?>>
-  <div id="CarregarPedido" style="position: absolute; top:40%; left:45%; background-color: #CCCCCC; border: 2px #cccccc; color: #FFFFFF; z-index:5000; <? if ($Loc){echo "display: block;"; }else{ echo "display: none;";}?>">
+  <body <?php echo $DesativaForm;?>>
+  <div id="CarregarPedido" style="position: absolute; top:40%; left:45%; background-color: #CCCCCC; border: 2px #cccccc; color: #FFFFFF; z-index:5000; <?php if ($Loc){echo "display: block;"; }else{ echo "display: none;";}?>">
     <table width="200" border="0" cellspacing="0" cellpadding="0" class="texto1 item">
       <tr>
         <td valign="top" align="center">
@@ -167,17 +168,17 @@ if (!$_REQUEST[acao]){
         </td>
         <td valign="top">
           <BR>
-          <input type="text" name="valor" value="<? echo "$_REQUEST[localizar_numero]";?>" id="valor" size="15" onkeyup="if (!e) var e = window.event;if(e){tecla = event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha('cadastrar_pedidos.php','localizar_numero='+document.getElementById('valor').value+'','Conteudo');}">
+          <input type="text" name="valor" value="<?php echo "$_REQUEST[localizar_numero]";?>" id="valor" size="15" onkeyup="if (!e) var e = window.event;if(e){tecla = event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha('cadastrar_pedidos.php','localizar_numero='+document.getElementById('valor').value+'','Conteudo');}">
           <BR>
         </td>
       </tr>
-      <?
+      <?php
       if ($Loc){
         ?>
         <tr>
           <td colspan="2"><div class="erro">Pedido não encontrado</div></td>
         </tr>
-        <?
+        <?php
       }
       ?>
       <tr>
@@ -195,8 +196,8 @@ if (!$_REQUEST[acao]){
     </table>
   </div>
   <div id="pedido">
-    <form action="cadastrar_pedidos.php" name="ped" METHOD="POST" <? echo $DesativaForm;?>>
-      <?
+    <form action="cadastrar_pedidos.php" name="ped" METHOD="POST" <?php echo $DesativaForm;?>>
+      <?php
       if ($PedidoLiberado){
         $ListaNumero = "&numero_pedido='+document.ped.numero.value+'";
         ?>
@@ -205,7 +206,7 @@ if (!$_REQUEST[acao]){
         <input type="hidden" name="rascunho" value="" id="rascunho">
         <input type="hidden" name="pg" value="cadastrar_pedidos" id="pg">
         <input type="hidden" name="localizar_numero" id="localizar_numero" size="15">
-        <?
+        <?php
       }
       ?>
       <table width="400" border="0" cellspacing="0" cellpadding="0" class="texto1" align="left">
@@ -214,37 +215,37 @@ if (!$_REQUEST[acao]){
             <span id="errovalor1" align="center" style="position: absolute; background: none; width: 605; color: red; z-index: 13000; text-align: right;"></span>
             <span id="errovalor2" align="center" style="position: absolute; background: none; width: 605; color: red; z-index: 13000; text-align: right;"></span>
             <b>Lançamento de Pedidos</b>
-            <?
+            <?php
             if ($_SESSION['config']['vendas']['UltimosItensPedido']){
               ?>
               <div id="UltimosItens" style="position: absolute; width: 503px; height:300px; background-color: #none; border: 2px #000000; color: #000000; z-index: 1; display: none;">
               </div>
-              <?
+              <?php
             }
             if ($PedidoLiberado){
               ?>
               <div id="cores" style="position: absolute;  width: 603px; height:400px; background-color: #FFFFFF; border: 2px #000000; color: #000000; z-index: 1; display: none;">
-                <?
+                <?php
                 include "cores.php";
                 ?>
               </div>
               <div name="divAbaGeral" id="divAbaGeral" xmlns:funcao="http://www.oracle.com/XSL/Transform/java/com.seedts.cvc.xslutils.XSLFuncao">
                 <div id="divAbaTopo">
                   <div style="cursor: pointer;" id="pedidos-corpoAba1" name="pedidos-corpoAba1" class="divAbaAtiva">
-                    <a onclick="trocarAba('pedidos-',1,3); <? echo $SalvarRascunho;?>">Dados do cliente</a>
+                    <a onclick="trocarAba('pedidos-',1,3); <?php echo $SalvarRascunho;?>">Dados do cliente</a>
                   </div>
                   <div id="pedidos-aba1" name="pedidos-aba1"><div class="divAbaAtivaFim"></div></div>
                   <div style="cursor: pointer;" id="pedidos-corpoAba2" name="pedidos-corpoAba2" class="divAbaInativa">
-                    <a onclick="trocarAba('pedidos-',2,3); <? echo $SalvarRascunho;?>">Dados dos Produtos</a>
+                    <a onclick="trocarAba('pedidos-',2,3); <?php echo $SalvarRascunho;?>">Dados dos Produtos</a>
                   </div>
                   <div id="pedidos-aba2" name="pedidos-aba2"><div class="divAbaInativaFim"></div></div>
                   <div style="cursor: pointer;" id="pedidos-corpoAba3" name="pedidos-corpoAba3" class="divAbaInativa">
-                    <a onclick="trocarAba('pedidos-',3,3); <? echo $SalvarRascunho;?>">Observação</a>
+                    <a onclick="trocarAba('pedidos-',3,3); <?php echo $SalvarRascunho;?>">Observação</a>
                   </div>
                   <div id="pedidos-aba3" name="pedidos-aba3"><div class="divAbaInativaFim"></div></div>
                 </div>
-                <div id="disable" style="position: absolute; background: none; <? echo $Ativa;?> width: 590; z-index: 7000; color: red; font-weight: bold;" class="arialg" align="center">&nbsp;<div align="right">Pedido já efetivado - não é possível editar</div></div>
-              <?
+                <div id="disable" style="position: absolute; background: none; <?php echo $Ativa;?> width: 590; z-index: 7000; color: red; font-weight: bold;" class="arialg" align="center">&nbsp;<div align="right">Pedido já efetivado - não é possível editar</div></div>
+              <?php
             }
             ?>
               <div id="divAbaMeio">
@@ -259,82 +260,82 @@ if (!$_REQUEST[acao]){
                                   <tr>
                                     <td width="20%">CNPJ/CPF:</td>
                                     <td width="80%">
-                                      <input type="text" size="20" name="clientecnpj_cc" maxlength="18" id="clientecnpj_cc" value="<? echo "$p[cgc]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+this.value+'<? echo "$ListaNumero";?>','Conteudo');}">
-                                      <? echo $Icones;?>
+                                      <input type="text" size="20" name="clientecnpj_cc" maxlength="18" id="clientecnpj_cc" value="<?php echo "$p[cgc]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+this.value+'<?php echo "$ListaNumero";?>','Conteudo');}">
+                                      <?php echo $Icones;?>
                                       <BR>
                                       <div id="listar_clientecnpj" style="position:absolute; z-index: 7000;"></div>
                                     </td>
                                   </tr>
-                                  <?
+                                  <?php
                                   if (!$PedidoLiberado){
                                     ?>
                                     <tr>
                                       <td width="20%">Cliente:</td>
                                       <td width="80%">
-                                        <input type="hidden" name="cliente_id" id="cliente_id" value="<? echo "$p[id_cliente]";?>">
-                                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<? echo "$p[cliente]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (this.value.length>3){Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');}}">
+                                        <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo "$p[id_cliente]";?>">
+                                        <input type="text" size="60" name="cliente_cc" id="cliente_cc" value="<?php echo "$p[cliente]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){Acha1('cadastrar_pedidos.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');}else{if (this.value.length>3){Acha1('listar.php','tipo=cliente&valor='+this.value+'','listar_cliente');}}">
                                         <BR>
                                         <div id="listar_cliente" style="position:absolute; z-index: 7000;"></div>
                                       </td>
                                     </tr>
-                                    <?
+                                    <?php
                                   }else{
                                   ?>
                                   <tr>
                                     <td width="20%">Cliente:</td>
                                     <td width="80%">
-                                      <input type="hidden" name="cliente_id" id="cliente_id" value="<? echo "$p[id_cliente]";?>">
-                                      <input type="hidden" name="cliente_cc" id="cliente_cc" value="<? echo "$p[cliente]";?>">
-                                      <b><? echo "$p[cliente]";?></b>
+                                      <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo "$p[id_cliente]";?>">
+                                      <input type="hidden" name="cliente_cc" id="cliente_cc" value="<?php echo "$p[cliente]";?>">
+                                      <b><?php echo "$p[cliente]";?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Endereço:</td>
                                     <td>
-                                      <b> <? echo "$c[endereco]";?></b>
+                                      <b> <?php echo "$c[endereco]";?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Cidade:</td>
                                     <td>
-                                      <b> <? echo "$c[cidade]";?></b>
+                                      <b> <?php echo "$c[cidade]";?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Bairro:</td>
                                     <td>
-                                      <b> <? echo "$c[bairro]";?></b>
+                                      <b> <?php echo "$c[bairro]";?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Estado:</td>
                                     <td>
-                                      <b> <? echo "$c[estado]";?></b>
+                                      <b> <?php echo "$c[estado]";?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>CEP:</td>
                                     <td>
-                                      <b> <? echo "$c[cep]";?></b>
+                                      <b> <?php echo "$c[cep]";?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Telefone:</td>
                                     <td>
-                                      <b> <? echo "$c[telefone]";?></b>
+                                      <b> <?php echo "$c[telefone]";?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Insc. Est.:</td>
                                     <td>
-                                      <b> <? echo "$c[inscricao]";?></b>
+                                      <b> <?php echo "$c[inscricao]";?></b>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Contato:</td>
                                     <td>
-                                      <input name="contato_cc" id="contato_cc" value="<? echo "$p[contato]";?>" type="text" size="20" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.trans_cc.focus();}">
-                                      <!--<b><? echo "$p[contato]";?></b>-->
+                                      <input name="contato_cc" id="contato_cc" value="<?php echo "$p[contato]";?>" type="text" size="20" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.trans_cc.focus();}">
+                                      <!--<b><?php echo "$p[contato]";?></b>-->
                                     </td>
                                   </tr>
                                   <tr>
@@ -343,16 +344,16 @@ if (!$_REQUEST[acao]){
                                   <tr>
                                     <td>Transportadora:</td>
                                     <td>
-                                      <input type="hidden" name="trans_id" id="trans_id" value="<? echo "$c[codigo_transportadora]";?>">
-                                      <input type="text" size="35" name="trans_cc" id="trans_cc" value="<? echo "$p[transportadora]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.data_entrega.focus();}else{Acha1('listar.php','tipo=trans&valor='+this.value+'','listar_trans');}">
+                                      <input type="hidden" name="trans_id" id="trans_id" value="<?php echo "$c[codigo_transportadora]";?>">
+                                      <input type="text" size="35" name="trans_cc" id="trans_cc" value="<?php echo "$p[transportadora]";?>" onfocus="this.select()" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.data_entrega.focus();}else{Acha1('listar.php','tipo=trans&valor='+this.value+'','listar_trans');}">
                                       &nbsp;&nbsp;
-                                      <input type="radio" name="frete" id="frete" value="FOB" <? if (($p[cif]==0) and ($_REQUEST[localizar_numero])){ echo "Checked";}?>>FOB
-                                      <input type="radio" name="frete" id="frete" value="CIF" <? if (($p[cif]==1) or (!$_REQUEST[localizar_numero])){ echo "Checked";}?>>CIF&nbsp;&nbsp;&nbsp;
+                                      <input type="radio" name="frete" id="frete" value="FOB" <?php if (($p['cif']==0) and ($_REQUEST['localizar_numero'])){ echo "Checked";}?>>FOB
+                                      <input type="radio" name="frete" id="frete" value="CIF" <?php if (($p['cif']==1) or (!$_REQUEST['localizar_numero'])){ echo "Checked";}?>>CIF&nbsp;&nbsp;&nbsp;
                                       <BR>
                                       <div id="listar_trans" style="position:absolute;"></div>
                                     </td>
                                   </tr>
-                                  <?
+                                  <?php
                                   function AdicionarDias($datahoje, $dias) {
 
                                     $anohoje = substr ( $datahoje, 0, 4 );
@@ -380,37 +381,37 @@ if (!$_REQUEST[acao]){
                                   ?>
                                   <tr>
                                     <td>Data Entrega:</td>
-                                    <td><input name="data_entrega" id="data_entrega"  type="text" size="20" maxlength="20" value="<? echo $data_entrega30;?>" onclick="MostraCalendario(document.ped.data_entrega,'dd/mm/yyyy',this)" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if (document.getElementById('yearDropDown')){closeCalendar();}document.ped.numero_cliente.focus();}"></td>
+                                    <td><input name="data_entrega" id="data_entrega"  type="text" size="20" maxlength="20" value="<?php echo $data_entrega30;?>" onclick="MostraCalendario(document.ped.data_entrega,'dd/mm/yyyy',this)" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if (document.getElementById('yearDropDown')){closeCalendar();}document.ped.numero_cliente.focus();}"></td>
                                   </tr>
-                                  <?
-                                  if ($p[numero]){
-                                    $Numero = $p[numero];
+                                  <?php
+                                  if ($p['numero']){
+                                    $Numero = $p['numero'];
                                   }else{
-                                    $Numero = $_SESSION[id_vendedor].date("dmy").date("His");
+                                    $Numero = $_SESSION['id_vendedor'].date("dmy").date("His");
                                   }
                                   ?>
                                   <tr>
                                     <td>Numero:</td>
                                     <td>
-                                      <input name="numero" id="numero"  type="hidden" size="20" maxlength="20" value="<? echo "$Numero";?>" onclick="setTimeout('document.ped.numero.disabled=true',10);">
-                                      <b><? echo "$Numero";?></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      <input name="numero" id="numero"  type="hidden" size="20" maxlength="20" value="<?php echo "$Numero";?>" onclick="setTimeout('document.ped.numero.disabled=true',10);">
+                                      <b><?php echo "$Numero";?></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       <span onmouseover="ddrivetip('<strong><u>Número do Pedido</u></strong><BR><BR>O número é composto sequencialmente por <i>CodigoVendedor + Dia + Mes + Ano + Hora + Minuto + Segundo</i>, <BR>ex: 85+11+01+08+15+30+21')" onmouseout="hideddrivetip()" class="dwnx"><img src="icones/duvida.png" border="0" width="15" height="15"></span>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td>Num. Cliente:</td>
-                                    <td><input name="numero_cliente" id="numero_cliente" value="<? echo "$p[numero_cliente]";?>" type="text" size="20" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.desconto.focus();}"></td>
+                                    <td><input name="numero_cliente" id="numero_cliente" value="<?php echo "$p[numero_cliente]";?>" type="text" size="20" maxlength="20" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){document.ped.desconto.focus();}"></td>
                                   </tr>
                                   <tr>
                                     <td>Desconto:</td>
-                                    <td><b><div id="boxdesconto"></div></b><input name="desconto" id="desconto" value="<? echo "$p[desconto]";?>"  type="text" size="8" maxlength="3" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if (this.value>100){ alert('O desconto deve ser menor que 100'); this.value='0';}else{document.ped.condpag1_id.focus();}}"></td>
+                                    <td><b><div id="boxdesconto"></div></b><input name="desconto" id="desconto" value="<?php echo "$p[desconto]";?>"  type="text" size="8" maxlength="3" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){if (this.value>100){ alert('O desconto deve ser menor que 100'); this.value='0';}else{document.ped.condpag1_id.focus();}}"></td>
                                   </tr>
                                   <tr>
                                     <td width="20%">Cond. Pagam.:</td>
                                     <td width="80%">
-                                      <select name="condpag1_id" size="1" id="condpag1_id" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){trocarAba('pedidos-',2,3); <? echo $SalvarRascunho;?> document.ped.codigo_cc.focus();}">
-                                        <?
-                                        if ($c1[codigo]){
+                                      <select name="condpag1_id" size="1" id="condpag1_id" onkeyup="if (window.event){tecla = window.event.keyCode;}else{tecla = event.which;}if(tecla==13){trocarAba('pedidos-',2,3); <?php echo $SalvarRascunho;?> document.ped.codigo_cc.focus();}">
+                                        <?php
+                                        if ($c1['codigo']){
                                           echo "<option value='$c1[codigo]'>$c1[descricao]</option>";
                                           echo "<option></option>";
                                           $RetiraCP = " and codigo<>'$c1[codigo]' ";
@@ -426,21 +427,21 @@ if (!$_REQUEST[acao]){
                                       </select>
                                     </td>
                                   </tr>
-                                  <?
+                                  <?php
                                   }
-                                  if (($_SESSION[nivel_site]=="2") and ($PedidoLiberado)){
+                                  if (($_SESSION['nivel_site']=="2") and ($PedidoLiberado)){
                                     ?>
                                     <tr>
                                       <td>Vendedor:</td>
                                       <td>
                                         <select name="vendedor2_id" size="1" id="vendedor2_id">
-                                          <?
+                                          <?php
                                           include_once("inc/config.php");
-                                          if ($p[codigo_vendedor]){
+                                          if ($p['codigo_vendedor']){
                                             echo "<option value='$p[codigo_vendedor]'>$p[vendedor]</option>";
                                             echo "<option></option>";
                                             $RetiraVendedor = " and codigo<>'$p[codigo_vendedor]' ";
-                                          }elseif ($c[codigo_vendedor]){
+                                          }elseif ($c['codigo_vendedor']){
                                             $SqlCarregaVend = pg_query("SELECT codigo, nome FROM vendedores where codigo='$c[codigo_vendedor]'");
                                             $cv = pg_fetch_array($SqlCarregaVend);
                                             echo "<option value='$c[codigo_vendedor]'>$cv[nome]</option>";
@@ -459,24 +460,24 @@ if (!$_REQUEST[acao]){
                                         </div>
                                       </td>
                                     </tr>
-                                    <?
+                                    <?php
                                   }else{
                                     ?>
-                                    <input type="hidden" name="vendedor2_id" id="vendedor2_id" value="<?=$_SESSION[id_vendedor]?>">
-                                    <?
+                                    <input type="hidden" name="vendedor2_id" id="vendedor2_id" value="<?php echo $_SESSION['id_vendedor']?>">
+                                    <?php
                                   }
                                   ?>
                                 </table>
                              </span>
                              <span name="pedidos-corpo2" id="pedidos-corpo2" style="display: none;">
-                               <?
+                               <?php
                                if ($PedidoLiberado){
                                  ?>
                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="texto1">
                                  <tr>
                                    <td>
                                      <span name="itens" id="itens">
-                                       <? include "editar_itens.php"; ?>
+                                       <?php include "editar_itens.php"; ?>
                                      </span>
                                    </td>
                                  </tr>
@@ -486,9 +487,9 @@ if (!$_REQUEST[acao]){
                                        <tr>
                                          <td height="200" colspan="2" valign="top">
                                            <div class="TA1" id="GrdProdutos">
-                                               <?
-                                               if ($_REQUEST[localizar_numero]){
-                                                 $numero = $_REQUEST[localizar_numero];
+                                               <?php
+                                               if ($_REQUEST['localizar_numero']){
+                                                 $numero = $_REQUEST['localizar_numero'];
                                                  include_once("incluir_itens.php");
                                                }
                                                ?>
@@ -499,21 +500,21 @@ if (!$_REQUEST[acao]){
                                    </td>
                                  </tr>
                                </table>
-                               <?
+                               <?php
                                }
                                ?>
                              </span>
                              <span name="pedidos-corpo3" id="pedidos-corpo3" style="display: none;">
-                               <?
+                               <?php
                                if ($PedidoLiberado){
                                  ?>
                                  <table width="100%" border="0" cellspacing="2" cellpadding="2" class="texto1" align="center">
                                    <tr>
                                      <td valign="top">Observação:</td>
-                                     <td><textarea name="observacao" id="observacao"  maxlength="250" type="text" rows="5" cols="70"><? echo "$o[observacao]";?></textarea></td>
+                                     <td><textarea name="observacao" id="observacao"  maxlength="250" type="text" rows="5" cols="70"><?php echo "$o[observacao]";?></textarea></td>
                                    </tr>
                                  </table>
-                                 <?
+                                 <?php
                                }
                                ?>
                              </span>
@@ -526,25 +527,25 @@ if (!$_REQUEST[acao]){
                      <td align="center">
                        <div id="botoes">
                          <BR>
-                         <?
+                         <?php
                          if ($PedidoLiberado){
                            if ($SalvarRascunho){
                              ?>
-                             <input type="button" onclick="document.ped.enviar_pedido.value=0; document.ped.rascunho.value=1; acerta_campos('pedido','Inicio','cadastrar_pedidos.php',true); <? echo $SalvarRascunho;?>" style="width: 130px;" name="Somente Gravar" id="Somente Gravar" value="Somente Gravar">
+                             <input type="button" onclick="document.ped.enviar_pedido.value=0; document.ped.rascunho.value=1; acerta_campos('pedido','Inicio','cadastrar_pedidos.php',true); <?php echo $SalvarRascunho;?>" style="width: 130px;" name="Somente Gravar" id="Somente Gravar" value="Somente Gravar">
                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             <?
+                             <?php
                            }
-                           if ((!$_SESSION[enviado]) and (!$p[venda_efetivada])){
+                           if ((!$_SESSION['enviado']) and (!$p['venda_efetivada'])){
                              ?>
                              <input type="button" onclick="document.ped.enviar_pedido.value=1; document.ped.rascunho.value=0; acerta_campos('pedido','Inicio','cadastrar_pedidos.php',false);" style="width: 130px;" name="Gravar e Enviar" id="Gravar e Enviar" value="Gravar e Enviar">
                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             <?
+                             <?php
                            }
                          }else{
                            ?>
                            <input type="button" onclick=" Acha1('cadastrar_pedidos.php','CgcCliente='+document.ped.clientecnpj_cc.value+'','Conteudo');" style="width: 130px;" name="iniciarpedido" id="iniciarpedido" value="Iniciar Pedido">
                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           <?
+                           <?php
                          }
                          ?>
                          <input type="button" onclick="Acha('inicio.php','','Conteudo');" name="Cancelar" id="Cancelar" value="Cancelar">
@@ -565,7 +566,7 @@ if (!$_REQUEST[acao]){
   </div>
   <BR>
   <span class="titulo1" id="salvo"></span>
-  <?
+  <?php
 }else{
   ###################################
   # Variaveis vindas do form anterior
@@ -573,12 +574,12 @@ if (!$_REQUEST[acao]){
   ?>
   <div id="Erro" class="erro" style="position: absolute;" height="100%">
     <center>
-    <?
+    <?php
     $cgc = $_REQUEST["clientecnpj_cc"];
     if (strlen($cgc)<"8"){
       ?>
       <BR>* Verifique o CNPJ / CPF
-      <?
+      <?php
       $_Err = true;
     }elseif (strlen($cgc)<"12"){ //CNPJ pode ter até 12 digitos
       $e_cgc = 0;
@@ -591,16 +592,16 @@ if (!$_REQUEST[acao]){
     if ($_REQUEST["cliente_cc"] == "") {
       ?>
       <BR>* Verifique o Nome do cliente
-      <?
+      <?php
       $_Err = true;
     }
-    if (($_REQUEST[frete]) and (!$_REQUEST[trans_cc])){
+    if (($_REQUEST['frete']) and (!$_REQUEST['trans_cc'])){
       ?>
       <!--<BR>* Para FOB a transportadora é obrigatória-->
-      <?
+      <?php
       //$_Err = true;
     }
-    if ($_REQUEST[frete]){
+    if ($_REQUEST['frete']){
       $Frete = "1";
     }else{
       $Frete = "0";
@@ -613,10 +614,10 @@ if (!$_REQUEST[acao]){
     if ($_REQUEST["condpag1_id"] == "") {
       ?>
       <BR>* Verifique a Condição de Pagamento
-      <?
+      <?php
       $_Err = true;
     }
-    if ($_SESSION[enviado]=="1"){
+    if ($_SESSION['enviado']=="1"){
       $_Err = true;
     }
     if (!$_Err){
@@ -636,7 +637,7 @@ if (!$_REQUEST[acao]){
       #   Validação de dados
       ##########################################
       //pega cliente
-      $consulta = "select id,nome,apelido,cgc,e_cgc,codigo_vendedor from clientes where id = ".$_REQUEST[cliente_id];
+      $consulta = "select id,nome,apelido,cgc,e_cgc,codigo_vendedor from clientes where id = ".$_REQUEST['cliente_id'];
       $resultado = pg_query($db, $consulta) or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
       $row = pg_fetch_array($resultado);
       $cliente = $row[nome];
@@ -656,23 +657,23 @@ if (!$_REQUEST[acao]){
       //instancia o objeto
       $PedidoTemp = new PedidoTemporario();
       // seta os atributos do objeto
-      $PedidoTemp->set_clientecnpj($_REQUEST[clientecnpj_cc]);
-      $PedidoTemp->set_cliente_cc($_REQUEST[cliente_cc]);
-      $PedidoTemp->set_contato_cc($_REQUEST[contato_cc]);
+      $PedidoTemp->set_clientecnpj($_REQUEST['clientecnpj_cc']);
+      $PedidoTemp->set_cliente_cc($_REQUEST['cliente_cc']);
+      $PedidoTemp->set_contato_cc($_REQUEST['contato_cc']);
       $PedidoTemp->set_DataPrevistaEntrega($DataPrevistaEntrega);
-      $PedidoTemp->set_cliente_id($_REQUEST[cliente_id]);
-      $PedidoTemp->set_trans_id($_REQUEST[trans_id]);
-      $PedidoTemp->set_numero($_REQUEST[numero]);
-      $PedidoTemp->set_vendedor2_id($_REQUEST[vendedor2_id]);
-      $PedidoTemp->set_numero_cliente($_REQUEST[numero_cliente]);
-      $PedidoTemp->set_trans_cc($_REQUEST[trans_cc]);
-      $PedidoTemp->set_condpag1_id($_REQUEST[condpag1_id]);
-      $PedidoTemp->set_condpag2_id($_REQUEST[condpag2_id]);
+      $PedidoTemp->set_cliente_id($_REQUEST['cliente_id']);
+      $PedidoTemp->set_trans_id($_REQUEST['trans_id']);
+      $PedidoTemp->set_numero($_REQUEST['numero']);
+      $PedidoTemp->set_vendedor2_id($_REQUEST['vendedor2_id']);
+      $PedidoTemp->set_numero_cliente($_REQUEST['numero_cliente']);
+      $PedidoTemp->set_trans_cc($_REQUEST['trans_cc']);
+      $PedidoTemp->set_condpag1_id($_REQUEST['condpag1_id']);
+      $PedidoTemp->set_condpag2_id($_REQUEST['condpag2_id']);
       $PedidoTemp->set_desconto($desconto);
-      $PedidoTemp->set_desconto11_cc($_REQUEST[desconto11_cc]);
-      $PedidoTemp->set_desconto1_cc($_REQUEST[desconto1_cc]);
-      $PedidoTemp->set_desconto22_cc($_REQUEST[desconto22_cc]);
-      $PedidoTemp->set_desconto2_cc($_REQUEST[desconto2_cc]);
+      $PedidoTemp->set_desconto11_cc($_REQUEST['desconto11_cc']);
+      $PedidoTemp->set_desconto1_cc($_REQUEST['desconto1_cc']);
+      $PedidoTemp->set_desconto22_cc($_REQUEST['desconto22_cc']);
+      $PedidoTemp->set_desconto2_cc($_REQUEST['desconto2_cc']);
       $PedidoTemp->set_fob($Frete);
       #########################################################################################
       #  Grava edição da Observação
@@ -680,8 +681,8 @@ if (!$_REQUEST[acao]){
       //instancia o objeto
       $Obs = new Observacao();
       // seta os atributos do objeto
-      $Obs->set_numero_internet($_REQUEST[numero]);
-      $Obs->set_observacao($_REQUEST[observacao]);
+      $Obs->set_numero_internet($_REQUEST['numero']);
+      $Obs->set_observacao($_REQUEST['observacao']);
       ######################################################
       # Confere se já existe o pedido, ai só edita
       ######################################################
@@ -714,7 +715,7 @@ if (!$_REQUEST[acao]){
         $FatMin = $ArrayReferencias[fat_min];
         if ($NumeroItensPedido>$NumeroMaximoItens){
           echo "Dividindo Pedidos<BR><BR>";
-          $numero = $_REQUEST[numero];
+          $numero = $_REQUEST['numero'];
           #### Arredonda baseado no resto, sempre pra cima.
           $Valor = $NumeroItensPedido / $NumeroMaximoItens;
           $CasasDepoisVirgula = 0;
@@ -786,17 +787,17 @@ if (!$_REQUEST[acao]){
               $Pedido = new PedidoOficial();
               // seta os atributos do objeto
               $Pedido->set_numero_internet($numero);
-              $Pedido->set_observacao($_REQUEST[observacao]);
+              $Pedido->set_observacao($_REQUEST['observacao']);
               $Pedido->fazer();
               ?>
-              <span class="titulo1 erro"><center>Pedido <span class="titulo1"><b><? echo $_SESSION[NumeroPedidoGravado];?></b></span> Gravado e enviado com sucesso</center><BR><BR></span>
-              <?
+              <span class="titulo1 erro"><center>Pedido <span class="titulo1"><b><?php echo $_SESSION['NumeroPedidoGravado'];?></b></span> Gravado e enviado com sucesso</center><BR><BR></span>
+              <?php
             }
           }
           //exit;
         }else{
           ### Fim Divisão
-          if ($_REQUEST[enviar_pedido]){
+          if ($_REQUEST['enviar_pedido']){
             $SqlValidaItensPedido = pg_query("Select numero_pedido from itens_do_pedido_internet where numero_pedido='$_REQUEST[numero]'");
             $cci = pg_num_rows($SqlValidaItensPedido);
             if ($cci>0){
@@ -806,32 +807,32 @@ if (!$_REQUEST[acao]){
               //instancia o objeto
               $Pedido = new PedidoOficial();
               // seta os atributos do objeto
-              $Pedido->set_numero_internet($_REQUEST[numero]);
-              $Pedido->set_observacao($_REQUEST[observacao]);
+              $Pedido->set_numero_internet($_REQUEST['numero']);
+              $Pedido->set_observacao($_REQUEST['observacao']);
               $Pedido->fazer();
               ?>
-              <span class="titulo1 erro"><center>Pedido <span class="titulo1"><b><? echo $_SESSION[NumeroPedidoGravado];?></b></span> Gravado e enviado com sucesso  - <a href="#" onclick="window.open('impressao.php?numero=<? echo $_SESSION[NumeroPedidoGravado];?>&t=1','_blank');return false;">Clique para imprimir</a></center></span>
-              <?
+              <span class="titulo1 erro"><center>Pedido <span class="titulo1"><b><?php echo $_SESSION['NumeroPedidoGravado'];?></b></span> Gravado e enviado com sucesso  - <a href="#" onclick="window.open('impressao.php?numero=<?php echo $_SESSION['NumeroPedidoGravado'];?>&t=1','_blank');return false;">Clique para imprimir</a></center></span>
+              <?php
             }else{
               ?>
               <span class="titulo1 erro"><center>Esse pedido está sem ítens, é impossível enviar.</center></span>
-              <?
+              <?php
             }
           }
         }
       //Uso @ para ocultar erros de cursor
       pg_query ($db, "commit");
       @pg_close($db);
-      if ($_REQUEST[rascunho]>0){
+      if ($_REQUEST['rascunho']>0){
         ?>
-        <!--<span class="titulo1"><center><BR><BR><BR>Rascunho salvo automaticamente dia <b><? echo date("d/m/Y")." as ".date("H:i:s");?></b></center></span>-->
-        <?
+        <!--<span class="titulo1"><center><BR><BR><BR>Rascunho salvo automaticamente dia <b><?php echo date("d/m/Y")." as ".date("H:i:s");?></b></center></span>-->
+        <?php
       }
     }
     ?>
   </div>
   <BR><BR>
-  <?
+  <?php
 }
 ?>
 
