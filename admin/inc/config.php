@@ -13,9 +13,9 @@ $endereco = $_SERVER ['REQUEST_URI'];
 ###############################################################
 $SiteUrl   = "http://10.1.2.200/desenvolvimento/espelhos/clientes/admin/";
 if($server = "192.168.10.3"){
-	$str_conexao = "host=db3.backup dbname=db3 port=5432 user=user password=password"; //grou_web
+	$str_conexao = "host=tnteste.c1etmptv6ioq.sa-east-1.rds.amazonaws.com dbname=cep port=13662 user=postgres password=tndanils"; //grou_web
 }else{
-	$str_conexao = "host=db3.backup dbname=db3 port=5432 user=user password=password"; //grou_web
+	$str_conexao = "host=tnteste.c1etmptv6ioq.sa-east-1.rds.amazonaws.com dbname=cep port=13662 user=postgres password=tndanils"; //grou_web
 }		
 ###############################################################
 if(!($db=pg_connect($str_conexao))) {	

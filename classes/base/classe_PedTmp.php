@@ -185,22 +185,21 @@ class PedidoTemporario {
     while( $Campo = each($SqlCampo )){
       if ($this->operacao=="edita"){
         $SqlInicio = "Update pedidos_internet_novo set ";
-        $SqlExecutar .= " $Campo[key]='".$Campo['value']."',";
-        $SqlFim = " where numero='".$this->numero."' ";
+        $SqlExecutar .= " $Campo[key]='$Campo[value]',";
+        $SqlFim = " where numero='$this->numero' ";
       }else{
         $SqlInicio = "Insert into pedidos_internet_novo (";
-        $SqlExecutar .= " '".$Campo['key']."',";
+        $SqlExecutar .= " $Campo[key],";
         $SqlExecutar2 = " ) VALUES ( ";
-        $SqlExecutar3 .= " '".$Campo'[value']."',";
+        $SqlExecutar3 .= " '$Campo[value]',";
         $SqlFim = ")";
       }
     }
-        
     $Grava = $SqlInicio."".substr($SqlExecutar, 0, -1)."".$SqlExecutar2."".substr($SqlExecutar3, 0, -1)."".$SqlFim;
     //echo $Grava;
 //    exit;
     if (!$_Err){
-      pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_query ($db, "rollback"));
+     // pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_query ($db, "rollback"));
     }
   }
 }

@@ -33,7 +33,7 @@ if (!$_REQUEST['acao']){
         $_REQUEST['cod_pag2'] = $p['codigo_pagamento1'];
         include("inc/ParcelaMinima.php");
       }
-      if ($p[transportadora]){
+      if ($p['transportadora']){
         $SqlTransportadora = pg_query("Select id, nome from transportadoras where nome='".$p['transportadora']."' and inativo=0");
         $t = pg_fetch_array($SqlTransportadora);
       }

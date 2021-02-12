@@ -34,7 +34,7 @@ if(!isset($_SESSION)){
   $SiteUrl = "http://200.153.32.226/desenvolvimento/cobaia/";
   ###############################################################
   $str_conexao= "host=tnteste.c1etmptv6ioq.sa-east-1.rds.amazonaws.com dbname=".$_SESSION['bd']['base']." port=".$_SESSION['bd']['porta']." user=".$_SESSION['bd']['usuario']." password=".$_SESSION['bd']['senha']."";
-  echo $str_conexao; 
+  //echo $str_conexao; 
   $base = $_SESSION['bd']['descricao'];
   ##############################################################
   ##

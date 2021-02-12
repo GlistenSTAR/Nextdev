@@ -188,6 +188,11 @@ class PedidoOficial {
       if(isset($DescCli['codigo'])){ $SqlCampo['desconto_cliente'] = $DescCli['codigo'];}
       
        while( $Campo = each($SqlCampo )){
+		   if($Campo['key'] == 'codigo_vendedor'){
+			   if(!isset($Campo['value']) && $Campo['value'] == ''){
+				   $Campo['value'] = '0';
+			   }
+		   }
          $SqlInicio = "Insert into pedidos (";
          $SqlExecutar .= " $Campo[key],";
          $SqlExecutar2 = " ) VALUES ( ";
@@ -200,6 +205,7 @@ class PedidoOficial {
        if (!$_Err){
          pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.TrocaCaracteres($Grava).pg_query ($db, "rollback"));
        }
+	   pg_query ($db, "rollback");
        unset($SqlCampo);
        unset($SqlExecutar);
        unset($SqlExecutar2);
@@ -224,7 +230,7 @@ class PedidoOficial {
       $SqlCampo['numero_pedido'] = $max;
       $SqlCampo['usuario_alterou'] = left($_SESSION['login'], 10);
       $SqlCampo['data_alteracao'] = $data_hoje;
-      $SqlCampo['ip'] = $_SERVER[REMOTE_ADDR];
+      $SqlCampo['ip'] = $_SERVER['REMOTE_ADDR'];
       $SqlCampo['alteracao'] = "CADASTROU NOVO PEDIDO VIA SITE";
 
        while($Campo = each($SqlCampo)){
@@ -240,6 +246,7 @@ class PedidoOficial {
        if (!$_Err){
          pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_query ($db, "rollback"));
        }
+	   pg_query ($db, "rollback");
        unset($SqlCampo);
        unset($SqlExecutar);
        unset($SqlExecutar2);
@@ -311,7 +318,7 @@ class PedidoOficial {
               $consulta = $consulta."fator1, ";
             }
             $consulta = $consulta." quantidade_reservada, reservado, preco_alterado, comissao, valor_comissao) values( ";
-            $consulta=  $consulta."$max, '$i[codigo]', $i[qtd], ";
+            $consulta=  $consulta."'$max', '$i[codigo]', '$i[qtd]', ";
             $consulta = $consulta."'$i[valor_unitario]', ";
             $consulta = $consulta."'$i[valor_total]', ";
             if (($CodigoEmpresa=="75") or ($CodigoEmpresa=="86")){
@@ -357,7 +364,7 @@ class PedidoOficial {
             $consulta = $consulta."'$Especificado', '$i[qtd]','1', '$ValorLiquido') ";
             $Total = $Total + $i[valor_total];
             $TotalEspecial = $TotalEspecial + $i[valor_total];
-            pg_query ($db,$consulta) or die ($MensagemDbError.$consulta.pg_query ($db, "rollback"));
+            pg_query ($db,$consulta) or die("Erro na consulta : $consulta. " .pg_last_error($db));
           }
         }
         //echo $consulta;
