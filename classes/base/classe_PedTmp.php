@@ -199,7 +199,7 @@ class PedidoTemporario {
     //echo $Grava;
 //    exit;
     if (!$_Err){
-     // pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_query ($db, "rollback"));
+      pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_last_error($db));
     }
   }
 }

@@ -119,7 +119,7 @@ class PedidoOficial {
       ######################################################
       # Fim Rotina de carregamento
       ######################################################
-						
+	  pg_query ($db, "rollback");		
       $SqlCampo['cgc'] = $p[cgc];
       $SqlCampo['cliente'] = left($p[cliente], 50);
       $SqlCampo['codigo_vendedor'] = $id_vendedor;
@@ -204,8 +204,9 @@ class PedidoOficial {
 //       exit;
        if (!$_Err){
          pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.TrocaCaracteres($Grava).pg_query ($db, "rollback"));
+		 pg_query ($db, "rollback");
        }
-	   pg_query ($db, "rollback");
+	   
        unset($SqlCampo);
        unset($SqlExecutar);
        unset($SqlExecutar2);
@@ -244,9 +245,10 @@ class PedidoOficial {
        //echo "SQL Alteracao: $Grava<BR><BR>";
        //exit;
        if (!$_Err){
-         pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_query ($db, "rollback"));
+        pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.$Grava.pg_query ($db, "rollback"));
+		pg_query ($db, "rollback");
        }
-	   pg_query ($db, "rollback");
+	  // 
        unset($SqlCampo);
        unset($SqlExecutar);
        unset($SqlExecutar2);
