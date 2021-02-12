@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 ###################################
 ##Fazendo a conex�o com o servidor
 ###################################

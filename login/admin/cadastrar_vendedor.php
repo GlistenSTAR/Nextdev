@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include ("inc/verifica.php");
 $_SESSION['pagina'] = "cadastrar_vendedor.php";
 if (is_numeric($_REQUEST['localizar_numero'])){

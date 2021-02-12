@@ -1,4 +1,4 @@
-<?php include ("inc/common.php"); ?>
+<?php include_once ("inc/common.php"); ?>
 <hr></hr>
 <table border="0" align="center" cellpadding="2" cellspacing="2" class="texto1" width="100%">
   <tr>

@@ -1,5 +1,7 @@
 <?php
-
+if(!isset($_SESSION)){
+    session_start();
+}
 //base nextweb
 $Host    = "localhost";
 $DbName  = "db1.backup";

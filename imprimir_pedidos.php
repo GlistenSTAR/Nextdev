@@ -1,8 +1,8 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 //include "inc/verifica.php";
 include "inc/config.php";
-if ($_REQUEST['data_inicia'l]){
+if ($_REQUEST['data_inicial']){
   $DataInicial = $_REQUEST['data_inicial'];
 }else{
   //$DataInicial = date("d/m/Y");

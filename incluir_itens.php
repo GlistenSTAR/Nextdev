@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include_once("inc/config.php");
 $DebugSql = false;
 $NumeroCasas = ($CONF['arredondamento']>"100")?"3":"2";

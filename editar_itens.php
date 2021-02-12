@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include_once("inc/config.php");
 $DisplayLinhaEspecial="none";
 $NumeroCasas = ($CONF['arredondamento']>"100")?"3":"2";
@@ -83,7 +83,7 @@ if ((!$_REQUEST['EnterCodigo']) and ($_REQUEST['codigo'])){
     $DisplayLinhaEspecial="none";
   }
 }
-//echo "<BR><BR>$PrecoAlterado1<BR><BR>";
+echo "<BR><BR>$PrecoAlterado1<BR><BR>";
 if ($PrecoAlterado1=="S"){
   $Sql3 = "SELECT preco_venda FROM produtos where codigo='".strtoupper($_REQUEST['codigo'])."'";
   $SqlCarregaItens3 = pg_query($Sql3);
@@ -181,9 +181,9 @@ if($CodigoEmpresa == "49"){$CaixaFechada = 0;} //H8
 
 ?>
 <fieldset id="titulo_frame">
-  <legend><!--&nbsp;&nbsp;Dados dos produtos - Venda-casada: <?php echo $_SESSION['venda_casada']?> - <?php echo $_REQUEST['ven_cas']?>- <?php echo $CaixaFechada?>--></legend>
+  <legend></legend>
   <table width="590" border="0" cellspacing="0" cellpadding="2" class="texto1" id="aba_produtos">
-    <input type="hidden" name="classificacao_fiscal_cc" id="classificacao_fiscal_cc" value="<?php echo $i['classificacao_fisca'l];?>">
+    <input type="hidden" name="classificacao_fiscal_cc" id="classificacao_fiscal_cc" value="<?php echo $i['classificacao_fiscal'];?>">
     <input type="hidden" name="produto_venda_cc"        id="produto_venda_cc" value="<?php echo $i['produto_venda'];?>">
     <input type="hidden" name="inativo_cc"              id="inativo_cc" value="<?php echo $i['inativo'];?>">
     <input type="hidden" name="preco_minimo_cc"         id="preco_minimo_cc" value="<?php echo $i['preco_minimo'];?>">

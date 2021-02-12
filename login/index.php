@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
   session_start();
   if ((!isset($_SESSION['usuario'])) && !isset($_SESSION['bd']['host'])){
     session_destroy(); // empty session data

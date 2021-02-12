@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include "inc/config.php";
 ?>
 <html>
@@ -10,8 +10,8 @@ $OnFocus =  " class='link' onfocus=\"this.className='focus';\" onblur=\"this.cla
 if ($_REQUEST['tipo']=="trans"){
   if (strlen($_REQUEST['valor'])>2){
     $Nome_Transportadora = strtoupper($_REQUEST['valor']);
-    $sql = "SELECT id, nome FROM transportadoras where nome like '%$Nome_Transportadora%' order by nome limit 10";
-    //echo $sql;
+    $sql = "SELECT id, nome FROM transportadoras where nome like '%".$Nome_Transportadora."%' order by nome limit 10";
+    echo $sql;
     $Listar_Leitura = pg_query($sql);
     $ccc = pg_num_rows($Listar_Leitura);
     if ($ccc<>""){
@@ -37,7 +37,7 @@ if ($_REQUEST['tipo']=="trans"){
 }elseif ($_REQUEST['tipo']=="condpag"){
   if (strlen($_REQUEST['valor'])>0){
     $Valor1 = strtoupper($_REQUEST['valor']);
-    $sql = "SELECT codigo, descricao FROM condicao_pagamento where descricao like '%$Valor1%' and  codigo > 1 order by descricao limit 10";
+    $sql = "SELECT codigo, descricao FROM condicao_pagamento where descricao like '%".$Valor1."%' and  codigo > 1 order by descricao limit 10";
     //echo $sql;
     $Listar_Leitura = pg_query($sql);
     $ccc = pg_num_rows($Listar_Leitura);
@@ -46,7 +46,7 @@ if ($_REQUEST['tipo']=="trans"){
       $i=1;
       while ($l = pg_fetch_array($Listar_Leitura)){
         $i++;
-        $Nome = str_replace($Valor1, "<b>$Valor1</b>", $l[descricao]);
+        $Nome = str_replace($Valor1, "<b>$Valor1</b>", $l['descricao']);
         echo "<a id='elemento$i' href='#' $OnFocus onclick=\"Adiciona('$l[codigo]','$l[descricao]','".$_REQUEST['tipo']."".$_REQUEST['complemento']."');\"><img src='icones/icone_listar.gif' border='0'>&nbsp;".left($Nome, 60)."</a><BR>";
       }
     }

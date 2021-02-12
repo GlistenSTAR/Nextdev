@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include_once("inc/config.php");
 pg_query ($db, "begin");
 if ($_REQUEST['numero']){

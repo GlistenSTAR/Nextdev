@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include "inc/verifica.php";
 $_SESSION['pagina'] = "pedidos.php";
 $_SESSION['lista_preco'] = $_REQUEST['lista_preco'];
@@ -44,7 +44,7 @@ if (!$_REQUEST['acao']){
       $SqlProcuracliente = pg_query($sql);
       $ccc = pg_num_rows($SqlProcuracliente);
       $c = pg_fetch_array($SqlProcuracliente);
-      if ($p[efetivado]){
+      if ($p['efetivado']){
         $PedidoLiberado = false;
       }else{
         $PedidoLiberado = true;
@@ -105,7 +105,7 @@ if (!$_REQUEST['acao']){
     $PedidoLiberado = false;
     $DisplayAbas = "none";
   }
-  if (($p[enviado]=="1") or ($PedidoNormal)){
+  if (($p['enviado']=="1") or ($PedidoNormal)){
     $Ativa = "display: block;";
     $DesativaForm = " onfocus=\"setTimeout('DisableEnableForm(document.ped,true);',0);\" onblur=\"setTimeout('DisableEnableForm(document.ped,true);',0);\" onclick=\"setTimeout('DisableEnableForm(document.ped,true);',0);\"";
     $_SESSION['enviado'] = 1;
@@ -370,7 +370,7 @@ $oCliente 			= pg_fetch_array($sqlObservacaoCliente);
                                           if ($t['id']){
                                             echo "<option value='".$t['nome']."'>".$t['nome']."</option>";
                                             echo "<option></option>";
-                                            $RetiraTR = " and id<>'$t[id]' ";
+                                            $RetiraTR = " and id<>'".$t['id']."' ";
                                           }elseif ((!$t['nome']) and ($c['codigo_transportadora'])){
                                             $SqlTransportadora = pg_query("Select id, nome from transportadoras where id='".$c['codigo_transportadora']."' and inativo=0");
                                             $trans = pg_fetch_array($SqlTransportadora);
@@ -419,8 +419,8 @@ $oCliente 			= pg_fetch_array($sqlObservacaoCliente);
                                     $dia30 =  substr ( $prazo, 6, 2 );
 
                                     $data_entrega30 = $dia30."/".$mes30."/".$ano30;
-                                    if ($p[data_prevista_entrega]){
-                                      $da = $p[data_prevista_entrega];
+                                    if ($p['data_prevista_entrega']){
+                                      $da = $p['data_prevista_entrega'];
                                       $d = explode("-", $da);
                                       $data_entrega30 = "".$d[2]."/".$d[1]."/".$d[0]."";
                                     }
@@ -636,31 +636,31 @@ $oCliente 			= pg_fetch_array($sqlObservacaoCliente);
                                           include_once("inc/config.php");
                                           $SqlCarregaCondpag = pg_query("SELECT * FROM referencia_preco");
                                           $cp = pg_fetch_array($SqlCarregaCondpag);
-                                          if ($p[lista_preco]==1){
+                                          if ($p['lista_preco']==1){
                                             echo "<option value='1'>$cp[a]</option>";
                                             echo "<option value='2'>$cp[b]</option>";
                                             echo "<option value='3'>$cp[c]</option>";
                                             echo "<option value='4'>$cp[d]</option>";
                                             echo "<option value='5'>$cp[e]</option>";
-                                          }elseif ($p[lista_preco]==2){
+                                          }elseif ($p['lista_preco']==2){
                                             echo "<option value='2'>$cp[b]</option>";
                                             echo "<option value='1'>$cp[a]</option>";
                                             echo "<option value='3'>$cp[c]</option>";
                                             echo "<option value='4'>$cp[d]</option>";
                                             echo "<option value='5'>$cp[e]</option>";
-                                          }elseif ($p[lista_preco]==3){
+                                          }elseif ($p['lista_preco']==3){
                                             echo "<option value='3'>$cp[c]</option>";
                                             echo "<option value='1'>$cp[a]</option>";
                                             echo "<option value='2'>$cp[b]</option>";
                                             echo "<option value='4'>$cp[d]</option>";
                                             echo "<option value='5'>$cp[e]</option>";
-                                          }elseif ($p[lista_preco]==4){
+                                          }elseif ($p['lista_preco']==4){
                                             echo "<option value='4'>$cp[d]</option>";
                                             echo "<option value='1'>$cp[a]</option>";
                                             echo "<option value='2'>$cp[b]</option>";
                                             echo "<option value='3'>$cp[c]</option>";
                                             echo "<option value='5'>$cp[e]</option>";
-                                          }elseif ($p[lista_preco]==5){
+                                          }elseif ($p['lista_preco']==5){
                                             echo "<option value='5'>$cp[e]</option>";
                                             echo "<option value='1'>$cp[a]</option>";
                                             echo "<option value='2'>$cp[b]</option>";
@@ -762,7 +762,7 @@ $oCliente 			= pg_fetch_array($sqlObservacaoCliente);
                                          <td colspan="2" valign="top">
                                            <?php
                                            //if ($p[numero_internet]){
-                                             $numero = $p[numero_internet];
+                                             $numero = $p['numero_internet'];
                                              include_once("incluir_itens.php");
                                            //}
                                            ?>
@@ -1192,7 +1192,7 @@ $oCliente 			= pg_fetch_array($sqlObservacaoCliente);
             //echo "<BR><BR>Chave: $Chave; Pedido: $Pedido<br />\n";
             $numero = $Pedido;
             $TotalIPI = 0;
-            $consulta = "select * from itens_do_pedido_internet where numero_pedido = ".$numero;
+            $consulta = "select * from itens_do_pedido_internet where numero_pedido = '".$numero."'";
             $resultado = pg_query($consulta) or die("A operação não foi realizada, copie esse texto e envie para suporte@tninfo.com.br, volte ao início e tente novamente : <BR>".$SqlPedidoTemp.pg_query ($db, "rollback"));
             if (empty($TotalProdutos1)){$TotalProdutos1 = 0;}
             if (empty($TotalProdutos2)){$TotalProdutos2 = 0;}

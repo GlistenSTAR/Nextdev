@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include_once("inc/config.php");
 if ($_REQUEST['numero_pedido']){
   $_SESSION['UltimoTemCores'] = "SIM";

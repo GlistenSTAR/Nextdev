@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 extract($_POST, EXTR_PREFIX_ALL, "POST");
 echo "<h2>files</h2>";
 foreach ($_FILES as $key => $value) {

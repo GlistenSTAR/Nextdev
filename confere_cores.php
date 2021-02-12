@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 //echo "<br><br><br>DESCONTO_CORES: $_REQUEST[descontocores2]<br><br><br><br>";
 //exit;
 ##############################################################################################################################

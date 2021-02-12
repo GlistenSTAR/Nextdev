@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include "inc/config.php";
 $SQL = "UPDATE pedidos_internet_novo SET especificado = 1 WHERE numero = ".$_REQUEST['numero_cores'];
 pg_query($db,$SQL);

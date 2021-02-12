@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include "inc/verifica.php";
 include "inc/config.php";
 $msg = str_replace("<br>", chr(13), $_REQUEST['msg']);

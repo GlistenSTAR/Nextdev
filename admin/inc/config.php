@@ -1,4 +1,7 @@
 <?php
+if(!isset($_SESSION)){
+    session_start();
+}
 $id_vendedor = $_SESSION['id_vendedor'];
 
 $server   = $_SERVER['SERVER_NAME']; 

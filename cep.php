@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include "inc/config.php";
 $str_conexao2 = "host=$Host dbname=db4 port=$Porta user=$User password=$Password"; //cep
 if(!($db2=pg_connect($str_conexao2))) {

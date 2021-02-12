@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include_once("inc/config.php");
 if ($_SESSION['bloqueio_pedido']=="itens"){
   $_REQUEST['codigo'] = "";

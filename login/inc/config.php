@@ -1,4 +1,7 @@
 <?php
+if(!isset($_SESSION)){
+    session_start();
+}
   $id_vendedor = isset($_SESSION['id_vendedor'])?$_SESSION['id_vendedor']:'';
   ##############################################################################
   ##

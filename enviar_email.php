@@ -4,7 +4,7 @@
 #              Desenvolvido por Emerson Roberto Mellado
 #                             06/11/2008
 ##############################################################################
-include ("inc/common.php");
+include_once ("inc/common.php");
 include "inc/verifica.php";
 include "inc/config.php";
 if ($_REQUEST['acao']=="enviar"){

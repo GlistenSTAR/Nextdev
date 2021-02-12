@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 session_start();
 ?>
 <table width="200" border="0" cellpadding="2" cellspacing="2" class="arial11" align="center">

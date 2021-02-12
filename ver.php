@@ -1,4 +1,4 @@
-<?php include ("inc/common.php");?>
+<?php include_once ("inc/common.php");?>
 <link href="inc/css.css" rel="stylesheet" type="text/css">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>

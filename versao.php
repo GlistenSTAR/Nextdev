@@ -1,4 +1,4 @@
-<?php include ("inc/common.php"); ?>
+<?php include_once ("inc/common.php"); ?>
 <div class="texto1">
   <BR>
   Versão - <b> 3.1 </b> de 10/01/2011

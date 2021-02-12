@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include ("inc/verifica.php");
 ?>
 <table class="adminform" align="center" width="100%" height="350">

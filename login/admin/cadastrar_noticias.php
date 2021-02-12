@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include "inc/config.php";
 include "inc/verifica.php";
 $Modulo_titulo = "Notícias";

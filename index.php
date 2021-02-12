@@ -1,12 +1,11 @@
 <?php
-include ("inc/common.php");
-  if(!isset($_SESSION)){
-    session_start();
-  }
+include_once ("inc/common.php");
+  
   if (!isset($_SESSION['usuario'])){
     HEADER("Location: login/index.php");
   }else{
     if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler"); else ob_start();
+
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -63,8 +62,10 @@ include ("inc/common.php");
                         <td>
                           <div id="Inicio">
                             <?php
-                            if (!@include(isset($_SESSION['pagina']))){
-                              include "inicio.php";
+							if(isset($_SESSION['pagina'])){
+								include($_SESSION['pagina']);
+							}else{
+								include "inicio.php";
                               ?>
                               <span class="arial11" valign="bottom" align="center">
                                 <?php include "versao.php"; ?>

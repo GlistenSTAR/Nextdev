@@ -1,5 +1,5 @@
 <?php
-include ("include/common.php");
+include_once ("include/common.php");
 include "include/config.php";
 include "css/css.php";
 ?>

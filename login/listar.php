@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include "inc/config.php";
 if ($_SESSION['config']['vendas']['VendedorCliente']){
   $FiltrarVendedor = " and codigo_vendedor='".$_SESSION['id_vendedor']."' ";

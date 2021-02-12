@@ -1,4 +1,5 @@
 <?php
+include_once ("common.php");
 include "config.php";
 if ($_REQUEST['cod_pag']){
   $Sql = pg_query("Select vezes from condicao_pagamento where codigo='".$_REQUEST['cod_pag']."'");

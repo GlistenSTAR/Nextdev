@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 session_start();
 $usuario = strtoupper($_REQUEST["usuario_admin"]);
 $senha = strtoupper($_REQUEST["senha_admin"]);

@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
   require("inc/config.php");
 ?>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">

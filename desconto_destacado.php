@@ -1,5 +1,5 @@
  <?php
- include ("inc/common.php");
+ include_once ("inc/common.php");
  include_once("inc/config.php"); 
  
  $_REQUEST['desconto'] = str_replace(',','.',$_REQUEST['desconto']);

@@ -1,4 +1,5 @@
 <?php
+include_once ("common.php");
 include_once("inc/config.php");
 $DisplayLinhaEspecial="none";
 $NumeroCasas = ($CONF['arredondamento']>"100")?"3":"2";

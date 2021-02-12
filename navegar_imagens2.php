@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 include "inc/config.php";
 ?>
 <link rel="stylesheet" title="Windows" type="text/css"

@@ -1,5 +1,5 @@
 <?php
-include ("inc/common.php");
+include_once ("inc/common.php");
 $str_conexao2= "host=db4.backup dbname=db4 port=5432 user=user password=password"; // CEP
 if(!($db2=pg_connect($str_conexao2))) {
   echo "Não foi possível estabelecer uma conexão com o banco de dados";
