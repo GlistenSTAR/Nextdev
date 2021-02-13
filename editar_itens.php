@@ -83,7 +83,7 @@ if ((!$_REQUEST['EnterCodigo']) and ($_REQUEST['codigo'])){
     $DisplayLinhaEspecial="none";
   }
 }
-echo "<BR><BR>$PrecoAlterado1<BR><BR>";
+echo "$PrecoAlterado1";
 if ($PrecoAlterado1=="S"){
   $Sql3 = "SELECT preco_venda FROM produtos where codigo='".strtoupper($_REQUEST['codigo'])."'";
   $SqlCarregaItens3 = pg_query($Sql3);
@@ -178,7 +178,6 @@ if ($i['caixa_aberta']=="1"){ //Solicitação da Marcia na visita do Celso em 17/0
   }
 }
 if($CodigoEmpresa == "49"){$CaixaFechada = 0;} //H8
-
 ?>
 <fieldset id="titulo_frame">
   <legend></legend>
@@ -201,7 +200,7 @@ if($CodigoEmpresa == "49"){$CaixaFechada = 0;} //H8
     <input type="hidden" name="codigo_empresa"          id="codigo_empresa" value="<?php echo $CodigoEmpresa;?>">
     <input type="hidden" name="confereminimo"           id="confereminimo" value="<?php echo $ConfereMinimo;?>">
     <input type="hidden" name="display_especial"        id="display_especial" value="<?php echo $DisplayLinhaEspecial?>">
-    <input name="numero_pedido"                         id="numero_pedido"  type="hidden" size="20" maxlength="10" value="<?php echo $Numero;?>">
+    <input type="hidden" name="numero_pedido"           id="numero_pedido"  size="20" maxlength="10" value="<?php echo $Numero;?>">
     <input type="hidden" name="descontocores"           id="descontocores">
     <tr>
       <td><img src="images/spacer.gif" width="1" height="2"></td>
