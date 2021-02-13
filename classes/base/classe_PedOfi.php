@@ -203,10 +203,9 @@ class PedidoOficial {
        //echo "SQL Pedidos: ".TrocaCaracteres($Grava)."<BR><BR>";
 //       exit;
        if (!$_Err){
-         pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.TrocaCaracteres($Grava).pg_query ($db, "rollback"));
+         pg_query ($db,TrocaCaracteres($Grava)) or die ($MensagemDbError.TrocaCaracteres($Grava).pg_last_error ($db));
 		 pg_query ($db, "rollback");
        }
-	   
        unset($SqlCampo);
        unset($SqlExecutar);
        unset($SqlExecutar2);
